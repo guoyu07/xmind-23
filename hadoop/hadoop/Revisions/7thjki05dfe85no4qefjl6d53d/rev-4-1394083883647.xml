@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="7thjki05dfe85no4qefjl6d53d" timestamp="1394083880615" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="1845jb1d81p4mgj9fliu21d9d7" structure-class="org.xmind.ui.map.clockwise" timestamp="1394083519035"><title>Hadoop</title><children><topics type="attached"><topic id="5ghis7pqe2k36irsplulj546ql" timestamp="1394083880615"><title>Hadoop简介</title><notes><html><xhtml:p>1、hadoop是一个开源，可以更容易开发和处理大数据的软件平台，它包括两部分：</xhtml:p><xhtml:p>	a、HDFS</xhtml:p><xhtml:p>	b、MapReduce</xhtml:p><xhtml:p>	提供的是云平台基础架构</xhtml:p><xhtml:p>	1.0</xhtml:p><xhtml:p>	开发分布式程序：</xhtml:p></html><plain>1、hadoop是一个开源，可以更容易开发和处理大数据的软件平台，它包括两部分：
-	a、HDFS
-	b、MapReduce
-	提供的是云平台基础架构
-	1.0
-	开发分布式程序：</plain></notes></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>
