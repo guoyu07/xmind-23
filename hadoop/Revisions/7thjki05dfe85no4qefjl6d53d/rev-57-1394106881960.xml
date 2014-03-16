@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="7thjki05dfe85no4qefjl6d53d" timestamp="1394106873545" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="1845jb1d81p4mgj9fliu21d9d7" structure-class="org.xmind.ui.map.clockwise" timestamp="1394094794185"><title>Hadoop</title><children><topics type="attached"><topic id="5ghis7pqe2k36irsplulj546ql" timestamp="1394085799094"><title>1、Hadoop简介</title><notes><html><xhtml:p>1、hadoop是一个开源，可以更容易开发和处理大数据的软件平台，它包括两部分：</xhtml:p><xhtml:p>	a、HDFS</xhtml:p><xhtml:p>	b、MapReduce</xhtml:p><xhtml:p>	提供的是云平台基础架构</xhtml:p><xhtml:p>	1.0</xhtml:p><xhtml:p>	开发分布式程序：</xhtml:p><xhtml:p/><xhtml:p>2、它是依据google的论文gfs，MapReduce模型 bigtable</xhtml:p><xhtml:p>									hadoop MapReduce HDFS</xhtml:p><xhtml:p/><xhtml:p>3、优点：</xhtml:p><xhtml:p>	可扩展、经济、可靠、高效</xhtml:p><xhtml:p/><xhtml:p>4、Pig 有一套原语，使用户不用写MapReduce程序</xhtml:p><xhtml:p>	 Hive 是一个数据仓库，提供类SQL，映射成表</xhtml:p><xhtml:p>	 HBase 是一个分布式数据库</xhtml:p><xhtml:p>	 ZooKeeper 是一个分布式的协调框架</xhtml:p><xhtml:p/><xhtml:p>5、hadoop hdfs 是一个分布式的文件系统</xhtml:p><xhtml:p>	特点：	高容错性</xhtml:p><xhtml:p>				可以部署在廉价的硬件上</xhtml:p><xhtml:p>				高吞吐量</xhtml:p><xhtml:p/><xhtml:p>6、hadoop mapreduce</xhtml:p><xhtml:p>	是将map reduce 进行自动的并行化分配，达到一定的计算能力</xhtml:p><xhtml:p/><xhtml:p>7、学习资源</xhtml:p><xhtml:p>	Hadoop的官网 http://hadoop.apache.org</xhtml:p><xhtml:p>	Cloudera的官网 http://www.cloudera.com/content/cloudera/en/home.html</xhtml:p></html><plain>1、hadoop是一个开源，可以更容易开发和处理大数据的软件平台，它包括两部分：
+	a、HDFS
+	b、MapReduce
+	提供的是云平台基础架构
+	1.0
+	开发分布式程序：
+
+2、它是依据google的论文gfs，MapReduce模型 bigtable
+									hadoop MapReduce HDFS
+
+3、优点：
+	可扩展、经济、可靠、高效
+
+4、Pig 有一套原语，使用户不用写MapReduce程序
+	 Hive 是一个数据仓库，提供类SQL，映射成表
+	 HBase 是一个分布式数据库
+	 ZooKeeper 是一个分布式的协调框架
+
+5、hadoop hdfs 是一个分布式的文件系统
+	特点：	高容错性
+				可以部署在廉价的硬件上
+				高吞吐量
+
+6、hadoop mapreduce
+	是将map reduce 进行自动的并行化分配，达到一定的计算能力
+
+7、学习资源
+	Hadoop的官网 http://hadoop.apache.org
+	Cloudera的官网 http://www.cloudera.com/content/cloudera/en/home.html</plain></notes></topic><topic id="78h9uu2h418ab55dan5ocpbm0b" timestamp="1394089736511"><title>2、单点伪分布式安装</title><children><topics type="attached"><topic id="4vj9v71i1jn8odpbaqbon1lh2m" timestamp="1394087663565"><title>1、windows</title><children><topics type="attached"><topic id="5j9ffqbdj0bg2j909pk3co6urd" timestamp="1394085860880"><title>1、jdk</title></topic><topic id="7pqhoo2r61embd05spsc12b79t" timestamp="1394086235210"><title>2、cygwin linux虚拟平台</title><notes><html><xhtml:p>http://www.cygwin.com/</xhtml:p><xhtml:p><xhtml:img xhtml:src="xap:attachments/609tkcnvi0o2kjt2hk3rhgsblb.png"/></xhtml:p></html><plain>http://www.cygwin.com/
+</plain></notes></topic><topic id="27lam1cf7atbnn693tgd1gqib5" timestamp="1394106368797"><title>3、安装ssh</title><notes><html><xhtml:p>#在cygwin下安装sshd服务</xhtml:p><xhtml:p>ssh-host-config</xhtml:p><xhtml:p/><xhtml:p>#启动sshd服务</xhtml:p><xhtml:p>net start sshd</xhtml:p><xhtml:p/><xhtml:p>ssh-keygen -t rsa</xhtml:p><xhtml:p/><xhtml:p>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</xhtml:p><xhtml:p/></html><plain>#在cygwin下安装sshd服务
+ssh-host-config
+
+#启动sshd服务
+net start sshd
+
+ssh-keygen -t rsa
+
+cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</plain></notes></topic></topics></children></topic><topic id="0nk31t2ds7ck0hb4gr0hq33tvn" timestamp="1394088285329"><title>2、linux</title><children><topics type="attached"><topic id="2egdbchgnrpk5cd3les91ggvib" timestamp="1394088283394"><title>1、jdk</title></topic><topic id="2tpa52qg98hfs2dluhdunh42ul" timestamp="1394088287007"><title>2、</title></topic></topics></children></topic><topic id="132gsksr9pak30eisalbm90hk7" timestamp="1394088883927"><title>3、hadoop安装</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/2dnbhppv13j1km4u9mulde4off.png"/><xhtml:span style-id="7turfdg0su2teous0bsv0h1b05"/></xhtml:p><xhtml:p><xhtml:span style-id="7turfdg0su2teous0bsv0h1b05"/></xhtml:p><xhtml:p><xhtml:span style-id="7turfdg0su2teous0bsv0h1b05">export HADOOP_HOME=/home/test/hadoop-1.0.0</xhtml:span></xhtml:p></html><plain>
+
+export HADOOP_HOME=/home/test/hadoop-1.0.0</plain></notes><children><topics type="attached"><topic id="5g0bdml6ghef66qnh6vqed5bes" timestamp="1394106567569"><title>1、conf/hadoop-env.sh</title><notes><html><xhtml:p>配置jdk</xhtml:p><xhtml:p>export JAVA_HOME=/cygdrive/d/java/jdk1.6</xhtml:p><xhtml:p/></html><plain>配置jdk
+export JAVA_HOME=/cygdrive/d/java/jdk1.6
+</plain></notes></topic><topic id="56n36a7q0cndm22ksc96sigkam" timestamp="1394105439056"><title>2、conf/core-site.xml</title><notes><html><xhtml:p>&lt;configuration&gt;</xhtml:p><xhtml:p>	&lt;property&gt;</xhtml:p><xhtml:p>		&lt;name&gt;fs.default.name&lt;/name&gt;</xhtml:p><xhtml:p>		&lt;value&gt;hdfs://localhost:9000&lt;/value&gt;</xhtml:p><xhtml:p>	&lt;/property&gt;</xhtml:p><xhtml:p>&lt;/configuration&gt;</xhtml:p></html><plain>&lt;configuration&gt;
+	&lt;property&gt;
+		&lt;name&gt;fs.default.name&lt;/name&gt;
+		&lt;value&gt;hdfs://localhost:9000&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/configuration&gt;</plain></notes></topic><topic id="185rme2j39dhl859pk9eeh3a0g" timestamp="1394087449160"><title>3、conf/hdfs-site.xml</title><notes><html><xhtml:p>&lt;configuration&gt;</xhtml:p><xhtml:p>	&lt;property&gt;</xhtml:p><xhtml:p>		&lt;name&gt;dfs.replication&lt;/name&gt;</xhtml:p><xhtml:p>		&lt;value&gt;1&lt;/value&gt;</xhtml:p><xhtml:p>	&lt;/property&gt;</xhtml:p><xhtml:p>&lt;/configuration&gt;</xhtml:p></html><plain>&lt;configuration&gt;
+	&lt;property&gt;
+		&lt;name&gt;dfs.replication&lt;/name&gt;
+		&lt;value&gt;1&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/configuration&gt;</plain></notes></topic><topic id="5ush1g9357taj987ehc2g3sf44" timestamp="1394087498724"><title>4、conf/mapred-site.xml</title><notes><html><xhtml:p>&lt;configuration&gt;</xhtml:p><xhtml:p>	&lt;property&gt;</xhtml:p><xhtml:p>		&lt;name&gt;mapred.job.tracker&lt;/name&gt;</xhtml:p><xhtml:p>		&lt;value&gt;localhost:9001&lt;/value&gt;</xhtml:p><xhtml:p>	&lt;/property&gt;</xhtml:p><xhtml:p>&lt;/configuration&gt;</xhtml:p></html><plain>&lt;configuration&gt;
+	&lt;property&gt;
+		&lt;name&gt;mapred.job.tracker&lt;/name&gt;
+		&lt;value&gt;localhost:9001&lt;/value&gt;
+	&lt;/property&gt;
+&lt;/configuration&gt;</plain></notes></topic></topics></children></topic><topic id="7tamn2299kqgnajhnfptc3rkg4" timestamp="1394089720644"><title>4、启动hadoop</title><notes><html><xhtml:p>1、格式化文件系统</xhtml:p><xhtml:p>	hadoop namenode -format</xhtml:p><xhtml:p/><xhtml:p>2、启动hadoop</xhtml:p><xhtml:p>	启动关闭所有任务 start-all.sh/stop-all.sh</xhtml:p><xhtml:p>	启动关闭HDFS start-dfs.sh/stop-dfs.sh</xhtml:p><xhtml:p>	启动关闭MapReduce start-mapred.sh/stop-mapred.sh</xhtml:p><xhtml:p/><xhtml:p>3、用jps命令查看进程，确保有</xhtml:p><xhtml:p>	NameNode， DataNode， JobTracker， TaskTracker</xhtml:p><xhtml:p/></html><plain>1、格式化文件系统
+	hadoop namenode -format
+
+2、启动hadoop
+	启动关闭所有任务 start-all.sh/stop-all.sh
+	启动关闭HDFS start-dfs.sh/stop-dfs.sh
+	启动关闭MapReduce start-mapred.sh/stop-mapred.sh
+
+3、用jps命令查看进程，确保有
+	NameNode， DataNode， JobTracker， TaskTracker
+</plain></notes></topic><topic id="34fmcfb4u9879e0ir9a3c6ch7s" timestamp="1394089731640"><title>5、Hadoop ui</title><notes><html><xhtml:p>		http://localhost:50070/		查看HDFS管理页面</xhtml:p><xhtml:p>		http://localhost:50030/		查看JobTracker管理页面</xhtml:p><xhtml:p>		HDFS通信端口：9000</xhtml:p><xhtml:p>		MapReduce通信端口：9001</xhtml:p><xhtml:p/></html><plain>		http://localhost:50070/		查看HDFS管理页面
+		http://localhost:50030/		查看JobTracker管理页面
+		HDFS通信端口：9000
+		MapReduce通信端口：9001
+</plain></notes></topic><topic id="6p4q8okoart1k74e5gbinlj5ne" timestamp="1394106873545"><title>6、eclipse集成开发环境</title><notes><html><xhtml:p>1、导入hadoop-core.jar 以及 hadoop/lib下的所有jar包</xhtml:p><xhtml:p>2、加入hadoop配置文件，包括conf/core-site.xml,conf/hdfs-site.xml,conf/mapred-site.xml，并修改相应参数</xhtml:p><xhtml:p/></html><plain>1、导入hadoop-core.jar 以及 hadoop/lib下的所有jar包
+2、加入hadoop配置文件，包括conf/core-site.xml,conf/hdfs-site.xml,conf/mapred-site.xml，并修改相应参数
+</plain></notes></topic></topics></children></topic><topic id="2hno0ig96rkim61t23rbjf0dai" timestamp="1394090878482"><title>3、hadoop shell</title><children><topics type="attached"><topic id="0f7c19fod8u5oipa1pue9uo033" timestamp="1394095299068"><title>shell命令</title><children><topics type="attached"><topic id="2nl1lreqicvpnmeio4dmhaobma" timestamp="1394095297527"><title>1、创建目录</title><notes><html><xhtml:p>hadoop fs -mkdir /tmp/input</xhtml:p></html><plain>hadoop fs -mkdir /tmp/input</plain></notes></topic><topic id="6sp3553sfla7l1v5bu8hmo44o6" timestamp="1394095561410"><title>2、拷贝文件</title><notes><html><xhtml:p>#put拷贝local文件到hdfs</xhtml:p><xhtml:p>hadoop fs -put input/* /tmp/input/</xhtml:p><xhtml:p>#</xhtml:p><xhtml:p>hadoop fs -cp tmp tmp2</xhtml:p></html><plain>#put拷贝local文件到hdfs
+hadoop fs -put input/* /tmp/input/
+#
+hadoop fs -cp tmp tmp2</plain></notes></topic><topic id="675vm2sfpjb2d8hspkom6o2r9p" timestamp="1394090876477"><title>3、执行jar</title><notes><html><xhtml:p>hadoop jar hadoop-example.jar wordcount /tmp/input /tmp/output</xhtml:p><xhtml:p/><xhtml:p>hadoop fs -cat /tmp/output</xhtml:p><xhtml:p/><xhtml:p/></html><plain>hadoop jar hadoop-example.jar wordcount /tmp/input /tmp/output
+
+hadoop fs -cat /tmp/output
+
+</plain></notes></topic><topic id="77140sf15g8ttauvhoqs0er0eo" timestamp="1394096152748"><title>4、ls lsr</title><notes><html><xhtml:p>hadoop fs -help mv</xhtml:p><xhtml:p/><xhtml:p>hadoop fs -ls /tmp/input</xhtml:p><xhtml:p/><xhtml:p>#递归显示</xhtml:p><xhtml:p>hadoop fs -lsr /tmp/input</xhtml:p><xhtml:p>#显示文件大小</xhtml:p><xhtml:p>hadoop fs -du /tmp</xhtml:p><xhtml:p>#显示整个文件的大小</xhtml:p><xhtml:p>hadoop fs -dus /tmp</xhtml:p><xhtml:p>#</xhtml:p><xhtml:p>hadoop fs -count /tmp</xhtml:p><xhtml:p>hadoop fs -copyFromLocal file1 /tmp</xhtml:p><xhtml:p>hadoop fs -moveFromLocal file2 /tmp</xhtml:p><xhtml:p/></html><plain>hadoop fs -help mv
+
+hadoop fs -ls /tmp/input
+
+#递归显示
+hadoop fs -lsr /tmp/input
+#显示文件大小
+hadoop fs -du /tmp
+#显示整个文件的大小
+hadoop fs -dus /tmp
+#
+hadoop fs -count /tmp
+hadoop fs -copyFromLocal file1 /tmp
+hadoop fs -moveFromLocal file2 /tmp
+</plain></notes></topic></topics></children></topic><topic id="0an8s76d0sgj2ec7ef4kj0qhbg" timestamp="1394091754382"><title>hadoop bin目录下命令</title><children><topics type="attached"><topic id="491hthcficv026vdr6hp6q59t1" timestamp="1394093074134"><title>hadoop</title><notes><html><xhtml:p>start-dfs.sh -&gt; hadoop-daemon.sh -&gt; hadoop</xhtml:p><xhtml:p/><xhtml:p>hadoop fsch /</xhtml:p><xhtml:p/><xhtml:p>hadoop distcp "hdfs://localhost:9000/tmp/test" "hdfs://localhost:9000/tmp/test2"</xhtml:p><xhtml:p/><xhtml:p>hadoop daemonlog -getlevel 127.0.0.1:50070 namenode</xhtml:p><xhtml:p>hadoop daemonlog -setlevel 127.0.0.1:50070 namenode info</xhtml:p></html><plain>start-dfs.sh -&gt; hadoop-daemon.sh -&gt; hadoop
+
+hadoop fsch /
+
+hadoop distcp "hdfs://localhost:9000/tmp/test" "hdfs://localhost:9000/tmp/test2"
+
+hadoop daemonlog -getlevel 127.0.0.1:50070 namenode
+hadoop daemonlog -setlevel 127.0.0.1:50070 namenode info</plain></notes></topic><topic id="72qeki91kc9ra3u4h1fvvboe0l" timestamp="1394091085703"><title>hadoop-config.sh</title><notes><html><xhtml:p>对一些变量进行赋值</xhtml:p><xhtml:p/></html><plain>对一些变量进行赋值
+</plain></notes></topic><topic id="7bh1anb2obr9fktchh1lcptidv" timestamp="1394091885629"><title>hadoop-daemon.sh</title><notes><html><xhtml:p>启动单个节点</xhtml:p><xhtml:p/><xhtml:p>hadoop-daemon.sh start/stop namenode</xhtml:p><xhtml:p/><xhtml:p>hadoop-daemon.sh start/stop datanode</xhtml:p><xhtml:p/><xhtml:p>hadoop-daemon.sh start/stop tasktracker</xhtml:p><xhtml:p/><xhtml:p/></html><plain>启动单个节点
+
+hadoop-daemon.sh start/stop namenode
+
+hadoop-daemon.sh start/stop datanode
+
+hadoop-daemon.sh start/stop tasktracker
+
+</plain></notes></topic><topic id="4l0givtfmi4tonvbua6mgagkct" timestamp="1394094791187"><title>hadoop-daemons.sh</title><notes><html><xhtml:p>在所有slaves上运行相同的脚本hadoop-daemon.sh</xhtml:p><xhtml:p/></html><plain>在所有slaves上运行相同的脚本hadoop-daemon.sh
+</plain></notes></topic><topic id="503jmb2rguo0evp7biccnfuqhd" timestamp="1394091628535"><title>start-all.sh</title></topic><topic id="6ddh9iq16ccg5dus9of5ko368k" timestamp="1394091762978"><title>start-dfs.sh</title></topic><topic id="75qkg1v6r0co5ca6gf3mbcuoti" timestamp="1394091776305"><title>start-mapred.sh</title></topic><topic id="0i84jslkl9kvp6o7p3p29jm2fv" timestamp="1394091718193"><title>start-balancer.sh</title><notes><html><xhtml:p>用于负载均衡</xhtml:p></html><plain>用于负载均衡</plain></notes></topic><topic id="3os1d176tsodt4pc66tefo2ada" timestamp="1394091734646"><title>start-jobhistoryserver.sh</title></topic></topics></children></topic></topics></children><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/3ci8r6mtovcp7nojgojmj0k5eu.png"/></xhtml:p></html><plain/></notes></topic><topic id="5tcjp876nq7teedck0rcjoho1f" timestamp="1394094884221"><title>4、HDFS</title><notes><html><xhtml:p/><xhtml:p><xhtml:img xhtml:src="xap:attachments/0i2iv9mpse7nd8aagit6slib6d.png"/></xhtml:p></html><plain>
+</plain></notes><children><topics type="attached"><topic id="410rqggbelem1qltje0vmm8tq0" timestamp="1394094906616"><title>block块</title><notes><html><xhtml:p>默认为65M</xhtml:p><xhtml:p/></html><plain>默认为65M
+</plain></notes></topic></topics></children></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>

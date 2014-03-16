@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="6il5sgsvt44b4397dpipgkmhbl" timestamp="1393907094415" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="6crke48nk7btn8hfvn2coajn5n" structure-class="org.xmind.ui.map.clockwise" timestamp="1393906714025"><title>SHIRO</title><children><topics type="attached"><topic id="7m0h3f37nhu7pf6n6qocp1jjvd" timestamp="1393811898481"><title>1、身份验证</title><notes><html><xhtml:p>1、根据ini配置文件初始化SecurityMangerFactory</xhtml:p><xhtml:p>		Factory&lt;org.apache.shiro.mgt.SecurityManager&gt; factory = new IniSecurityManagerFactory(configFile);</xhtml:p><xhtml:p/><xhtml:p>2、获得SecurityManager示例，并绑定到SecurityUtils</xhtml:p><xhtml:p>        org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();</xhtml:p><xhtml:p>        SecurityUtils.setSecurityManager(securityManager);</xhtml:p><xhtml:p/><xhtml:p>3、得到subject，以及创建用户名/密码身份验证Token（即用户身份/凭证）</xhtml:p><xhtml:p>		Subject subject = SecurityUtils.getSubject();</xhtml:p><xhtml:p>        UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");</xhtml:p><xhtml:p/><xhtml:p>4、进行登录</xhtml:p><xhtml:p>        subject.login(token);</xhtml:p><xhtml:p/><xhtml:p>5、登录成功</xhtml:p><xhtml:p>		Assert.assertEquals(true, subject.isAuthenticated()); //断言用户已经登录</xhtml:p><xhtml:p/><xhtml:p>6、退出</xhtml:p><xhtml:p>		subject.logout();</xhtml:p><xhtml:p/></html><plain>1、根据ini配置文件初始化SecurityMangerFactory
+		Factory&lt;org.apache.shiro.mgt.SecurityManager&gt; factory = new IniSecurityManagerFactory(configFile);
+
+2、获得SecurityManager示例，并绑定到SecurityUtils
+        org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();
+        SecurityUtils.setSecurityManager(securityManager);
+
+3、得到subject，以及创建用户名/密码身份验证Token（即用户身份/凭证）
+		Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");
+
+4、进行登录
+        subject.login(token);
+
+5、登录成功
+		Assert.assertEquals(true, subject.isAuthenticated()); //断言用户已经登录
+
+6、退出
+		subject.logout();
+</plain></notes><children><topics type="attached"><topic id="74t11om6evhhgkhnfmkslpda8h" timestamp="1393811896184"><title>1、ini配置文件</title><children><topics type="attached"><topic id="7baoj5vtt5ebcjf1006s3dcmk4" timestamp="1393811740620"><title>1、配置用户身份/凭证</title><notes><html><xhtml:p>#配置用户身份、凭证</xhtml:p><xhtml:p>[users]</xhtml:p><xhtml:p>zhang=123</xhtml:p><xhtml:p>wang=123</xhtml:p><xhtml:p/><xhtml:p/></html><plain>#配置用户身份、凭证
+[users]
+zhang=123
+wang=123
+
+</plain></notes></topic><topic id="7l5t2c4e2bckrop80bl50koqi5" timestamp="1393811728567"><title>2、配置realm</title><notes><html><xhtml:p>[main]</xhtml:p><xhtml:p>dataSource=com.alibaba.druid.pool.DruidDataSource</xhtml:p><xhtml:p>dataSource.driverClassName=com.mysql.jdbc.Driver</xhtml:p><xhtml:p>dataSource.url=jdbc:mysql://localhost:3306/shiro</xhtml:p><xhtml:p>dataSource.username=root</xhtml:p><xhtml:p>dataSource.password=111111</xhtml:p><xhtml:p/><xhtml:p>jdbcRealm=<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">org.apache.shiro.realm.jdbc.JdbcRealm</xhtml:span></xhtml:p><xhtml:p>jdbcRealm.dataSource=$dataSource</xhtml:p><xhtml:p/><xhtml:p>myRealm2=com.github.zhangkaitao.shiro.chapter2.realm.MyRealm2</xhtml:p><xhtml:p/><xhtml:p>#指定securityManager的realms实现</xhtml:p><xhtml:p>securityManager.realms=$jdbcRealm,$myRealm2</xhtml:p></html><plain>[main]
+dataSource=com.alibaba.druid.pool.DruidDataSource
+dataSource.driverClassName=com.mysql.jdbc.Driver
+dataSource.url=jdbc:mysql://localhost:3306/shiro
+dataSource.username=root
+dataSource.password=111111
+
+jdbcRealm=org.apache.shiro.realm.jdbc.JdbcRealm
+jdbcRealm.dataSource=$dataSource
+
+myRealm2=com.github.zhangkaitao.shiro.chapter2.realm.MyRealm2
+
+#指定securityManager的realms实现
+securityManager.realms=$jdbcRealm,$myRealm2</plain></notes></topic></topics></children></topic><topic id="5ig9b36o6rg0p6r070nf46s6s5" timestamp="1393812908719"><title>2、验证器authenticator及验证策略</title><children><topics type="attached"><topic id="7l4m8eejreo0ap5ck1kkk5cgml" timestamp="1393812408384"><title>1、验证器</title><notes><html><xhtml:p>验证器（org.apache.shiro.authc.pam.ModularRealmAuthenticator）如果只有多个realm，则需要验证策略</xhtml:p><xhtml:p/><xhtml:p>默认的验证策略是至少一个验证通过：</xhtml:p><xhtml:p>	public ModularRealmAuthenticator() {</xhtml:p><xhtml:p>        this.authenticationStrategy = new AtLeastOneSuccessfulStrategy();</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>自定义的验证策略，需要实现接口org.apache.shiro.authc.pam.AuthenticationStrategy</xhtml:p><xhtml:p/><xhtml:p>验证器可以添加多个监听器org.apache.shiro.authc.AuthenticationListener</xhtml:p><xhtml:p>监听验证成功，验证失败，退出logout等事件</xhtml:p></html><plain>验证器（org.apache.shiro.authc.pam.ModularRealmAuthenticator）如果只有多个realm，则需要验证策略
+
+默认的验证策略是至少一个验证通过：
+	public ModularRealmAuthenticator() {
+        this.authenticationStrategy = new AtLeastOneSuccessfulStrategy();
+    }
+
+自定义的验证策略，需要实现接口org.apache.shiro.authc.pam.AuthenticationStrategy
+
+验证器可以添加多个监听器org.apache.shiro.authc.AuthenticationListener
+监听验证成功，验证失败，退出logout等事件</plain></notes></topic><topic id="02vksapsc5tdb3hoh0dkhg741o" timestamp="1393812747625"><title>2、验证策略</title><notes><html><xhtml:p>1、所有realm通过org.apache.shiro.authc.pam.AllSuccessfulStrategy</xhtml:p><xhtml:p/><xhtml:p>2、至少一个realm验证通过org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy</xhtml:p><xhtml:p>		如果org.apache.shiro.authc.AuthenticationInfo实现了接口org.apache.shiro.authc.MergableAuthenticationInfo</xhtml:p><xhtml:p>		则会提供一个合并所有通过的AuthenticationInfo的merge方法</xhtml:p><xhtml:p/><xhtml:p>3、第一个通过验证org.apache.shiro.authc.pam.FirstSuccessfulStrategy</xhtml:p><xhtml:p>		取第一个通过的AuthenticationInfo，不进行merge</xhtml:p><xhtml:p/></html><plain>1、所有realm通过org.apache.shiro.authc.pam.AllSuccessfulStrategy
+
+2、至少一个realm验证通过org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy
+		如果org.apache.shiro.authc.AuthenticationInfo实现了接口org.apache.shiro.authc.MergableAuthenticationInfo
+		则会提供一个合并所有通过的AuthenticationInfo的merge方法
+
+3、第一个通过验证org.apache.shiro.authc.pam.FirstSuccessfulStrategy
+		取第一个通过的AuthenticationInfo，不进行merge
+</plain></notes></topic><topic id="1v4gifpo7j1kq4n3jvbmjqgbuk" timestamp="1393812881962"><title>3、验证监听器</title><notes><html><xhtml:p>可配置多个监听器org.apache.shiro.authc.AuthenticationListener</xhtml:p></html><plain>可配置多个监听器org.apache.shiro.authc.AuthenticationListener</plain></notes></topic><topic id="1g2vov7usg2vbeu2ai8qdjg6vr" timestamp="1393813163043"><title>4、ini配置</title><notes><html><xhtml:p>[main]</xhtml:p><xhtml:p>#创建验证器，ModularRealmAuthenticator是abstract类org.apache.shiro.mgt.AuthenticatingSecurityManager的默认实现</xhtml:p><xhtml:p>authenticator=org.apache.shiro.authc.pam.ModularRealmAuthenticator</xhtml:p><xhtml:p/><xhtml:p>#创建验证策略</xhtml:p><xhtml:p>allSuccessfulStrategy=org.apache.shiro.authc.pam.AllSuccessfulStrategy</xhtml:p><xhtml:p/><xhtml:p>authenticator.authenticationStrategy=$allSuccessfulStrategy</xhtml:p><xhtml:p/><xhtml:p>#指定securityManager的authenticator实现</xhtml:p><xhtml:p>securityManager.authenticator=$authenticator</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p><xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm"/></xhtml:p><xhtml:p><xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">        //得到一个身份集合，因为myRealm1和myRealm4返回的身份一样所以输出时只返回一个</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">        PrincipalCollection principalCollection = subject.getPrincipals();</xhtml:span></xhtml:p></html><plain>[main]
+#创建验证器，ModularRealmAuthenticator是abstract类org.apache.shiro.mgt.AuthenticatingSecurityManager的默认实现
+authenticator=org.apache.shiro.authc.pam.ModularRealmAuthenticator
+
+#创建验证策略
+allSuccessfulStrategy=org.apache.shiro.authc.pam.AllSuccessfulStrategy
+
+authenticator.authenticationStrategy=$allSuccessfulStrategy
+
+#指定securityManager的authenticator实现
+securityManager.authenticator=$authenticator
+
+
+
+        //得到一个身份集合，因为myRealm1和myRealm4返回的身份一样所以输出时只返回一个
+        PrincipalCollection principalCollection = subject.getPrincipals();</plain></notes></topic></topics></children></topic><topic id="5b8hse4et69bsh0mvebg24v0sn" timestamp="1393813262403"><title>3、realm</title></topic></topics></children></topic><topic id="1t5vu08deb3587gehnrltgt4il" timestamp="1393898045089"><title>2、授权</title><children><topics type="attached"><topic id="6e5kimdlctlvuka0r5udu9p1g4" timestamp="1393816119500"><title>1、ini</title><notes><html><xhtml:p>[main]</xhtml:p><xhtml:p>#自定义authorizer，注意和org.apache.shiro.authc.pam.<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">ModularRealmAuthenticator</xhtml:span>区别</xhtml:p><xhtml:p>authorizer=org.apache.shiro.authz.<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">ModularRealmAuthorizer</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm"/></xhtml:p><xhtml:p>#自定义permissionResolver</xhtml:p><xhtml:p>#permissionResolver=org.apache.shiro.authz.permission.WildcardPermissionResolver</xhtml:p><xhtml:p>permissionResolver=com.github.zhangkaitao.shiro.chapter3.permission.BitAndWildPermissionResolver</xhtml:p><xhtml:p>authorizer.<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">permissionResolver</xhtml:span>=$permissionResolver</xhtml:p><xhtml:p>#自定义rolePermissionResolver</xhtml:p><xhtml:p>rolePermissionResolver=com.github.zhangkaitao.shiro.chapter3.permission.MyRolePermissionResolver</xhtml:p><xhtml:p>authorizer.<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">rolePermissionResolver</xhtml:span>=$rolePermissionResolver</xhtml:p><xhtml:p/><xhtml:p>securityManager.authorizer=$authorizer</xhtml:p><xhtml:p/><xhtml:p>#自定义realm 一定要放在securityManager.authorizer赋值之后（因为调用setRealms会将realms设置给authorizer，并给各个Realm设置permissionResolver和rolePermissionResolver）</xhtml:p><xhtml:p>realm=com.github.zhangkaitao.shiro.chapter3.realm.MyRealm</xhtml:p><xhtml:p>securityManager.realms=$realm</xhtml:p><xhtml:p/></html><plain>[main]
+#自定义authorizer，注意和org.apache.shiro.authc.pam.ModularRealmAuthenticator区别
+authorizer=org.apache.shiro.authz.ModularRealmAuthorizer
+
+#自定义permissionResolver
+#permissionResolver=org.apache.shiro.authz.permission.WildcardPermissionResolver
+permissionResolver=com.github.zhangkaitao.shiro.chapter3.permission.BitAndWildPermissionResolver
+authorizer.permissionResolver=$permissionResolver
+#自定义rolePermissionResolver
+rolePermissionResolver=com.github.zhangkaitao.shiro.chapter3.permission.MyRolePermissionResolver
+authorizer.rolePermissionResolver=$rolePermissionResolver
+
+securityManager.authorizer=$authorizer
+
+#自定义realm 一定要放在securityManager.authorizer赋值之后（因为调用setRealms会将realms设置给authorizer，并给各个Realm设置permissionResolver和rolePermissionResolver）
+realm=com.github.zhangkaitao.shiro.chapter3.realm.MyRealm
+securityManager.realms=$realm
+</plain></notes></topic><topic id="11iqqvuocsi8it81n63g4n229b" timestamp="1393816417745"><title>2、授权器</title><notes><html><xhtml:p><xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">org.apache.shiro.authz.ModularRealmAuthorizer</xhtml:span></xhtml:p><xhtml:p>[main]</xhtml:p><xhtml:p>#自定义authorizer</xhtml:p><xhtml:p>authorizer=org.apache.shiro.authz.ModularRealmAuthorizer</xhtml:p><xhtml:p>#自定义permissionResolver</xhtml:p><xhtml:p>#permissionResolver=org.apache.shiro.authz.permission.WildcardPermissionResolver</xhtml:p><xhtml:p>permissionResolver=com.github.zhangkaitao.shiro.chapter3.permission.BitAndWildPermissionResolver</xhtml:p><xhtml:p>authorizer.permissionResolver=$permissionResolver</xhtml:p><xhtml:p>#自定义rolePermissionResolver</xhtml:p><xhtml:p>rolePermissionResolver=com.github.zhangkaitao.shiro.chapter3.permission.MyRolePermissionResolver</xhtml:p><xhtml:p>authorizer.rolePermissionResolver=$rolePermissionResolver</xhtml:p><xhtml:p/><xhtml:p>securityManager.authorizer=$authorizer</xhtml:p><xhtml:p><xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm"/></xhtml:p><xhtml:p><xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">#自定义realm 一定要放在securityManager.authorizer赋值之后（因为调用setRealms会将realms设置给authorizer，并给各个Realm设置permissionResolver和rolePermissionResolver）</xhtml:span></xhtml:p><xhtml:p>jdbcRealm=org.apache.shiro.realm.jdbc.JdbcRealm</xhtml:p><xhtml:p>dataSource=com.alibaba.druid.pool.DruidDataSource</xhtml:p><xhtml:p>dataSource.driverClassName=com.mysql.jdbc.Driver</xhtml:p><xhtml:p>dataSource.url=jdbc:mysql://localhost:3306/shiro</xhtml:p><xhtml:p>dataSource.username=root</xhtml:p><xhtml:p>dataSource.password=111111</xhtml:p><xhtml:p>jdbcRealm.dataSource=$dataSource<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm"/></xhtml:p><xhtml:p><xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">jdbcRealm.permissionsLookupEnabled=true</xhtml:span></xhtml:p><xhtml:p>securityManager.realms=$jdbcRealm</xhtml:p><xhtml:p/></html><plain>org.apache.shiro.authz.ModularRealmAuthorizer
+[main]
+#自定义authorizer
+authorizer=org.apache.shiro.authz.ModularRealmAuthorizer
+#自定义permissionResolver
+#permissionResolver=org.apache.shiro.authz.permission.WildcardPermissionResolver
+permissionResolver=com.github.zhangkaitao.shiro.chapter3.permission.BitAndWildPermissionResolver
+authorizer.permissionResolver=$permissionResolver
+#自定义rolePermissionResolver
+rolePermissionResolver=com.github.zhangkaitao.shiro.chapter3.permission.MyRolePermissionResolver
+authorizer.rolePermissionResolver=$rolePermissionResolver
+
+securityManager.authorizer=$authorizer
+
+#自定义realm 一定要放在securityManager.authorizer赋值之后（因为调用setRealms会将realms设置给authorizer，并给各个Realm设置permissionResolver和rolePermissionResolver）
+jdbcRealm=org.apache.shiro.realm.jdbc.JdbcRealm
+dataSource=com.alibaba.druid.pool.DruidDataSource
+dataSource.driverClassName=com.mysql.jdbc.Driver
+dataSource.url=jdbc:mysql://localhost:3306/shiro
+dataSource.username=root
+dataSource.password=111111
+jdbcRealm.dataSource=$dataSource
+jdbcRealm.permissionsLookupEnabled=true
+securityManager.realms=$jdbcRealm
+</plain></notes></topic><topic id="0495dl24r4u79n02tna4g0brms" timestamp="1393816653087"><title>3、验证role，permission</title><notes><html><xhtml:p/><xhtml:p>        //判断拥有权限：user:create</xhtml:p><xhtml:p>        Assert.assertTrue(subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">isPermitted</xhtml:span>("user:create"));</xhtml:p><xhtml:p>        //判断拥有权限：user:update and user:delete</xhtml:p><xhtml:p>        Assert.assertTrue(subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">isPermittedAll</xhtml:span>("user:update", "user:delete"));</xhtml:p><xhtml:p>        subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">checkPermission</xhtml:span>("user:create");</xhtml:p><xhtml:p>        subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">checkPermissions</xhtml:span>("user:update:1", "user:delete:1", "user:view:1");</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>		// 判断拥有角色：role1</xhtml:p><xhtml:p>		Assert.assertTrue(subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">hasRole</xhtml:span>("role1"));</xhtml:p><xhtml:p>		// 判断拥有角色：role1 and role2</xhtml:p><xhtml:p>		Assert.assertTrue(subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">hasAllRoles</xhtml:span>(Arrays.asList("role1", "role2")));</xhtml:p><xhtml:p>		// 判断拥有角色：role1 and role2 and !role3</xhtml:p><xhtml:p>		boolean[] result = subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">hasRoles</xhtml:span>(Arrays.asList("role1", "role2", "role3"));</xhtml:p><xhtml:p>		// 断言拥有角色：role1</xhtml:p><xhtml:p>		subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">checkRole</xhtml:span>("role1");</xhtml:p><xhtml:p>		// 断言拥有角色：role1 and role3 失败抛出异常</xhtml:p><xhtml:p>		subject().<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">checkRoles</xhtml:span>("role1", "role3");</xhtml:p></html><plain>
+        //判断拥有权限：user:create
+        Assert.assertTrue(subject().isPermitted("user:create"));
+        //判断拥有权限：user:update and user:delete
+        Assert.assertTrue(subject().isPermittedAll("user:update", "user:delete"));
+        subject().checkPermission("user:create");
+        subject().checkPermissions("user:update:1", "user:delete:1", "user:view:1");
+
+
+		// 判断拥有角色：role1
+		Assert.assertTrue(subject().hasRole("role1"));
+		// 判断拥有角色：role1 and role2
+		Assert.assertTrue(subject().hasAllRoles(Arrays.asList("role1", "role2")));
+		// 判断拥有角色：role1 and role2 and !role3
+		boolean[] result = subject().hasRoles(Arrays.asList("role1", "role2", "role3"));
+		// 断言拥有角色：role1
+		subject().checkRole("role1");
+		// 断言拥有角色：role1 and role3 失败抛出异常
+		subject().checkRoles("role1", "role3");</plain></notes></topic></topics></children></topic><topic id="71occp6i0liri20mq9rgkdmn5b" timestamp="1393906712746"><title>5、拦截器</title><children><topics type="attached"><topic id="74vds5drh3oue5rn3o73qivbm6" timestamp="1393904721891"><title>1、shiro自带的默认的filter</title><notes><html><xhtml:p>拦截器按优先匹配原则，如下配置时，当请求/user/signup/aaa时，第二个/user/**将无效</xhtml:p><xhtml:p>[urls]</xhtml:p><xhtml:p>/user/signup/** = anon</xhtml:p><xhtml:p>/user/** = authc				</xhtml:p><xhtml:p/><xhtml:p>Filter Name							Class</xhtml:p><xhtml:p>anon							org.apache.shiro.web.filter.authc.AnonymousFilter							//不执行安全检查</xhtml:p><xhtml:p>authc						org.apache.shiro.web.filter.authc.FormAuthenticationFilter</xhtml:p><xhtml:p>								//loginUrl默认为/login.jsp,usernameParam='username',passwordParam='password',rememberMeParam='rememberMe'</xhtml:p><xhtml:p>								//failureKeyAttribute，包含了登录异常时，throw的Exception的FQCN</xhtml:p><xhtml:p>authcBasic					org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter</xhtml:p><xhtml:p>								//</xhtml:p><xhtml:p>logout						org.apache.shiro.web.filter.authc.LogoutFilter</xhtml:p><xhtml:p>								//默认值redirectUrl='/'</xhtml:p><xhtml:p>noSessionCreation		org.apache.shiro.web.filter.session.NoSessionCreationFilter</xhtml:p><xhtml:p>								//一般放在其他的filter前，会禁止创建session，对于那些不需要创建session的床和，特别有效如REST, SOAP或者其他service调用</xhtml:p><xhtml:p>perms						org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter</xhtml:p><xhtml:p>								//需要参数指定权限，必须包含所有的配置的权限，才可以通过</xhtml:p><xhtml:p>port							org.apache.shiro.web.filter.authz.PortFilter</xhtml:p><xhtml:p>								//要求请求必须在指定的端口上，否则，修改请求的url端口</xhtml:p><xhtml:p>rest							org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter</xhtml:p><xhtml:p>								//[urls]/user/** = rest[user]	根据HTTP METHOD映射权限</xhtml:p><xhtml:p>								</xhtml:p><xhtml:p>								HTTP Method		Mapped Action	Example Permission	Runtime Check</xhtml:p><xhtml:p>								head					read					perm1						perm1:read</xhtml:p><xhtml:p>								get					read					perm2						perm2:read</xhtml:p><xhtml:p>								put					update				perm3						perm3:update</xhtml:p><xhtml:p>								post					create				perm4						perm4:create</xhtml:p><xhtml:p>								delete				delete				perm8						perm8:delete</xhtml:p><xhtml:p>								mkcol				create				perm5						perm5:create</xhtml:p><xhtml:p>								options				read					perm6						perm6:read</xhtml:p><xhtml:p>								trace					read					perm7						perm7:read</xhtml:p><xhtml:p>roles							org.apache.shiro.web.filter.authz.RolesAuthorizationFilter</xhtml:p><xhtml:p>								//需要参数指定角色，必须包含其中所有角色才可以通过</xhtml:p><xhtml:p>ssl							org.apache.shiro.web.filter.authz.SslFilter</xhtml:p><xhtml:p>								//可以指定ssl端口</xhtml:p><xhtml:p>user							org.apache.shiro.web.filter.authc.UserFilter</xhtml:p><xhtml:p>								//通过认证或者RememberMe的用户，可以通过此filter</xhtml:p></html><plain>拦截器按优先匹配原则，如下配置时，当请求/user/signup/aaa时，第二个/user/**将无效
+[urls]
+/user/signup/** = anon
+/user/** = authc				
+
+Filter Name							Class
+anon							org.apache.shiro.web.filter.authc.AnonymousFilter							//不执行安全检查
+authc						org.apache.shiro.web.filter.authc.FormAuthenticationFilter
+								//loginUrl默认为/login.jsp,usernameParam='username',passwordParam='password',rememberMeParam='rememberMe'
+								//failureKeyAttribute，包含了登录异常时，throw的Exception的FQCN
+authcBasic					org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter
+								//
+logout						org.apache.shiro.web.filter.authc.LogoutFilter
+								//默认值redirectUrl='/'
+noSessionCreation		org.apache.shiro.web.filter.session.NoSessionCreationFilter
+								//一般放在其他的filter前，会禁止创建session，对于那些不需要创建session的床和，特别有效如REST, SOAP或者其他service调用
+perms						org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter
+								//需要参数指定权限，必须包含所有的配置的权限，才可以通过
+port							org.apache.shiro.web.filter.authz.PortFilter
+								//要求请求必须在指定的端口上，否则，修改请求的url端口
+rest							org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter
+								//[urls]/user/** = rest[user]	根据HTTP METHOD映射权限
+								
+								HTTP Method		Mapped Action	Example Permission	Runtime Check
+								head					read					perm1						perm1:read
+								get					read					perm2						perm2:read
+								put					update				perm3						perm3:update
+								post					create				perm4						perm4:create
+								delete				delete				perm8						perm8:delete
+								mkcol				create				perm5						perm5:create
+								options				read					perm6						perm6:read
+								trace					read					perm7						perm7:read
+roles							org.apache.shiro.web.filter.authz.RolesAuthorizationFilter
+								//需要参数指定角色，必须包含其中所有角色才可以通过
+ssl							org.apache.shiro.web.filter.authz.SslFilter
+								//可以指定ssl端口
+user							org.apache.shiro.web.filter.authc.UserFilter
+								//通过认证或者RememberMe的用户，可以通过此filter</plain></notes></topic><topic id="09ng9j8v0t9t6ca4kss7fmgt0p" timestamp="1393904899177"><title>2、所有OncePerRequestFilter都带有enabled属性</title><notes><html><xhtml:p>[main]</xhtml:p><xhtml:p># configure Shiro's default 'ssl' filter to be disabled while testing:</xhtml:p><xhtml:p>ssl.enabled = false</xhtml:p><xhtml:p/><xhtml:p>实现自定义的有效失效</xhtml:p><xhtml:p>或者可以通过OncePerRequestFilter isEnabled(request,response) 方法</xhtml:p><xhtml:p>根据url path 失效/有效filter</xhtml:p><xhtml:p>PathMatchingFilter类isEnabled(request,response,path,pathConfig) 方法</xhtml:p></html><plain>[main]
+# configure Shiro's default 'ssl' filter to be disabled while testing:
+ssl.enabled = false
+
+实现自定义的有效失效
+或者可以通过OncePerRequestFilter isEnabled(request,response) 方法
+根据url path 失效/有效filter
+PathMatchingFilter类isEnabled(request,response,path,pathConfig) 方法</plain></notes></topic></topics></children><notes><html><xhtml:p>[main]</xhtml:p><xhtml:p>#filter也可以写在[main]区块中</xhtml:p><xhtml:p>#myFilter1=com.github.zhangkaitao.shiro.chapter8.web.filter.MyOncePerRequestFilter</xhtml:p><xhtml:p>[filters]</xhtml:p><xhtml:p>myFilter1=com.github.zhangkaitao.shiro.chapter8.web.filter.MyOncePerRequestFilter</xhtml:p><xhtml:p>myFilter2=com.github.zhangkaitao.shiro.chapter8.web.filter.MyAdviceFilter</xhtml:p><xhtml:p>myFilter3=com.github.zhangkaitao.shiro.chapter8.web.filter.MyPathMatchingFilter</xhtml:p><xhtml:p>myFilter4=com.github.zhangkaitao.shiro.chapter8.web.filter.MyAccessControlFilter</xhtml:p><xhtml:p/><xhtml:p>formLogin=com.github.zhangkaitao.shiro.chapter8.web.filter.FormLoginFilter</xhtml:p><xhtml:p>anyRoles=com.github.zhangkaitao.shiro.chapter8.web.filter.AnyRolesFilter</xhtml:p><xhtml:p/><xhtml:p>[urls]</xhtml:p><xhtml:p>/test.jsp=formLogin,anyRoles[admin,user]</xhtml:p><xhtml:p>/login.jsp=authcBasic</xhtml:p><xhtml:p>/**=myFilter1,myFilter2,myFilter3[config],myFilter4</xhtml:p><xhtml:p/><xhtml:p/></html><plain>[main]
+#filter也可以写在[main]区块中
+#myFilter1=com.github.zhangkaitao.shiro.chapter8.web.filter.MyOncePerRequestFilter
+[filters]
+myFilter1=com.github.zhangkaitao.shiro.chapter8.web.filter.MyOncePerRequestFilter
+myFilter2=com.github.zhangkaitao.shiro.chapter8.web.filter.MyAdviceFilter
+myFilter3=com.github.zhangkaitao.shiro.chapter8.web.filter.MyPathMatchingFilter
+myFilter4=com.github.zhangkaitao.shiro.chapter8.web.filter.MyAccessControlFilter
+
+formLogin=com.github.zhangkaitao.shiro.chapter8.web.filter.FormLoginFilter
+anyRoles=com.github.zhangkaitao.shiro.chapter8.web.filter.AnyRolesFilter
+
+[urls]
+/test.jsp=formLogin,anyRoles[admin,user]
+/login.jsp=authcBasic
+/**=myFilter1,myFilter2,myFilter3[config],myFilter4
+
+</plain></notes></topic><topic id="4rccs59iv5io0m4nm70a0m5n7i" timestamp="1393906852211"><title>6、jsp标签</title><notes><html><xhtml:p>&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;</xhtml:p><xhtml:p>&lt;%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %&gt;</xhtml:p><xhtml:p>&lt;%@taglib prefix="zhang" tagdir="/WEB-INF/tags" %&gt;</xhtml:p><xhtml:p>&lt;html&gt;</xhtml:p><xhtml:p>&lt;body&gt;</xhtml:p><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:guest</xhtml:span>&gt;</xhtml:p><xhtml:p>    欢迎游客访问，&lt;a href="${pageContext.request.contextPath}/login.jsp"&gt;点击登录&lt;/a&gt;&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:guest&gt;</xhtml:p><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:user</xhtml:span>&gt;</xhtml:p><xhtml:p>    欢迎[&lt;shiro:principal/&gt;]登录，&lt;a href="${pageContext.request.contextPath}/logout"&gt;点击退出&lt;/a&gt;&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:user&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:authenticated</xhtml:span>&gt;</xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]已身份验证通过&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:authenticated&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:notAuthenticated</xhtml:span>&gt;</xhtml:p><xhtml:p>    未身份验证（<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">包括记住我</xhtml:span>）&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:notAuthenticated&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:hasRole name="admin"</xhtml:span>&gt;</xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]拥有角色admin&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:hasRole&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:hasAnyRoles name="admin,user"</xhtml:span>&gt;</xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]拥有角色admin或user&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:hasAnyRoles&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:lacksRole name="abc"</xhtml:span>&gt;</xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]没有角色abc&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:lacksRole&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:hasPermission name="user:create"</xhtml:span>&gt;</xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]拥有权限user:create&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:hasPermission&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;<xhtml:span style-id="0odg3cah6mahdi4nd6oalobrgm">shiro:lacksPermission name="org:create"</xhtml:span>&gt;</xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]没有权限org:create&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/shiro:lacksPermission&gt;</xhtml:p><xhtml:p><xhtml:span style-id="10n8nkn7d41966b9e7vcoiqs0c"/></xhtml:p><xhtml:p><xhtml:span style-id="10n8nkn7d41966b9e7vcoiqs0c">&lt;zhang:hasAllRoles name="admin,user"&gt;</xhtml:span></xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]拥有角色admin和user&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/zhang:hasAllRoles&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;zhang:hasAllPermissions name="user:create,user:update"&gt;</xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]拥有权限user:create和user:update&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/zhang:hasAllPermissions&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;zhang:hasAnyPermissions name="user:create,abc:update"&gt;</xhtml:p><xhtml:p>    用户[&lt;shiro:principal/&gt;]拥有权限user:create或abc:update&lt;br/&gt;</xhtml:p><xhtml:p>&lt;/zhang:hasAnyPermissions&gt;</xhtml:p><xhtml:p/><xhtml:p>&lt;/body&gt;</xhtml:p><xhtml:p>&lt;/html&gt;</xhtml:p><xhtml:p/></html><plain>&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
+&lt;%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %&gt;
+&lt;%@taglib prefix="zhang" tagdir="/WEB-INF/tags" %&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;shiro:guest&gt;
+    欢迎游客访问，&lt;a href="${pageContext.request.contextPath}/login.jsp"&gt;点击登录&lt;/a&gt;&lt;br/&gt;
+&lt;/shiro:guest&gt;
+&lt;shiro:user&gt;
+    欢迎[&lt;shiro:principal/&gt;]登录，&lt;a href="${pageContext.request.contextPath}/logout"&gt;点击退出&lt;/a&gt;&lt;br/&gt;
+&lt;/shiro:user&gt;
+
+&lt;shiro:authenticated&gt;
+    用户[&lt;shiro:principal/&gt;]已身份验证通过&lt;br/&gt;
+&lt;/shiro:authenticated&gt;
+
+&lt;shiro:notAuthenticated&gt;
+    未身份验证（包括记住我）&lt;br/&gt;
+&lt;/shiro:notAuthenticated&gt;
+
+&lt;shiro:hasRole name="admin"&gt;
+    用户[&lt;shiro:principal/&gt;]拥有角色admin&lt;br/&gt;
+&lt;/shiro:hasRole&gt;
+
+&lt;shiro:hasAnyRoles name="admin,user"&gt;
+    用户[&lt;shiro:principal/&gt;]拥有角色admin或user&lt;br/&gt;
+&lt;/shiro:hasAnyRoles&gt;
+
+&lt;shiro:lacksRole name="abc"&gt;
+    用户[&lt;shiro:principal/&gt;]没有角色abc&lt;br/&gt;
+&lt;/shiro:lacksRole&gt;
+
+&lt;shiro:hasPermission name="user:create"&gt;
+    用户[&lt;shiro:principal/&gt;]拥有权限user:create&lt;br/&gt;
+&lt;/shiro:hasPermission&gt;
+
+&lt;shiro:lacksPermission name="org:create"&gt;
+    用户[&lt;shiro:principal/&gt;]没有权限org:create&lt;br/&gt;
+&lt;/shiro:lacksPermission&gt;
+
+&lt;zhang:hasAllRoles name="admin,user"&gt;
+    用户[&lt;shiro:principal/&gt;]拥有角色admin和user&lt;br/&gt;
+&lt;/zhang:hasAllRoles&gt;
+
+&lt;zhang:hasAllPermissions name="user:create,user:update"&gt;
+    用户[&lt;shiro:principal/&gt;]拥有权限user:create和user:update&lt;br/&gt;
+&lt;/zhang:hasAllPermissions&gt;
+
+&lt;zhang:hasAnyPermissions name="user:create,abc:update"&gt;
+    用户[&lt;shiro:principal/&gt;]拥有权限user:create或abc:update&lt;br/&gt;
+&lt;/zhang:hasAnyPermissions&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</plain></notes><children><topics type="attached"><topic id="29hpa6ia90q80q4hl86mjhmrk8" timestamp="1393907011990"><title>1、自定义标签</title><children><topics type="attached"><topic id="2l4antd9ro5ci84fp42113s0rm" timestamp="1393907003294"><title>1、hasAllPermissions.tag</title><notes><html><xhtml:p>hasAllPermissions.tag</xhtml:p><xhtml:p/><xhtml:p>&lt;%@ tag import="org.apache.shiro.util.StringUtils" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag import="org.apache.shiro.SecurityUtils" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%&gt;</xhtml:p><xhtml:p>&lt;%@ attribute name="name" type="java.lang.String" required="true" description="权限字符串列表" %&gt;</xhtml:p><xhtml:p>&lt;%@ attribute name="delimiter" type="java.lang.String" required="false" description="权限字符串列表分隔符" %&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>    if(!StringUtils.hasText(delimiter)) {</xhtml:p><xhtml:p>        delimiter = ",";//默认逗号分隔</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p>    if(!StringUtils.hasText(name)) {</xhtml:p><xhtml:p>%&gt;</xhtml:p><xhtml:p>        &lt;jsp:doBody/&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>        return;</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p>    String[] roles = name.split(delimiter);</xhtml:p><xhtml:p>    if(!SecurityUtils.getSubject().isPermittedAll(roles)) {</xhtml:p><xhtml:p>        return;</xhtml:p><xhtml:p>    } else {</xhtml:p><xhtml:p>%&gt;</xhtml:p><xhtml:p>        &lt;jsp:doBody/&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p>%&gt;</xhtml:p></html><plain>hasAllPermissions.tag
+
+&lt;%@ tag import="org.apache.shiro.util.StringUtils" %&gt;
+&lt;%@ tag import="org.apache.shiro.SecurityUtils" %&gt;
+&lt;%@ tag pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%&gt;
+&lt;%@ attribute name="name" type="java.lang.String" required="true" description="权限字符串列表" %&gt;
+&lt;%@ attribute name="delimiter" type="java.lang.String" required="false" description="权限字符串列表分隔符" %&gt;
+&lt;%
+    if(!StringUtils.hasText(delimiter)) {
+        delimiter = ",";//默认逗号分隔
+    }
+    if(!StringUtils.hasText(name)) {
+%&gt;
+        &lt;jsp:doBody/&gt;
+&lt;%
+        return;
+    }
+    String[] roles = name.split(delimiter);
+    if(!SecurityUtils.getSubject().isPermittedAll(roles)) {
+        return;
+    } else {
+%&gt;
+        &lt;jsp:doBody/&gt;
+&lt;%
+    }
+%&gt;</plain></notes></topic><topic id="3gbvuhe8bio1efkeop6707ruhk" timestamp="1393906996652"><title>2、hasAllRoles.tag</title><notes><html><xhtml:p>hasAllRoles.tag</xhtml:p><xhtml:p/><xhtml:p>&lt;%@ tag import="org.apache.shiro.util.StringUtils" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag import="org.apache.shiro.SecurityUtils" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag import="java.util.Arrays" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%&gt;</xhtml:p><xhtml:p>&lt;%@ attribute name="name" type="java.lang.String" required="true" description="角色列表" %&gt;</xhtml:p><xhtml:p>&lt;%@ attribute name="delimiter" type="java.lang.String" required="false" description="角色列表分隔符" %&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>    if(!StringUtils.hasText(delimiter)) {</xhtml:p><xhtml:p>        delimiter = ",";//默认逗号分隔</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>    if(!StringUtils.hasText(name)) {</xhtml:p><xhtml:p>%&gt;</xhtml:p><xhtml:p>        &lt;jsp:doBody/&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>        return;</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p>    String[] roles = name.split(delimiter);</xhtml:p><xhtml:p>    if(!SecurityUtils.getSubject().hasAllRoles(Arrays.asList(roles))) {</xhtml:p><xhtml:p>        return;</xhtml:p><xhtml:p>    } else {</xhtml:p><xhtml:p>%&gt;</xhtml:p><xhtml:p>        &lt;jsp:doBody/&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/></html><plain>hasAllRoles.tag
+
+&lt;%@ tag import="org.apache.shiro.util.StringUtils" %&gt;
+&lt;%@ tag import="org.apache.shiro.SecurityUtils" %&gt;
+&lt;%@ tag import="java.util.Arrays" %&gt;
+&lt;%@ tag pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%&gt;
+&lt;%@ attribute name="name" type="java.lang.String" required="true" description="角色列表" %&gt;
+&lt;%@ attribute name="delimiter" type="java.lang.String" required="false" description="角色列表分隔符" %&gt;
+&lt;%
+    if(!StringUtils.hasText(delimiter)) {
+        delimiter = ",";//默认逗号分隔
+    }
+
+    if(!StringUtils.hasText(name)) {
+%&gt;
+        &lt;jsp:doBody/&gt;
+&lt;%
+        return;
+    }
+    String[] roles = name.split(delimiter);
+    if(!SecurityUtils.getSubject().hasAllRoles(Arrays.asList(roles))) {
+        return;
+    } else {
+%&gt;
+        &lt;jsp:doBody/&gt;
+&lt;%
+    }
+</plain></notes></topic><topic id="232ss2dc9q97fvkt34uivd40i0" timestamp="1393907094415"><title>3、hasAnyPermissions.tag</title><notes><html><xhtml:p>hasAnyPermissions.tag</xhtml:p><xhtml:p/><xhtml:p>&lt;%@ tag import="org.apache.shiro.util.StringUtils" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag import="org.apache.shiro.SecurityUtils" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag import="java.util.Arrays" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag import="org.apache.shiro.subject.Subject" %&gt;</xhtml:p><xhtml:p>&lt;%@ tag pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%&gt;</xhtml:p><xhtml:p>&lt;%@ attribute name="name" type="java.lang.String" required="true" description="权限字符串列表" %&gt;</xhtml:p><xhtml:p>&lt;%@ attribute name="delimiter" type="java.lang.String" required="false" description="权限字符串列表分隔符" %&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>    if(!StringUtils.hasText(delimiter)) {</xhtml:p><xhtml:p>        delimiter = ",";//默认逗号分隔</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p>    if(!StringUtils.hasText(name)) {</xhtml:p><xhtml:p>%&gt;</xhtml:p><xhtml:p>        &lt;jsp:doBody/&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>        return;</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p>    String[] permissions = name.split(delimiter);</xhtml:p><xhtml:p>    Subject subject = SecurityUtils.getSubject();</xhtml:p><xhtml:p>    for(String permission : permissions) {</xhtml:p><xhtml:p>        if(subject.isPermitted(permission)) {</xhtml:p><xhtml:p>%&gt;</xhtml:p><xhtml:p>            &lt;jsp:doBody/&gt;</xhtml:p><xhtml:p>&lt;%</xhtml:p><xhtml:p>			return;</xhtml:p><xhtml:p>        }</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p>%&gt;</xhtml:p></html><plain>hasAnyPermissions.tag
+
+&lt;%@ tag import="org.apache.shiro.util.StringUtils" %&gt;
+&lt;%@ tag import="org.apache.shiro.SecurityUtils" %&gt;
+&lt;%@ tag import="java.util.Arrays" %&gt;
+&lt;%@ tag import="org.apache.shiro.subject.Subject" %&gt;
+&lt;%@ tag pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%&gt;
+&lt;%@ attribute name="name" type="java.lang.String" required="true" description="权限字符串列表" %&gt;
+&lt;%@ attribute name="delimiter" type="java.lang.String" required="false" description="权限字符串列表分隔符" %&gt;
+&lt;%
+    if(!StringUtils.hasText(delimiter)) {
+        delimiter = ",";//默认逗号分隔
+    }
+    if(!StringUtils.hasText(name)) {
+%&gt;
+        &lt;jsp:doBody/&gt;
+&lt;%
+        return;
+    }
+    String[] permissions = name.split(delimiter);
+    Subject subject = SecurityUtils.getSubject();
+    for(String permission : permissions) {
+        if(subject.isPermitted(permission)) {
+%&gt;
+            &lt;jsp:doBody/&gt;
+&lt;%
+			return;
+        }
+    }
+%&gt;</plain></notes></topic></topics></children></topic></topics></children></topic><topic id="614m29dmnnau37rptgd40v3fdm" timestamp="1393818284245"><title>3、加密、解密</title><children><topics type="attached"><topic id="74i1k8u2bmcudest85ogrp7vom" timestamp="1393817250422"><title>1、base64</title><notes><html><xhtml:p>org.apache.shiro.codec.Base64</xhtml:p><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testBase64() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        String base64Encoded = Base64.encodeToString(str.getBytes());</xhtml:p><xhtml:p>        System.out.println(base64Encoded);</xhtml:p><xhtml:p>        String str2 = Base64.decodeToString(base64Encoded);</xhtml:p><xhtml:p>        Assert.assertEquals(str, str2);</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>org.apache.shiro.codec.Base64
+    @Test
+    public void testBase64() {
+        String str = "hello";
+        String base64Encoded = Base64.encodeToString(str.getBytes());
+        System.out.println(base64Encoded);
+        String str2 = Base64.decodeToString(base64Encoded);
+        Assert.assertEquals(str, str2);
+    }</plain></notes></topic><topic id="70ecspds005noc27naghrbj0m3" timestamp="1393817457319"><title>2、hex</title><notes><html><xhtml:p>org.apache.shiro.codec.Hex</xhtml:p><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testHex() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        String hexEncoded = Hex.encodeToString(str.getBytes());</xhtml:p><xhtml:p>        System.out.println(hexEncoded);</xhtml:p><xhtml:p>        String str2 = new String(Hex.decode(hexEncoded.getBytes()));</xhtml:p><xhtml:p>        Assert.assertEquals(str, str2);</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/></html><plain>org.apache.shiro.codec.Hex
+    @Test
+    public void testHex() {
+        String str = "hello";
+        String hexEncoded = Hex.encodeToString(str.getBytes());
+        System.out.println(hexEncoded);
+        String str2 = new String(Hex.decode(hexEncoded.getBytes()));
+        Assert.assertEquals(str, str2);
+    }
+</plain></notes></topic><topic id="427nppaj7baogr7u8kkvkvjfgc" timestamp="1393817529071"><title>3、String编码解密</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testCodecSupport() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        byte[] bytes = CodecSupport.toBytes(str, "utf-8");// return String.getBytes(encoding);</xhtml:p><xhtml:p>        String str2 = CodecSupport.toString(bytes, "utf-8");// return new String(bytes, encoding);</xhtml:p><xhtml:p>        Assert.assertEquals(str, str2);</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testCodecSupport() {
+        String str = "hello";
+        byte[] bytes = CodecSupport.toBytes(str, "utf-8");// return String.getBytes(encoding);
+        String str2 = CodecSupport.toString(bytes, "utf-8");// return new String(bytes, encoding);
+        Assert.assertEquals(str, str2);
+    }</plain></notes></topic><topic id="6ovc77rt09m6037jrjjqf3vhr0" timestamp="1393818286853"><title>5、对称加密解密</title><children><topics type="attached"><topic id="16lh0um4j9apvj7t51firvgc55" timestamp="1393818171245"><title>1、AES</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testAesCipherService() {</xhtml:p><xhtml:p>        AesCipherService aesCipherService = new AesCipherService();</xhtml:p><xhtml:p>        aesCipherService.setKeySize(128);//设置key长度</xhtml:p><xhtml:p/><xhtml:p>        //生成key</xhtml:p><xhtml:p>        Key key = aesCipherService.generateNewKey();</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p/><xhtml:p>        String text = "hello";</xhtml:p><xhtml:p/><xhtml:p>        //加密</xhtml:p><xhtml:p>        String encrptText = aesCipherService.encrypt(text.getBytes(), key.getEncoded()).toHex();</xhtml:p><xhtml:p>        System.out.println(encrptText);</xhtml:p><xhtml:p>        //解密</xhtml:p><xhtml:p>        String text2 = new String(aesCipherService.decrypt(Hex.decode(encrptText), key.getEncoded()).getBytes());</xhtml:p><xhtml:p/><xhtml:p>        Assert.assertEquals(text, text2);</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testAesCipherService() {
+        AesCipherService aesCipherService = new AesCipherService();
+        aesCipherService.setKeySize(128);//设置key长度
+
+        //生成key
+        Key key = aesCipherService.generateNewKey();
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+
+        String text = "hello";
+
+        //加密
+        String encrptText = aesCipherService.encrypt(text.getBytes(), key.getEncoded()).toHex();
+        System.out.println(encrptText);
+        //解密
+        String text2 = new String(aesCipherService.decrypt(Hex.decode(encrptText), key.getEncoded()).getBytes());
+
+        Assert.assertEquals(text, text2);
+    }</plain></notes></topic><topic id="54jcrepafcu8b0b0gp85tr3qj2" timestamp="1393818205805"><title>2、Blowfish</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testBlowfishCipherService() {</xhtml:p><xhtml:p>        BlowfishCipherService blowfishCipherService = new BlowfishCipherService();</xhtml:p><xhtml:p>        blowfishCipherService.setKeySize(128);</xhtml:p><xhtml:p/><xhtml:p>        //生成key</xhtml:p><xhtml:p>        Key key = blowfishCipherService.generateNewKey();</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p/><xhtml:p>        String text = "hello";</xhtml:p><xhtml:p>        </xhtml:p><xhtml:p>        //加密</xhtml:p><xhtml:p>        String encrptText = blowfishCipherService.encrypt(text.getBytes(), key.getEncoded()).toHex();</xhtml:p><xhtml:p>        System.out.println(encrptText);</xhtml:p><xhtml:p>        //解密</xhtml:p><xhtml:p>        String text2 = new String(blowfishCipherService.decrypt(Hex.decode(encrptText), key.getEncoded()).getBytes());</xhtml:p><xhtml:p/><xhtml:p>        Assert.assertEquals(text, text2);</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testBlowfishCipherService() {
+        BlowfishCipherService blowfishCipherService = new BlowfishCipherService();
+        blowfishCipherService.setKeySize(128);
+
+        //生成key
+        Key key = blowfishCipherService.generateNewKey();
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+
+        String text = "hello";
+        
+        //加密
+        String encrptText = blowfishCipherService.encrypt(text.getBytes(), key.getEncoded()).toHex();
+        System.out.println(encrptText);
+        //解密
+        String text2 = new String(blowfishCipherService.decrypt(Hex.decode(encrptText), key.getEncoded()).getBytes());
+
+        Assert.assertEquals(text, text2);
+    }</plain></notes></topic><topic id="0rvv1jgc7ufahm96pmemenbe81" timestamp="1393818262865"><title>3、DefaultBlock</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testDefaultBlockCipherService() throws Exception {</xhtml:p><xhtml:p>        //对称加密，使用Java的JCA（javax.crypto.Cipher）加密API，常见的如 'AES', 'Blowfish'</xhtml:p><xhtml:p>        DefaultBlockCipherService cipherService = new DefaultBlockCipherService("AES");</xhtml:p><xhtml:p>        cipherService.setKeySize(128);</xhtml:p><xhtml:p/><xhtml:p>        //生成key</xhtml:p><xhtml:p>        Key key = cipherService.generateNewKey();</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p>        System.out.println(key.getEncoded());</xhtml:p><xhtml:p/><xhtml:p>        String text = "hello";</xhtml:p><xhtml:p>        //加密</xhtml:p><xhtml:p>        String encrptText = cipherService.encrypt(text.getBytes(), key.getEncoded()).toHex();</xhtml:p><xhtml:p>        System.out.println(encrptText);</xhtml:p><xhtml:p>        //解密</xhtml:p><xhtml:p>        String text2 = new String(cipherService.decrypt(Hex.decode(encrptText), key.getEncoded()).getBytes());</xhtml:p><xhtml:p/><xhtml:p>        Assert.assertEquals(text, text2);</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testDefaultBlockCipherService() throws Exception {
+        //对称加密，使用Java的JCA（javax.crypto.Cipher）加密API，常见的如 'AES', 'Blowfish'
+        DefaultBlockCipherService cipherService = new DefaultBlockCipherService("AES");
+        cipherService.setKeySize(128);
+
+        //生成key
+        Key key = cipherService.generateNewKey();
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+        System.out.println(key.getEncoded());
+
+        String text = "hello";
+        //加密
+        String encrptText = cipherService.encrypt(text.getBytes(), key.getEncoded()).toHex();
+        System.out.println(encrptText);
+        //解密
+        String text2 = new String(cipherService.decrypt(Hex.decode(encrptText), key.getEncoded()).getBytes());
+
+        Assert.assertEquals(text, text2);
+    }</plain></notes></topic></topics></children></topic><topic id="3ba2efevare7o4p7tme7jcgubu" timestamp="1393817971232"><title>4、加密</title><children><topics type="attached"><topic id="389l14pfv2n8v7jde8jorl1hnq" timestamp="1393817653632"><title>1、md5</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testMd5() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        String salt = "123";</xhtml:p><xhtml:p>        Md5Hash md5Hash = new Md5Hash(str, salt);</xhtml:p><xhtml:p>		String md5 = md5Hash.toString();//还可以转换为 toBase64()/toHex()</xhtml:p><xhtml:p>        System.out.println(md5);</xhtml:p><xhtml:p>        System.out.println(md5Hash.toHex());</xhtml:p><xhtml:p>        System.out.println(md5Hash.toBase64());</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testMd5() {
+        String str = "hello";
+        String salt = "123";
+        Md5Hash md5Hash = new Md5Hash(str, salt);
+		String md5 = md5Hash.toString();//还可以转换为 toBase64()/toHex()
+        System.out.println(md5);
+        System.out.println(md5Hash.toHex());
+        System.out.println(md5Hash.toBase64());
+    }</plain></notes></topic><topic id="7gssj8p0b35cq2giu84gr3t73d" timestamp="1393817794594"><title>2、sha</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testSha1() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        String salt = "123";</xhtml:p><xhtml:p>        String sha1 = new Sha1Hash(str, salt).toString();</xhtml:p><xhtml:p>        System.out.println(sha1);</xhtml:p><xhtml:p>        //f0a139408f7b134c66342e3d1cf4870a293c11c3</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testSha256() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        String salt = "123";</xhtml:p><xhtml:p>        String sha1 = new Sha256Hash(str, salt).toString();</xhtml:p><xhtml:p>        System.out.println(sha1);</xhtml:p><xhtml:p>        //7dfe54ea69b2d07a597952e49374a1aebf3c10689444a83f0a084761c8a1c626</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testSha384() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        String salt = "123";</xhtml:p><xhtml:p>        String sha1 = new Sha384Hash(str, salt).toString();</xhtml:p><xhtml:p>        System.out.println(sha1);</xhtml:p><xhtml:p>        //b18fad48be86ede658ae8b850137757d630772726f7ed70c2439cf42d536d9d20c0f377b546c49639586217b72c41077</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testSha512() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        String salt = "123";</xhtml:p><xhtml:p>        String sha1 = new Sha512Hash(str, salt).toString();</xhtml:p><xhtml:p>        System.out.println(sha1);</xhtml:p><xhtml:p>        //8150172b303ad08d821c81576c2f2e0948230a7cb250e273ecce88051982cc6fc01824f468c774c7c57d20548585ccc9e1e25f6b01c6a56e9a07dd64bb745465</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testSha1() {
+        String str = "hello";
+        String salt = "123";
+        String sha1 = new Sha1Hash(str, salt).toString();
+        System.out.println(sha1);
+        //f0a139408f7b134c66342e3d1cf4870a293c11c3
+    }
+
+    @Test
+    public void testSha256() {
+        String str = "hello";
+        String salt = "123";
+        String sha1 = new Sha256Hash(str, salt).toString();
+        System.out.println(sha1);
+        //7dfe54ea69b2d07a597952e49374a1aebf3c10689444a83f0a084761c8a1c626
+    }
+
+    @Test
+    public void testSha384() {
+        String str = "hello";
+        String salt = "123";
+        String sha1 = new Sha384Hash(str, salt).toString();
+        System.out.println(sha1);
+        //b18fad48be86ede658ae8b850137757d630772726f7ed70c2439cf42d536d9d20c0f377b546c49639586217b72c41077
+    }
+
+    @Test
+    public void testSha512() {
+        String str = "hello";
+        String salt = "123";
+        String sha1 = new Sha512Hash(str, salt).toString();
+        System.out.println(sha1);
+        //8150172b303ad08d821c81576c2f2e0948230a7cb250e273ecce88051982cc6fc01824f468c774c7c57d20548585ccc9e1e25f6b01c6a56e9a07dd64bb745465
+    }</plain></notes></topic><topic id="48di18vpt3tdj13k5177l0ttid" timestamp="1393817917341"><title>3、SimpleHash</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testSimpleHash() {</xhtml:p><xhtml:p>        String str = "hello";</xhtml:p><xhtml:p>        String salt = "123";</xhtml:p><xhtml:p>        //MessageDigest</xhtml:p><xhtml:p>        String simpleHash = new SimpleHash("SHA-1", str, salt).toString();</xhtml:p><xhtml:p>        System.out.println(simpleHash);</xhtml:p><xhtml:p>        //f0a139408f7b134c66342e3d1cf4870a293c11c3</xhtml:p><xhtml:p>        //f0a139408f7b134c66342e3d1cf4870a293c11c3</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testSimpleHash() {
+        String str = "hello";
+        String salt = "123";
+        //MessageDigest
+        String simpleHash = new SimpleHash("SHA-1", str, salt).toString();
+        System.out.println(simpleHash);
+        //f0a139408f7b134c66342e3d1cf4870a293c11c3
+        //f0a139408f7b134c66342e3d1cf4870a293c11c3
+    }</plain></notes></topic><topic id="0785bp8qhcnie0mg8gg82gt002" timestamp="1393817979790"><title>4、DefaultHashService</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testHashService() {</xhtml:p><xhtml:p>        DefaultHashService hashService = new DefaultHashService(); //默认算法SHA-512</xhtml:p><xhtml:p>        hashService.setHashAlgorithmName("SHA-512");</xhtml:p><xhtml:p>        hashService.setPrivateSalt(new SimpleByteSource("123")); //私盐，默认无</xhtml:p><xhtml:p>        hashService.setGeneratePublicSalt(true);//是否生成公盐，默认false</xhtml:p><xhtml:p>        hashService.setRandomNumberGenerator(new SecureRandomNumberGenerator());//用于生成公盐。默认就这个</xhtml:p><xhtml:p>        hashService.setHashIterations(1); //生成Hash值的迭代次数</xhtml:p><xhtml:p/><xhtml:p>        HashRequest request = new HashRequest.Builder()</xhtml:p><xhtml:p>                .setAlgorithmName("MD5").setSource(ByteSource.Util.bytes("hello"))</xhtml:p><xhtml:p>                .setSalt(ByteSource.Util.bytes("123")).setIterations(2).build();</xhtml:p><xhtml:p>        String hex = hashService.computeHash(request).toHex();</xhtml:p><xhtml:p>        System.out.println(hex);</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testHashService() {
+        DefaultHashService hashService = new DefaultHashService(); //默认算法SHA-512
+        hashService.setHashAlgorithmName("SHA-512");
+        hashService.setPrivateSalt(new SimpleByteSource("123")); //私盐，默认无
+        hashService.setGeneratePublicSalt(true);//是否生成公盐，默认false
+        hashService.setRandomNumberGenerator(new SecureRandomNumberGenerator());//用于生成公盐。默认就这个
+        hashService.setHashIterations(1); //生成Hash值的迭代次数
+
+        HashRequest request = new HashRequest.Builder()
+                .setAlgorithmName("MD5").setSource(ByteSource.Util.bytes("hello"))
+                .setSalt(ByteSource.Util.bytes("123")).setIterations(2).build();
+        String hex = hashService.computeHash(request).toHex();
+        System.out.println(hex);
+    }</plain></notes></topic></topics></children></topic><topic id="2ujdrsemuebvg36cae90q1b4a9" timestamp="1393817670761"><title>其他</title><children><topics type="attached"><topic id="0sf315fvlfevqlijlhdf1a3amu" timestamp="1393817669236"><title>1、生成随机数</title><notes><html><xhtml:p/><xhtml:p>    @Test</xhtml:p><xhtml:p>    public void testRandom() {</xhtml:p><xhtml:p>        //生成随机数</xhtml:p><xhtml:p>        SecureRandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();</xhtml:p><xhtml:p>        randomNumberGenerator.setSeed("123".getBytes());</xhtml:p><xhtml:p>        System.out.println(randomNumberGenerator.nextBytes().toHex());</xhtml:p><xhtml:p>    }</xhtml:p></html><plain>
+    @Test
+    public void testRandom() {
+        //生成随机数
+        SecureRandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
+        randomNumberGenerator.setSeed("123".getBytes());
+        System.out.println(randomNumberGenerator.nextBytes().toHex());
+    }</plain></notes></topic></topics></children></topic></topics></children><notes><html><xhtml:p>//加密/解密相关知识可参考snowolf的博客 http://snowolf.iteye.com/category/68576</xhtml:p></html><plain>//加密/解密相关知识可参考snowolf的博客 http://snowolf.iteye.com/category/68576</plain></notes></topic><topic id="2kfae71o8k113hlhbc88jkvf57" timestamp="1393897804793"><title>4、与WEB集成</title><notes><html><xhtml:p>&lt;dependency&gt;  </xhtml:p><xhtml:p>    &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;  </xhtml:p><xhtml:p>    &lt;artifactId&gt;shiro-web&lt;/artifactId&gt;  </xhtml:p><xhtml:p>    &lt;version&gt;1.2.2&lt;/version&gt;  </xhtml:p><xhtml:p>&lt;/dependency&gt;   </xhtml:p><xhtml:p/><xhtml:p>&lt;dependency&gt;  </xhtml:p><xhtml:p>    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;  </xhtml:p><xhtml:p>    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;  </xhtml:p><xhtml:p>    &lt;version&gt;3.0.1&lt;/version&gt;  </xhtml:p><xhtml:p>    &lt;scope&gt;provided&lt;/scope&gt;  </xhtml:p><xhtml:p>&lt;/dependency&gt;   </xhtml:p></html><plain>&lt;dependency&gt;  
+    &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;  
+    &lt;artifactId&gt;shiro-web&lt;/artifactId&gt;  
+    &lt;version&gt;1.2.2&lt;/version&gt;  
+&lt;/dependency&gt;   
+
+&lt;dependency&gt;  
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;  
+    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;  
+    &lt;version&gt;3.0.1&lt;/version&gt;  
+    &lt;scope&gt;provided&lt;/scope&gt;  
+&lt;/dependency&gt;   </plain></notes><children><topics type="attached"><topic id="721abrkb9kqcvnr87nimahgchk" timestamp="1393897904700"><title>1、配置</title><notes><html><xhtml:p/><xhtml:p>    &lt;listener&gt;</xhtml:p><xhtml:p>        &lt;listener-class&gt;org.apache.shiro.web.env.EnvironmentLoaderListener&lt;/listener-class&gt;</xhtml:p><xhtml:p>    &lt;/listener&gt;</xhtml:p><xhtml:p/><xhtml:p>默认使用org.apache.shiro.web.env.IniWebEnvironment</xhtml:p><xhtml:p>如需要另外指定，可以用</xhtml:p><xhtml:p>	&lt;context-param&gt;  </xhtml:p><xhtml:p>		&lt;param-name&gt;shiroEnvironmentClass&lt;/param-name&gt;  </xhtml:p><xhtml:p>   		&lt;param-value&gt;org.apache.shiro.web.env.IniWebEnvironment&lt;/param-value&gt;  </xhtml:p><xhtml:p>	&lt;/context-param&gt;  </xhtml:p><xhtml:p/><xhtml:p>IniWebEnvironment默认是先从/WEB-INF/shiro.ini加载，如果没有就默认加载classpath:shiro.ini</xhtml:p><xhtml:p>如需要另外指定，可以用 </xhtml:p><xhtml:p>    &lt;context-param&gt;  </xhtml:p><xhtml:p>        &lt;param-name&gt;shiroConfigLocations&lt;/param-name&gt;  </xhtml:p><xhtml:p>        &lt;param-value&gt;classpath:shiro.ini&lt;/param-value&gt;  </xhtml:p><xhtml:p>    &lt;/context-param&gt;   </xhtml:p><xhtml:p/><xhtml:p/></html><plain>
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.apache.shiro.web.env.EnvironmentLoaderListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+
+默认使用org.apache.shiro.web.env.IniWebEnvironment
+如需要另外指定，可以用
+	&lt;context-param&gt;  
+		&lt;param-name&gt;shiroEnvironmentClass&lt;/param-name&gt;  
+   		&lt;param-value&gt;org.apache.shiro.web.env.IniWebEnvironment&lt;/param-value&gt;  
+	&lt;/context-param&gt;  
+
+IniWebEnvironment默认是先从/WEB-INF/shiro.ini加载，如果没有就默认加载classpath:shiro.ini
+如需要另外指定，可以用 
+    &lt;context-param&gt;  
+        &lt;param-name&gt;shiroConfigLocations&lt;/param-name&gt;  
+        &lt;param-value&gt;classpath:shiro.ini&lt;/param-value&gt;  
+    &lt;/context-param&gt;   
+
+</plain></notes></topic></topics></children></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>
