@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="3n9rf68qtjs3t7p3231ul68vrn" timestamp="1392780222476" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="2mj3lbgfs17g99mh8gtg989d9u" structure-class="org.xmind.ui.map.clockwise" timestamp="1392776991629"><title>SpringMVC</title><notes><html><xhtml:p>   <xhtml:img xhtml:src="xap:attachments/6j0f59a2ns8v76a9p39nk29v3k.JPG"/></xhtml:p></html><plain>   </plain></notes><children><topics type="attached"><topic id="1qe8nbsjd99md2ni42aqh4ago2" timestamp="1392776815380"><title>1 controller</title><children><topics type="attached"><topic id="53s8k2b1hmchgevucumi5hc57h" timestamp="1392778373339"><title>1.1 Controller接口方式</title><children><topics type="attached"><topic id="1344k4krvtp0n55j1042al9gua" timestamp="1392776827971"><title>1.1.1 利用标准接口org.springframework.web.servlet.mvc.Controller</title><notes><html><xhtml:p>bean的name即未映射路径</xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 处理器 --&gt;  </xhtml:p><xhtml:p>&lt;bean name="/hello" class="cn.javass.chapter2.web.controller.HelloWorldController"/&gt;  </xhtml:p></html><plain>bean的name即未映射路径
+
+&lt;!-- 处理器 --&gt;  
+&lt;bean name="/hello" class="cn.javass.chapter2.web.controller.HelloWorldController"/&gt;  </plain></notes></topic><topic id="499a1v95l49vl22lfeblskratq" timestamp="1392776831874"><title>1.1.2 使用AbstractController支持缓存，requestSession等</title><notes><html><xhtml:p>org.springframework.web.servlet.mvc.AbstractController</xhtml:p></html><plain>org.springframework.web.servlet.mvc.AbstractController</plain></notes></topic><topic id="10e2u3bu23vol95lc4rklssji4" timestamp="1392777685531"><title>1.1.2数据类型转换</title><children><topics type="attached"><topic id="7taqbtmp1cv20ml4pt8i1csjmi" timestamp="1392777129671"><title>1spring内建数据类型转换器</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/5q5a490sp244mqs9u63haf2ech.png"/></xhtml:p></html><plain/></notes></topic><topic id="41mpqf2q7o93mruae07kt6e2p1" timestamp="1392778160839"><title>2使用自定义的属性编辑器</title><children><topics type="attached"><topic id="7la7k6d41o73ksja02sbjmu41s" timestamp="1392777326211"><title>1创建数据模型</title><notes><html><xhtml:p>//省略import  </xhtml:p><xhtml:p>public class DataBinderTestModel {  </xhtml:p><xhtml:p>    private String username;  </xhtml:p><xhtml:p>    private boolean bool;//Boolean值测试  </xhtml:p><xhtml:p>    private SchoolInfoModel schooInfo;  </xhtml:p><xhtml:p>    private List hobbyList;//集合测试，此处可以改为数组/Set进行测试  </xhtml:p><xhtml:p>    private Map map;//Map测试  </xhtml:p><xhtml:p>    private PhoneNumberModel phoneNumber;//String-&gt;自定义对象的转换测试  </xhtml:p><xhtml:p>    private Date date;//日期类型测试  </xhtml:p><xhtml:p>    private UserState state;//String——&gt;Enum类型转换测试  </xhtml:p><xhtml:p>    //省略getter/setter  </xhtml:p><xhtml:p>}  </xhtml:p><xhtml:p>  </xhtml:p><xhtml:p>package cn.javass.chapter4.model;  </xhtml:p><xhtml:p>//如格式010-12345678  </xhtml:p><xhtml:p>public class PhoneNumberModel {  </xhtml:p><xhtml:p>    private String areaCode;//区号  </xhtml:p><xhtml:p>    private String phoneNumber;//电话号码  </xhtml:p><xhtml:p>    //省略getter/setter  </xhtml:p><xhtml:p>}  </xhtml:p></html><plain>//省略import  
+public class DataBinderTestModel {  
+    private String username;  
+    private boolean bool;//Boolean值测试  
+    private SchoolInfoModel schooInfo;  
+    private List hobbyList;//集合测试，此处可以改为数组/Set进行测试  
+    private Map map;//Map测试  
+    private PhoneNumberModel phoneNumber;//String-&gt;自定义对象的转换测试  
+    private Date date;//日期类型测试  
+    private UserState state;//String——&gt;Enum类型转换测试  
+    //省略getter/setter  
+}  
+  
+package cn.javass.chapter4.model;  
+//如格式010-12345678  
+public class PhoneNumberModel {  
+    private String areaCode;//区号  
+    private String phoneNumber;//电话号码  
+    //省略getter/setter  
+}  </plain></notes></topic><topic id="4ja5ps9qt96du22su38lf29u5b" timestamp="1392777356067"><title>2创建数据模型属性编辑器，实现PropertyEditor接口或继承PropertyEditorSupport</title><notes><html><xhtml:p>PropertyEditorSupport：一个PropertyEditor的支持类；</xhtml:p><xhtml:p>setAsText：表示将String——&gt;PhoneNumberModel，根据正则表达式进行转换，如果转换失败抛出异常，则接下来的验证器会进行验证处理；</xhtml:p><xhtml:p>getAsText：表示将PhoneNumberModel——&gt;String。</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>public class PhoneNumberEditor extends PropertyEditorSupport {  </xhtml:p><xhtml:p>    Pattern pattern = Pattern.compile("^(\\d{3,4})-(\\d{7,8})$");  </xhtml:p><xhtml:p>    @Override  </xhtml:p><xhtml:p>    public void setAsText(String text) throws IllegalArgumentException {  </xhtml:p><xhtml:p>        if(text == null || !StringUtils.hasLength(text)) {  </xhtml:p><xhtml:p>            setValue(null); //如果没值，设值为null  </xhtml:p><xhtml:p>        }  </xhtml:p><xhtml:p>        Matcher matcher = pattern.matcher(text);  </xhtml:p><xhtml:p>        if(matcher.matches()) {  </xhtml:p><xhtml:p>            PhoneNumberModel phoneNumber = new PhoneNumberModel();  </xhtml:p><xhtml:p>            phoneNumber.setAreaCode(matcher.group(1));  </xhtml:p><xhtml:p>            phoneNumber.setPhoneNumber(matcher.group(2));  </xhtml:p><xhtml:p>            setValue(phoneNumber);  </xhtml:p><xhtml:p>        } else {  </xhtml:p><xhtml:p>            throw new IllegalArgumentException(String.format("类型转换失败，需要格式[010-12345678]，但格式是[%s]", text));  </xhtml:p><xhtml:p>        }  </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>    @Override  </xhtml:p><xhtml:p>    public String getAsText() {  </xhtml:p><xhtml:p>        PhoneNumberModel phoneNumber = ((PhoneNumberModel)getValue());  </xhtml:p><xhtml:p>        return phoneNumber == null ? "" : phoneNumber.getAreaCode() + "-" + phoneNumber.getPhoneNumber();  </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>}  </xhtml:p></html><plain>PropertyEditorSupport：一个PropertyEditor的支持类；
+setAsText：表示将String——&gt;PhoneNumberModel，根据正则表达式进行转换，如果转换失败抛出异常，则接下来的验证器会进行验证处理；
+getAsText：表示将PhoneNumberModel——&gt;String。
+
+
+public class PhoneNumberEditor extends PropertyEditorSupport {  
+    Pattern pattern = Pattern.compile("^(\\d{3,4})-(\\d{7,8})$");  
+    @Override  
+    public void setAsText(String text) throws IllegalArgumentException {  
+        if(text == null || !StringUtils.hasLength(text)) {  
+            setValue(null); //如果没值，设值为null  
+        }  
+        Matcher matcher = pattern.matcher(text);  
+        if(matcher.matches()) {  
+            PhoneNumberModel phoneNumber = new PhoneNumberModel();  
+            phoneNumber.setAreaCode(matcher.group(1));  
+            phoneNumber.setPhoneNumber(matcher.group(2));  
+            setValue(phoneNumber);  
+        } else {  
+            throw new IllegalArgumentException(String.format("类型转换失败，需要格式[010-12345678]，但格式是[%s]", text));  
+        }  
+    }  
+    @Override  
+    public String getAsText() {  
+        PhoneNumberModel phoneNumber = ((PhoneNumberModel)getValue());  
+        return phoneNumber == null ? "" : phoneNumber.getAreaCode() + "-" + phoneNumber.getPhoneNumber();  
+    }  
+}  </plain></notes></topic><topic id="3onvrvsjgjfnjuatiqesh037ll" timestamp="1392778249053"><title>3注册PropertyEditor</title><children><topics type="attached"><topic id="2i6vgjpno9r0ku77tea4fmentk" timestamp="1392778159122"><title>1使用WebDataBinder进行控制器级别注册PropertyEditor（控制器独享）</title><notes><html><xhtml:p>此处我们使用AbstractCommandController，因为它继承了BaseCommandController，拥有绑定流程</xhtml:p><xhtml:p/><xhtml:p>public class DataBinderTestController extends AbstractCommandController {  </xhtml:p><xhtml:p>    public DataBinderTestController() {  </xhtml:p><xhtml:p>        setCommandClass(DataBinderTestModel.class); //设置命令对象  </xhtml:p><xhtml:p>        setCommandName("dataBinderTest");//设置命令对象的名字  </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>    @Override  </xhtml:p><xhtml:p>    protected ModelAndView handle(HttpServletRequest req, HttpServletResponse resp, Object command, BindException errors) throws Exception {  </xhtml:p><xhtml:p>        //输出command对象看看是否绑定正确  </xhtml:p><xhtml:p>        System.out.println(command);  </xhtml:p><xhtml:p>        return new ModelAndView("bindAndValidate/success").addObject("dataBinderTest", command);  </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>    @Override  </xhtml:p><xhtml:p>    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {  </xhtml:p><xhtml:p>        super.initBinder(request, binder);  </xhtml:p><xhtml:p>        //注册自定义的属性编辑器  </xhtml:p><xhtml:p>        //1、日期  </xhtml:p><xhtml:p>        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  </xhtml:p><xhtml:p>        CustomDateEditor dateEditor = new CustomDateEditor(df, true);  </xhtml:p><xhtml:p>        //表示如果命令对象有Date类型的属性，将使用该属性编辑器进行类型转换  </xhtml:p><xhtml:p>        binder.registerCustomEditor(Date.class, dateEditor);  </xhtml:p><xhtml:p>        //自定义的电话号码编辑器  </xhtml:p><xhtml:p>        binder.registerCustomEditor(PhoneNumberModel.class, new PhoneNumberEditor());  </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>}  </xhtml:p></html><plain>此处我们使用AbstractCommandController，因为它继承了BaseCommandController，拥有绑定流程
+
+public class DataBinderTestController extends AbstractCommandController {  
+    public DataBinderTestController() {  
+        setCommandClass(DataBinderTestModel.class); //设置命令对象  
+        setCommandName("dataBinderTest");//设置命令对象的名字  
+    }  
+    @Override  
+    protected ModelAndView handle(HttpServletRequest req, HttpServletResponse resp, Object command, BindException errors) throws Exception {  
+        //输出command对象看看是否绑定正确  
+        System.out.println(command);  
+        return new ModelAndView("bindAndValidate/success").addObject("dataBinderTest", command);  
+    }  
+    @Override  
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {  
+        super.initBinder(request, binder);  
+        //注册自定义的属性编辑器  
+        //1、日期  
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+        CustomDateEditor dateEditor = new CustomDateEditor(df, true);  
+        //表示如果命令对象有Date类型的属性，将使用该属性编辑器进行类型转换  
+        binder.registerCustomEditor(Date.class, dateEditor);  
+        //自定义的电话号码编辑器  
+        binder.registerCustomEditor(PhoneNumberModel.class, new PhoneNumberEditor());  
+    }  
+}  </plain></notes></topic><topic id="4figgej0onhcglps9vbehcrb5r" timestamp="1392778225994"><title>2使用WebBindingInitializer批量注册PropertyEditor</title><notes><html><xhtml:p>如果想在多个控制器同时注册多个相同的PropertyEditor时，可以考虑使用WebBindingInitializer</xhtml:p><xhtml:p/><xhtml:p>public class MyWebBindingInitializer implements WebBindingInitializer {  </xhtml:p><xhtml:p>    @Override  </xhtml:p><xhtml:p>    public void initBinder(WebDataBinder binder, WebRequest request) {  </xhtml:p><xhtml:p>        //注册自定义的属性编辑器  </xhtml:p><xhtml:p>        //1、日期  </xhtml:p><xhtml:p>        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  </xhtml:p><xhtml:p>        CustomDateEditor dateEditor = new CustomDateEditor(df, true);  </xhtml:p><xhtml:p>        //表示如果命令对象有Date类型的属性，将使用该属性编辑器进行类型转换  </xhtml:p><xhtml:p>        binder.registerCustomEditor(Date.class, dateEditor);  </xhtml:p><xhtml:p>        //自定义的电话号码编辑器  </xhtml:p><xhtml:p>        binder.registerCustomEditor(PhoneNumberModel.class, new PhoneNumberEditor());  </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>}  </xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 注册WebBindingInitializer实现 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="myWebBindingInitializer" class="cn.javass.chapter4.web.controller.support.initializer.MyWebBindingInitializer"/&gt;  </xhtml:p><xhtml:p>&lt;bean name="/dataBind" class="cn.javass.chapter4.web.controller.DataBinderTestController"&gt;  </xhtml:p><xhtml:p><xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">    &lt;!-- 注入WebBindingInitializer实现 --&gt;  </xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">    &lt;property name="webBindingInitializer" ref="myWebBindingInitializer"/&gt;  </xhtml:span></xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p></html><plain>如果想在多个控制器同时注册多个相同的PropertyEditor时，可以考虑使用WebBindingInitializer
+
+public class MyWebBindingInitializer implements WebBindingInitializer {  
+    @Override  
+    public void initBinder(WebDataBinder binder, WebRequest request) {  
+        //注册自定义的属性编辑器  
+        //1、日期  
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+        CustomDateEditor dateEditor = new CustomDateEditor(df, true);  
+        //表示如果命令对象有Date类型的属性，将使用该属性编辑器进行类型转换  
+        binder.registerCustomEditor(Date.class, dateEditor);  
+        //自定义的电话号码编辑器  
+        binder.registerCustomEditor(PhoneNumberModel.class, new PhoneNumberEditor());  
+    }  
+}  
+
+&lt;!-- 注册WebBindingInitializer实现 --&gt;  
+&lt;bean id="myWebBindingInitializer" class="cn.javass.chapter4.web.controller.support.initializer.MyWebBindingInitializer"/&gt;  
+&lt;bean name="/dataBind" class="cn.javass.chapter4.web.controller.DataBinderTestController"&gt;  
+    &lt;!-- 注入WebBindingInitializer实现 --&gt;  
+    &lt;property name="webBindingInitializer" ref="myWebBindingInitializer"/&gt;  
+&lt;/bean&gt;  </plain></notes></topic><topic id="6ubgui6mpd6eagb8384vhvhdeo" timestamp="1392778438767"><title>3全局级别注册PropertyEditor（全局共享）</title><notes><html><xhtml:p>只需要将我们自定义的PropertyEditor放在和你的<xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">模型类同包下</xhtml:span>即可，且你的Editor命名规则必须是“<xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">模型类名Editor</xhtml:span>”，这样Spring会自动使用标准JavaBean架构进行自动识别</xhtml:p><xhtml:p><xhtml:img xhtml:src="xap:attachments/05dagjh771h0ourqv0o9uvje4c.png"/></xhtml:p></html><plain>只需要将我们自定义的PropertyEditor放在和你的模型类同包下即可，且你的Editor命名规则必须是“模型类名Editor”，这样Spring会自动使用标准JavaBean架构进行自动识别
+</plain></notes></topic></topics></children></topic><topic id="58qsk7mkhrlcofkve4lohl5ghh" timestamp="1392778050313"><title>4页面格式化显示</title><notes><html><xhtml:p><xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">EL phoneNumber:${dataBinderTest.phoneNumber}</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">EL state:${dataBinderTest.state}</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">EL date:${dataBinderTest.date}</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">视图页面的数据没有预期被格式化</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq"/></xhtml:p><xhtml:p>如何进行格式化显示呢？请参考【第七章  注解式控制器的数据验证、类型转换及格式化】</xhtml:p></html><plain>EL phoneNumber:${dataBinderTest.phoneNumber}
+EL state:${dataBinderTest.state}
+EL date:${dataBinderTest.date}
+视图页面的数据没有预期被格式化
+
+如何进行格式化显示呢？请参考【第七章  注解式控制器的数据验证、类型转换及格式化】</plain></notes></topic></topics></children></topic></topics></children><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/6ln2d4dhunkjtel94umk9mq63m.png"/><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq"/></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">流程：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">1、首先创建数据绑定器，在此此会创建ServletRequestDataBinder类的对象，并设置messageCodesResolver（错误码解析器）；</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">2、提供第一个扩展点，初始化数据绑定器，在此处我们可以覆盖该方法注册自定义的PropertyEditor（请求参数——&gt;命令对象属性的转换）；</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">3、进行数据绑定，即请求参数——&gt;命令对象的绑定；</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">4、提供第二个扩展点，数据绑定完成后的扩展点，此处可以实现一些自定义的绑定动作；</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">5、验证器对象的验证，验证器通过validators注入，如果验证失败，需要把错误信息放入Errors（此处使用BindException实现）；</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">6、提供第三个扩展点，此处可以实现自定义的绑定/验证逻辑；</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">7、将errors传入功能处理方法进行处理，功能方法应该判断该错误对象是否有错误进行相应的处理。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq"> </xhtml:span></xhtml:p></html><plain>
+流程：
+1、首先创建数据绑定器，在此此会创建ServletRequestDataBinder类的对象，并设置messageCodesResolver（错误码解析器）；
+2、提供第一个扩展点，初始化数据绑定器，在此处我们可以覆盖该方法注册自定义的PropertyEditor（请求参数——&gt;命令对象属性的转换）；
+3、进行数据绑定，即请求参数——&gt;命令对象的绑定；
+4、提供第二个扩展点，数据绑定完成后的扩展点，此处可以实现一些自定义的绑定动作；
+5、验证器对象的验证，验证器通过validators注入，如果验证失败，需要把错误信息放入Errors（此处使用BindException实现）；
+6、提供第三个扩展点，此处可以实现自定义的绑定/验证逻辑；
+7、将errors传入功能处理方法进行处理，功能方法应该判断该错误对象是否有错误进行相应的处理。
+ </plain></notes></topic><topic id="7343lfu7k3k78tu5o6h6c52mpe" timestamp="1392779898343"><title>1.1.3数据验证器</title><children><topics type="attached"><topic id="5r24nm0kkcjdhbh0cu65epprmf" timestamp="1392779856291"><title>1在controller中使用BindException</title><notes><html><xhtml:p>public class ErrorController extends AbstractCommandController {  </xhtml:p><xhtml:p>       public ErrorController() {  </xhtml:p><xhtml:p>              setCommandClass(DataBinderTestModel.class);  </xhtml:p><xhtml:p>              setCommandName("command");  </xhtml:p><xhtml:p>       }  </xhtml:p><xhtml:p>       @Override  </xhtml:p><xhtml:p>       protected ModelAndView handle(HttpServletRequest req, HttpServletResponse resp, Object command, BindException errors) throws Exception {     </xhtml:p><xhtml:p>              //表示用户名不为空  </xhtml:p><xhtml:p>              errors.reject("<xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">username.not.empty</xhtml:span>");  </xhtml:p><xhtml:p>              //带有默认错误消息  </xhtml:p><xhtml:p>              errors.reject("<xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">username.not.empty1</xhtml:span>", "用户名不能为空1");  </xhtml:p><xhtml:p>              //带有参数和默认错误消息          </xhtml:p><xhtml:p>              errors.reject("<xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">username.length.error</xhtml:span>", new Object[]{5, 10});  </xhtml:p><xhtml:p>              </xhtml:p><xhtml:p>              //得到错误相关的模型数据  </xhtml:p><xhtml:p>              Map model = errors.getModel();  </xhtml:p><xhtml:p>              return new ModelAndView("bindAndValidate/error", model);  </xhtml:p><xhtml:p>       }  </xhtml:p><xhtml:p>}  </xhtml:p></html><plain>public class ErrorController extends AbstractCommandController {  
+       public ErrorController() {  
+              setCommandClass(DataBinderTestModel.class);  
+              setCommandName("command");  
+       }  
+       @Override  
+       protected ModelAndView handle(HttpServletRequest req, HttpServletResponse resp, Object command, BindException errors) throws Exception {     
+              //表示用户名不为空  
+              errors.reject("username.not.empty");  
+              //带有默认错误消息  
+              errors.reject("username.not.empty1", "用户名不能为空1");  
+              //带有参数和默认错误消息          
+              errors.reject("username.length.error", new Object[]{5, 10});  
+              
+              //得到错误相关的模型数据  
+              Map model = errors.getModel();  
+              return new ModelAndView("bindAndValidate/error", model);  
+       }  
+}  </plain></notes><children><topics type="attached"><topic id="2aq5kut5og9m1qhrkqfrmn0sla" timestamp="1392779633042"><title>1Error接口</title><notes><html><xhtml:p>public interface Errors {  </xhtml:p><xhtml:p>  //=========================全局错误消息（验证/绑定对象全局的）=============================  </xhtml:p><xhtml:p>  //注册一个全局的错误码（）  </xhtml:p><xhtml:p>  void reject(String errorCode);  </xhtml:p><xhtml:p>  //注册一个全局的错误码，当根据errorCode没有找到相应错误消息时，使用defaultMessage作为错误消息  </xhtml:p><xhtml:p>  void reject(String errorCode, String defaultMessage);  </xhtml:p><xhtml:p>  //注册一个全局的错误码，当根据errorCode没有找到相应错误消息时（带错误参数的），使用defaultMessage作为错误消息  </xhtml:p><xhtml:p>  void reject(String errorCode, Object[] errorArgs, String defaultMessage);  </xhtml:p><xhtml:p>  //=========================全局错误消息（验证/绑定整个对象的）=============================  </xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>  //=========================局部错误消息（验证/绑定对象字段的）=============================  </xhtml:p><xhtml:p>  //注册一个对象字段的错误码，field指定验证失败的字段名  </xhtml:p><xhtml:p>  void rejectValue(String field, String errorCode);  </xhtml:p><xhtml:p>  void rejectValue(String field, String errorCode, String defaultMessage);  </xhtml:p><xhtml:p>  void rejectValue(String field, String errorCode, Object[] errorArgs, String defaultMessage);  </xhtml:p><xhtml:p>  //=========================局部错误消息（验证/绑定对象字段的）=============================  </xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>  boolean hasErrors();      ////是否有错误  </xhtml:p><xhtml:p>  boolean hasGlobalErrors(); //是否有全局错误  </xhtml:p><xhtml:p>  boolean hasFieldErrors();  //是否有字段错误  </xhtml:p><xhtml:p>  Object getFieldValue(String field); //返回当前验证通过的值，或验证失败时失败的值；  </xhtml:p><xhtml:p>}  </xhtml:p></html><plain>public interface Errors {  
+  //=========================全局错误消息（验证/绑定对象全局的）=============================  
+  //注册一个全局的错误码（）  
+  void reject(String errorCode);  
+  //注册一个全局的错误码，当根据errorCode没有找到相应错误消息时，使用defaultMessage作为错误消息  
+  void reject(String errorCode, String defaultMessage);  
+  //注册一个全局的错误码，当根据errorCode没有找到相应错误消息时（带错误参数的），使用defaultMessage作为错误消息  
+  void reject(String errorCode, Object[] errorArgs, String defaultMessage);  
+  //=========================全局错误消息（验证/绑定整个对象的）=============================  
+
+
+  //=========================局部错误消息（验证/绑定对象字段的）=============================  
+  //注册一个对象字段的错误码，field指定验证失败的字段名  
+  void rejectValue(String field, String errorCode);  
+  void rejectValue(String field, String errorCode, String defaultMessage);  
+  void rejectValue(String field, String errorCode, Object[] errorArgs, String defaultMessage);  
+  //=========================局部错误消息（验证/绑定对象字段的）=============================  
+
+
+  boolean hasErrors();      ////是否有错误  
+  boolean hasGlobalErrors(); //是否有全局错误  
+  boolean hasFieldErrors();  //是否有字段错误  
+  Object getFieldValue(String field); //返回当前验证通过的值，或验证失败时失败的值；  
+}  </plain></notes></topic></topics></children></topic><topic id="6c0jjch3ngd0h2c2aafoe989b7" timestamp="1392779336636"><title>2配置国际化资源</title><notes><html><xhtml:p>&lt;bean id="messageSource"  </xhtml:p><xhtml:p>       class="org.springframework.context.support.ReloadableResourceBundleMessageSource"&gt;  </xhtml:p><xhtml:p>    &lt;property name="basename" value="classpath:messages"/&gt;  </xhtml:p><xhtml:p>    &lt;property name="fileEncodings" value="utf-8"/&gt;  </xhtml:p><xhtml:p>    &lt;property name="cacheSeconds" value="120"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p>   </xhtml:p><xhtml:p>&lt;bean name="/error" class="cn.javass.chapter4.web.controller.ErrorController"/&gt;  </xhtml:p><xhtml:p/><xhtml:p>messageSource：用于获取错误码对应的错误消息的，而且<xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">bean名字默认必须是messageSource</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq">messages.properties（需要执行NativeToAscii）</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7vb6ov8jbb09qejv3n8ee635eq"/></xhtml:p><xhtml:p/></html><plain>&lt;bean id="messageSource"  
+       class="org.springframework.context.support.ReloadableResourceBundleMessageSource"&gt;  
+    &lt;property name="basename" value="classpath:messages"/&gt;  
+    &lt;property name="fileEncodings" value="utf-8"/&gt;  
+    &lt;property name="cacheSeconds" value="120"/&gt;  
+&lt;/bean&gt;  
+   
+&lt;bean name="/error" class="cn.javass.chapter4.web.controller.ErrorController"/&gt;  
+
+messageSource：用于获取错误码对应的错误消息的，而且bean名字默认必须是messageSource
+messages.properties（需要执行NativeToAscii）
+
+</plain></notes></topic><topic id="28vqigjdo76k7dncidci8rv3db" timestamp="1392779182130"><title>3显示错误信息</title><notes><html><xhtml:p><xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">&lt;%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %&gt; </xhtml:span> </xhtml:p><xhtml:p>&lt;!-- 表单的默认命令对象名为command --&gt;  </xhtml:p><xhtml:p>&lt;form:form commandName="command"&gt;  </xhtml:p><xhtml:p>   <xhtml:span style-id="6gfbflslb1ron2msrf5b67t769"> &lt;form:errors path="*" cssStyle="color:red"</xhtml:span><xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">&gt;&lt;/form:errors&gt;  </xhtml:span> </xhtml:p><xhtml:p>    bool:&lt;form:input path="bool"/&gt;&lt;br/&gt;  </xhtml:p><xhtml:p>    phoneNumber:&lt;form:input path="phoneNumber"/&gt;&lt;br/&gt;  </xhtml:p><xhtml:p>    date:&lt;form:input path="date"/&gt;&lt;br/&gt;  </xhtml:p><xhtml:p>    &lt;input type="submit" value="提交"/&gt;  </xhtml:p><xhtml:p>&lt;/form:form&gt; </xhtml:p><xhtml:p/><xhtml:p>form标签库：此处我们使用了spring的form标签库；</xhtml:p><xhtml:p>&lt;form:form commandName="command"&gt;:表示我们的表单标签，commandName表示绑定的命令对象名字，默认为command</xhtml:p><xhtml:p>&lt;form:errors path="*"&gt;&lt;/form:errors&gt;：表示显示错误信息的标签，如果path为“*”表示显示所有错误信息</xhtml:p><xhtml:p>&lt;form:input path="bool"/&gt;：等价于（&lt;input type=’text’&gt;），但会从命令对象中取出bool属性进行填充value属性，或<xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">如果表单提交有错误会从错误对象取出之前的错误数据（而非空或默认值）</xhtml:span></xhtml:p><xhtml:p>&lt;input type="submit" value="提交"/&gt;：spring没有提供相应的提交按钮，因此需要使用html的</xhtml:p><xhtml:p/><xhtml:p/></html><plain>&lt;%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %&gt;  
+&lt;!-- 表单的默认命令对象名为command --&gt;  
+&lt;form:form commandName="command"&gt;  
+    &lt;form:errors path="*" cssStyle="color:red"&gt;&lt;/form:errors&gt;   
+    bool:&lt;form:input path="bool"/&gt;&lt;br/&gt;  
+    phoneNumber:&lt;form:input path="phoneNumber"/&gt;&lt;br/&gt;  
+    date:&lt;form:input path="date"/&gt;&lt;br/&gt;  
+    &lt;input type="submit" value="提交"/&gt;  
+&lt;/form:form&gt; 
+
+form标签库：此处我们使用了spring的form标签库；
+&lt;form:form commandName="command"&gt;:表示我们的表单标签，commandName表示绑定的命令对象名字，默认为command
+&lt;form:errors path="*"&gt;&lt;/form:errors&gt;：表示显示错误信息的标签，如果path为“*”表示显示所有错误信息
+&lt;form:input path="bool"/&gt;：等价于（&lt;input type=’text’&gt;），但会从命令对象中取出bool属性进行填充value属性，或如果表单提交有错误会从错误对象取出之前的错误数据（而非空或默认值）
+&lt;input type="submit" value="提交"/&gt;：spring没有提供相应的提交按钮，因此需要使用html的
+
+</plain></notes></topic><topic id="7eb3j6tmg78mnrfe4lna3q06b9" timestamp="1392779896491"><title>4自动数据绑定错误，消息国际化显示</title><notes><html><xhtml:p>数据绑定失败（类型不匹配）会自动生成如下错误码（错误码对应的错误消息按照如下顺序依次查找）：</xhtml:p><xhtml:p>1、typeMismatch.命令对象名.属性名</xhtml:p><xhtml:p>2、typeMismatch.属性名</xhtml:p><xhtml:p>3、typeMismatch.属性全限定类名（包名.类名）</xhtml:p><xhtml:p>4、typeMismatch</xhtml:p><xhtml:p/><xhtml:p>⊙内部使用MessageCodesResolver解析数据绑定错误到错误码，默认DefaultMessageCodesResolver，因此想要详细了解如何解析请看其javadoc</xhtml:p><xhtml:p>⊙建议使用第1个进行错误码的配置</xhtml:p><xhtml:p/><xhtml:p>messages.properties（需要执行NativeToAscii）：</xhtml:p><xhtml:p>typeMismatch.dataBinderTest.date=您输入的数据格式错误，请重新输入（格式：2012-03-19 22:17:17）</xhtml:p><xhtml:p>#typeMismatch.date=2</xhtml:p><xhtml:p>#typeMismatch.java.util.Date=3</xhtml:p><xhtml:p>#typeMismatch=4</xhtml:p><xhtml:p/></html><plain>数据绑定失败（类型不匹配）会自动生成如下错误码（错误码对应的错误消息按照如下顺序依次查找）：
+1、typeMismatch.命令对象名.属性名
+2、typeMismatch.属性名
+3、typeMismatch.属性全限定类名（包名.类名）
+4、typeMismatch
+
+⊙内部使用MessageCodesResolver解析数据绑定错误到错误码，默认DefaultMessageCodesResolver，因此想要详细了解如何解析请看其javadoc
+⊙建议使用第1个进行错误码的配置
+
+messages.properties（需要执行NativeToAscii）：
+typeMismatch.dataBinderTest.date=您输入的数据格式错误，请重新输入（格式：2012-03-19 22:17:17）
+#typeMismatch.date=2
+#typeMismatch.java.util.Date=3
+#typeMismatch=4
+</plain></notes></topic><topic id="6t5gcs2sq95qiaun29k0pov24g" timestamp="1392780088442"><title>5自定义验证Validator</title><children><topics type="attached"><topic id="7otd1fgggfjsf8dr6hp74u109o" timestamp="1392780128835"><title>1编写Validator实现</title><notes><html><xhtml:p/><xhtml:p>Validator接口：验证器，编程实现数据验证的接口；</xhtml:p><xhtml:p>supports方法：当前验证器是否支持指定的clazz验证，如果支持返回true即可；</xhtml:p><xhtml:p>validate方法：验证的具体方法，target参数表示要验证的目标对象（如命令对象），errors表示验证出错后存放错误信息的错误对象。</xhtml:p><xhtml:p/><xhtml:p>public class UserModelValidator implements Validator {  </xhtml:p><xhtml:p>    private static final Pattern USERNAME_PATTERN = Pattern.compile("[a-zA-Z]\\w{4,19}");  </xhtml:p><xhtml:p>    private static final Pattern PASSWORD_PATTERN = Pattern.compile("[a-zA-Z0-9]{5,20}");  </xhtml:p><xhtml:p>    private static final Set&lt;String&gt; FORBINDDDEN_WORD_SET = new HashSet&lt;String&gt;();  </xhtml:p><xhtml:p>    static {  </xhtml:p><xhtml:p>       FORBINDDDEN_WORD_SET.add("fuck"); //删掉空格  </xhtml:p><xhtml:p>       FORBINDDDEN_WORD_SET.add("admin");  </xhtml:p><xhtml:p>    }    </xhtml:p><xhtml:p>    @Override  </xhtml:p><xhtml:p>    public boolean supports(Class&lt;?&gt; clazz) {  </xhtml:p><xhtml:p>       return UserModel.class == clazz;//表示只对UserModel类型的目标对象实施验证  </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>    @Override  </xhtml:p><xhtml:p>    public void validate(Object target, Errors errors) {  </xhtml:p><xhtml:p>       //这个表示如果目标对象的username属性为空，则表示错误（简化我们手工判断是否为空）  </xhtml:p><xhtml:p>       ValidationUtils.rejectIfEmpty(errors, "username", "username.not.empty");  </xhtml:p><xhtml:p>        </xhtml:p><xhtml:p>       UserModel user = (UserModel) target;  </xhtml:p><xhtml:p>        </xhtml:p><xhtml:p>       if(!USERNAME_PATTERN.matcher(user.getUsername()).matches()) {  </xhtml:p><xhtml:p>           errors.rejectValue("username", "username.not.illegal");//如果用户名不合法  </xhtml:p><xhtml:p>       }  </xhtml:p><xhtml:p>        </xhtml:p><xhtml:p>       for(String forbiddenWord : FORBINDDDEN_WORD_SET) {  </xhtml:p><xhtml:p>           if(user.getUsername().contains(forbiddenWord)) {  </xhtml:p><xhtml:p>              errors.rejectValue("username", "username.forbidden", new Object[]{forbiddenWord}, "您的用户名包含非法关键词");//用户名包含屏蔽关键字  </xhtml:p><xhtml:p>              break;  </xhtml:p><xhtml:p>           }  </xhtml:p><xhtml:p>       }  </xhtml:p><xhtml:p>       if(!PASSWORD_PATTERN.matcher(user.getPassword()).matches()) {  </xhtml:p><xhtml:p>           errors.rejectValue("password","password.not.illegal", "密码不合法");//密码不合法  </xhtml:p><xhtml:p>       }    </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>}  </xhtml:p></html><plain>
+Validator接口：验证器，编程实现数据验证的接口；
+supports方法：当前验证器是否支持指定的clazz验证，如果支持返回true即可；
+validate方法：验证的具体方法，target参数表示要验证的目标对象（如命令对象），errors表示验证出错后存放错误信息的错误对象。
+
+public class UserModelValidator implements Validator {  
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("[a-zA-Z]\\w{4,19}");  
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("[a-zA-Z0-9]{5,20}");  
+    private static final Set&lt;String&gt; FORBINDDDEN_WORD_SET = new HashSet&lt;String&gt;();  
+    static {  
+       FORBINDDDEN_WORD_SET.add("fuck"); //删掉空格  
+       FORBINDDDEN_WORD_SET.add("admin");  
+    }    
+    @Override  
+    public boolean supports(Class&lt;?&gt; clazz) {  
+       return UserModel.class == clazz;//表示只对UserModel类型的目标对象实施验证  
+    }  
+    @Override  
+    public void validate(Object target, Errors errors) {  
+       //这个表示如果目标对象的username属性为空，则表示错误（简化我们手工判断是否为空）  
+       ValidationUtils.rejectIfEmpty(errors, "username", "username.not.empty");  
+        
+       UserModel user = (UserModel) target;  
+        
+       if(!USERNAME_PATTERN.matcher(user.getUsername()).matches()) {  
+           errors.rejectValue("username", "username.not.illegal");//如果用户名不合法  
+       }  
+        
+       for(String forbiddenWord : FORBINDDDEN_WORD_SET) {  
+           if(user.getUsername().contains(forbiddenWord)) {  
+              errors.rejectValue("username", "username.forbidden", new Object[]{forbiddenWord}, "您的用户名包含非法关键词");//用户名包含屏蔽关键字  
+              break;  
+           }  
+       }  
+       if(!PASSWORD_PATTERN.matcher(user.getPassword()).matches()) {  
+           errors.rejectValue("password","password.not.illegal", "密码不合法");//密码不合法  
+       }    
+    }  
+}  </plain></notes></topic><topic id="4ssibjsljqe82m4bd3q370keke" timestamp="1392780222475"><title>2为controller配置validator</title><notes><html><xhtml:p>&lt;bean id="userModelValidator"  class="cn.javass.chapter4.web.controller.support.validator.UserModelValidator"/&gt;  </xhtml:p><xhtml:p/><xhtml:p>&lt;bean name="/validator"  class="cn.javass.chapter4.web.controller.RegisterSimpleFormController"&gt;  </xhtml:p><xhtml:p>    &lt;property name="formView" value="registerAndValidator"/&gt;  </xhtml:p><xhtml:p>    &lt;property name="successView" value="redirect:/success"/&gt;  </xhtml:p><xhtml:p>    &lt;property name="validator" ref="userModelValidator"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt; </xhtml:p><xhtml:p/><xhtml:p/><xhtml:p/><xhtml:p>public class <xhtml:span style-id="6gfbflslb1ron2msrf5b67t769">RegisterSimpleFormController</xhtml:span> extends SimpleFormController {</xhtml:p><xhtml:p>	public RegisterSimpleFormController() {</xhtml:p><xhtml:p>		//设置命令对象实现类</xhtml:p><xhtml:p>		setCommandClass(UserModel.class);</xhtml:p><xhtml:p>		//设置命令对象的名字</xhtml:p><xhtml:p>		setCommandName("user");</xhtml:p><xhtml:p>	}</xhtml:p><xhtml:p>	//form object 表单对象，提供展示表单时的表单数据（使用commandName放入请求）</xhtml:p><xhtml:p>	@Override</xhtml:p><xhtml:p>	protected Object formBackingObject(HttpServletRequest request) throws Exception {</xhtml:p><xhtml:p>		UserModel user = new UserModel();</xhtml:p><xhtml:p>		user.setUsername("请输入用户名");</xhtml:p><xhtml:p>		return user;</xhtml:p><xhtml:p>	}</xhtml:p><xhtml:p>	//提供展示表单时需要的一些其他数据</xhtml:p><xhtml:p>	@Override</xhtml:p><xhtml:p>	protected Map referenceData(HttpServletRequest request) throws Exception {</xhtml:p><xhtml:p>		Map map = new HashMap();</xhtml:p><xhtml:p>		map.put("cityList", Arrays.asList("山东", "北京", "上海"));</xhtml:p><xhtml:p>		return map;</xhtml:p><xhtml:p>	}</xhtml:p><xhtml:p>	@Override</xhtml:p><xhtml:p>	protected void doSubmitAction(Object command) throws Exception {</xhtml:p><xhtml:p>		UserModel user = (UserModel) command;</xhtml:p><xhtml:p>		//TODO 调用业务对象处理</xhtml:p><xhtml:p>		System.out.println(user);</xhtml:p><xhtml:p>	}</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/></html><plain>&lt;bean id="userModelValidator"  class="cn.javass.chapter4.web.controller.support.validator.UserModelValidator"/&gt;  
+
+&lt;bean name="/validator"  class="cn.javass.chapter4.web.controller.RegisterSimpleFormController"&gt;  
+    &lt;property name="formView" value="registerAndValidator"/&gt;  
+    &lt;property name="successView" value="redirect:/success"/&gt;  
+    &lt;property name="validator" ref="userModelValidator"/&gt;  
+&lt;/bean&gt; 
+
+
+
+public class RegisterSimpleFormController extends SimpleFormController {
+	public RegisterSimpleFormController() {
+		//设置命令对象实现类
+		setCommandClass(UserModel.class);
+		//设置命令对象的名字
+		setCommandName("user");
+	}
+	//form object 表单对象，提供展示表单时的表单数据（使用commandName放入请求）
+	@Override
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+		UserModel user = new UserModel();
+		user.setUsername("请输入用户名");
+		return user;
+	}
+	//提供展示表单时需要的一些其他数据
+	@Override
+	protected Map referenceData(HttpServletRequest request) throws Exception {
+		Map map = new HashMap();
+		map.put("cityList", Arrays.asList("山东", "北京", "上海"));
+		return map;
+	}
+	@Override
+	protected void doSubmitAction(Object command) throws Exception {
+		UserModel user = (UserModel) command;
+		//TODO 调用业务对象处理
+		System.out.println(user);
+	}
+}
+</plain></notes></topic><topic id="3fjv9qa31keanmlr329urk13io" timestamp="1392780095780"><title>3页面显示</title><notes><html><xhtml:p>&lt;%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%&gt;  </xhtml:p><xhtml:p>&lt;%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %&gt;  </xhtml:p><xhtml:p>&lt;form:form commandName="user"&gt;  </xhtml:p><xhtml:p>   </xhtml:p><xhtml:p>&lt;form:errors path="*" cssStyle="color:red"&gt;&lt;/form:errors&gt;&lt;br/&gt;  </xhtml:p><xhtml:p>   </xhtml:p><xhtml:p>username:&lt;form:input path="username"/&gt;  </xhtml:p><xhtml:p>&lt;form:errors path="username" cssStyle="color:red"&gt;&lt;/form:errors&gt;  </xhtml:p><xhtml:p>&lt;br/&gt;  </xhtml:p><xhtml:p>   </xhtml:p><xhtml:p>password:&lt;form:password path="password"/&gt;  </xhtml:p><xhtml:p>&lt;form:errors path="password" cssStyle="color:red"&gt;&lt;/form:errors&gt;  </xhtml:p><xhtml:p>&lt;br/&gt;  </xhtml:p><xhtml:p>&lt;input type="submit" value="注册"/&gt;  </xhtml:p><xhtml:p>&lt;/form:form&gt;  </xhtml:p><xhtml:p>   </xhtml:p></html><plain>&lt;%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%&gt;  
+&lt;%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %&gt;  
+&lt;form:form commandName="user"&gt;  
+   
+&lt;form:errors path="*" cssStyle="color:red"&gt;&lt;/form:errors&gt;&lt;br/&gt;  
+   
+username:&lt;form:input path="username"/&gt;  
+&lt;form:errors path="username" cssStyle="color:red"&gt;&lt;/form:errors&gt;  
+&lt;br/&gt;  
+   
+password:&lt;form:password path="password"/&gt;  
+&lt;form:errors path="password" cssStyle="color:red"&gt;&lt;/form:errors&gt;  
+&lt;br/&gt;  
+&lt;input type="submit" value="注册"/&gt;  
+&lt;/form:form&gt;  
+   </plain></notes></topic></topics></children><notes><html><xhtml:p>package org.springframework.validation;  </xhtml:p><xhtml:p>public interface Validator {  </xhtml:p><xhtml:p>	boolean supports(Class&lt;?&gt; clazz);  </xhtml:p><xhtml:p>	void validate(Object target, Errors errors);  </xhtml:p><xhtml:p>}  </xhtml:p><xhtml:p/></html><plain>package org.springframework.validation;  
+public interface Validator {  
+	boolean supports(Class&lt;?&gt; clazz);  
+	void validate(Object target, Errors errors);  
+}  
+</plain></notes></topic></topics></children></topic></topics></children></topic></topics></children></topic><topic id="0hohjonpvr8psc0u8pemi3dhfd" timestamp="1392710079662"><title>分支主题 2</title></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>

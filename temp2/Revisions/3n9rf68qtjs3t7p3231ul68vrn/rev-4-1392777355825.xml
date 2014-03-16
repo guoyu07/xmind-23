@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="3n9rf68qtjs3t7p3231ul68vrn" timestamp="1392777328566" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="2mj3lbgfs17g99mh8gtg989d9u" structure-class="org.xmind.ui.map.clockwise" timestamp="1392776991629"><title>SpringMVC</title><notes><html><xhtml:p>   <xhtml:img xhtml:src="xap:attachments/6j0f59a2ns8v76a9p39nk29v3k.JPG"/></xhtml:p></html><plain>   </plain></notes><children><topics type="attached"><topic id="1qe8nbsjd99md2ni42aqh4ago2" timestamp="1392776815380"><title>1 controller</title><children><topics type="attached"><topic id="53s8k2b1hmchgevucumi5hc57h" timestamp="1392776832122"><title>1.1 Controller接口方式</title><children><topics type="attached"><topic id="1344k4krvtp0n55j1042al9gua" timestamp="1392776827971"><title>1.1.1 利用标准接口org.springframework.web.servlet.mvc.Controller</title><notes><html><xhtml:p>bean的name即未映射路径</xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 处理器 --&gt;  </xhtml:p><xhtml:p>&lt;bean name="/hello" class="cn.javass.chapter2.web.controller.HelloWorldController"/&gt;  </xhtml:p></html><plain>bean的name即未映射路径
+
+&lt;!-- 处理器 --&gt;  
+&lt;bean name="/hello" class="cn.javass.chapter2.web.controller.HelloWorldController"/&gt;  </plain></notes></topic><topic id="499a1v95l49vl22lfeblskratq" timestamp="1392776831874"><title>1.1.2 使用AbstractController支持缓存，requestSession等</title><notes><html><xhtml:p>org.springframework.web.servlet.mvc.AbstractController</xhtml:p></html><plain>org.springframework.web.servlet.mvc.AbstractController</plain></notes></topic><topic id="10e2u3bu23vol95lc4rklssji4" timestamp="1392777085754"><title>1.1.2数据类型转换</title><children><topics type="attached"><topic id="7taqbtmp1cv20ml4pt8i1csjmi" timestamp="1392777129671"><title>1spring内建数据类型转换器</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/5q5a490sp244mqs9u63haf2ech.png"/></xhtml:p></html><plain/></notes></topic><topic id="41mpqf2q7o93mruae07kt6e2p1" timestamp="1392777277316"><title>2使用自定义的属性编辑器</title><children><topics type="attached"><topic id="7la7k6d41o73ksja02sbjmu41s" timestamp="1392777326211"><title>1创建数据模型</title><notes><html><xhtml:p>//省略import  </xhtml:p><xhtml:p>public class DataBinderTestModel {  </xhtml:p><xhtml:p>    private String username;  </xhtml:p><xhtml:p>    private boolean bool;//Boolean值测试  </xhtml:p><xhtml:p>    private SchoolInfoModel schooInfo;  </xhtml:p><xhtml:p>    private List hobbyList;//集合测试，此处可以改为数组/Set进行测试  </xhtml:p><xhtml:p>    private Map map;//Map测试  </xhtml:p><xhtml:p>    private PhoneNumberModel phoneNumber;//String-&gt;自定义对象的转换测试  </xhtml:p><xhtml:p>    private Date date;//日期类型测试  </xhtml:p><xhtml:p>    private UserState state;//String——&gt;Enum类型转换测试  </xhtml:p><xhtml:p>    //省略getter/setter  </xhtml:p><xhtml:p>}  </xhtml:p><xhtml:p>  </xhtml:p><xhtml:p>package cn.javass.chapter4.model;  </xhtml:p><xhtml:p>//如格式010-12345678  </xhtml:p><xhtml:p>public class PhoneNumberModel {  </xhtml:p><xhtml:p>    private String areaCode;//区号  </xhtml:p><xhtml:p>    private String phoneNumber;//电话号码  </xhtml:p><xhtml:p>    //省略getter/setter  </xhtml:p><xhtml:p>}  </xhtml:p></html><plain>//省略import  
+public class DataBinderTestModel {  
+    private String username;  
+    private boolean bool;//Boolean值测试  
+    private SchoolInfoModel schooInfo;  
+    private List hobbyList;//集合测试，此处可以改为数组/Set进行测试  
+    private Map map;//Map测试  
+    private PhoneNumberModel phoneNumber;//String-&gt;自定义对象的转换测试  
+    private Date date;//日期类型测试  
+    private UserState state;//String——&gt;Enum类型转换测试  
+    //省略getter/setter  
+}  
+  
+package cn.javass.chapter4.model;  
+//如格式010-12345678  
+public class PhoneNumberModel {  
+    private String areaCode;//区号  
+    private String phoneNumber;//电话号码  
+    //省略getter/setter  
+}  </plain></notes></topic><topic id="4ja5ps9qt96du22su38lf29u5b" timestamp="1392777328566"><title>2创建数据模型属性编辑器，实现PropertyEditor接口或继承PropertyEditorSupport</title></topic></topics></children></topic></topics></children></topic></topics></children></topic></topics></children></topic><topic id="0hohjonpvr8psc0u8pemi3dhfd" timestamp="1392710079662"><title>分支主题 2</title></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>
