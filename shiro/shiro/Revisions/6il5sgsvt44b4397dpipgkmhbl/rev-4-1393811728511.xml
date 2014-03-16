@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="6il5sgsvt44b4397dpipgkmhbl" timestamp="1393811650653" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="6crke48nk7btn8hfvn2coajn5n" structure-class="org.xmind.ui.map.clockwise" timestamp="1393811026373"><title>SHIRO</title><children><topics type="attached"><topic id="7m0h3f37nhu7pf6n6qocp1jjvd" timestamp="1393811591875"><title>1、身份验证</title><notes><html><xhtml:p>1、根据ini配置文件初始化SecurityMangerFactory</xhtml:p><xhtml:p>		Factory&lt;org.apache.shiro.mgt.SecurityManager&gt; factory = new IniSecurityManagerFactory(configFile);</xhtml:p><xhtml:p/><xhtml:p>2、获得SecurityManager示例，并绑定到SecurityUtils</xhtml:p><xhtml:p>        org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();</xhtml:p><xhtml:p>        SecurityUtils.setSecurityManager(securityManager);</xhtml:p><xhtml:p/><xhtml:p>3、得到subject，以及创建用户名/密码身份验证Token（即用户身份/凭证）</xhtml:p><xhtml:p>		Subject subject = SecurityUtils.getSubject();</xhtml:p><xhtml:p>        UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");</xhtml:p><xhtml:p/><xhtml:p>4、进行登录</xhtml:p><xhtml:p>        subject.login(token);</xhtml:p><xhtml:p/><xhtml:p>5、登录成功</xhtml:p><xhtml:p>		Assert.assertEquals(true, subject.isAuthenticated()); //断言用户已经登录</xhtml:p><xhtml:p/><xhtml:p>6、退出</xhtml:p><xhtml:p>		subject.logout();</xhtml:p><xhtml:p/></html><plain>1、根据ini配置文件初始化SecurityMangerFactory
+		Factory&lt;org.apache.shiro.mgt.SecurityManager&gt; factory = new IniSecurityManagerFactory(configFile);
+
+2、获得SecurityManager示例，并绑定到SecurityUtils
+        org.apache.shiro.mgt.SecurityManager securityManager = factory.getInstance();
+        SecurityUtils.setSecurityManager(securityManager);
+
+3、得到subject，以及创建用户名/密码身份验证Token（即用户身份/凭证）
+		Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken("zhang", "123");
+
+4、进行登录
+        subject.login(token);
+
+5、登录成功
+		Assert.assertEquals(true, subject.isAuthenticated()); //断言用户已经登录
+
+6、退出
+		subject.logout();
+</plain></notes><children><topics type="attached"><topic id="74t11om6evhhgkhnfmkslpda8h" timestamp="1393811639627"><title>1.1、ini配置文件</title><children><topics type="attached"><topic id="7baoj5vtt5ebcjf1006s3dcmk4" timestamp="1393811637512"><title>1、配置用户身份、凭证</title><notes><html><xhtml:p>#配置用户身份、凭证</xhtml:p><xhtml:p>[users]</xhtml:p><xhtml:p>zhang=123</xhtml:p><xhtml:p>wang=123</xhtml:p><xhtml:p/><xhtml:p/></html><plain>#配置用户身份、凭证
+[users]
+zhang=123
+wang=123
+
+</plain></notes></topic><topic id="7l5t2c4e2bckrop80bl50koqi5" timestamp="1393811650653"><title>2、配置realm</title></topic></topics></children></topic></topics></children></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>

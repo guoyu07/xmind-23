@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="5se371vp2dnoi6sp1abb6s0ss7" timestamp="1393061984244" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="3q3gh56td1iju2as1sgbdgsgsd" structure-class="org.xmind.ui.map.clockwise" timestamp="1393061921287"><title>Spring</title><children><topics type="attached"><topic id="5kf3pvefou9v1eva6mk8351odi" timestamp="1393061949444"><title>1、依赖注入</title><children><topics type="attached"><topic id="7rgjk404l6c4gsknt06t7vqdqr" timestamp="1393061984244"><title>1、构造方法依赖注入</title><notes><html><xhtml:p>&lt;!-- 通过构造器参数索引方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byIndex" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>&lt;constructor-arg index="0" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>    &lt;constructor-arg index="1" value="1"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p>&lt;!-- 通过构造器参数类型方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byType" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg type="int" value="2"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p>&lt;!-- 通过构造器参数名称方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byName" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg name="message" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg name="index" value="3"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p></html><plain>&lt;!-- 通过构造器参数索引方式依赖注入 --&gt;  
+&lt;bean id="byIndex" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  
+&lt;constructor-arg index="0" value="Hello World!"/&gt;  
+    &lt;constructor-arg index="1" value="1"/&gt;  
+&lt;/bean&gt;  
+&lt;!-- 通过构造器参数类型方式依赖注入 --&gt;  
+&lt;bean id="byType" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  
+   &lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  
+   &lt;constructor-arg type="int" value="2"/&gt;  
+&lt;/bean&gt;  
+&lt;!-- 通过构造器参数名称方式依赖注入 --&gt;  
+&lt;bean id="byName" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  
+   &lt;constructor-arg name="message" value="Hello World!"/&gt;  
+   &lt;constructor-arg name="index" value="3"/&gt;  
+&lt;/bean&gt;  </plain></notes></topic></topics></children></topic></topics></children></topic><title>Sheet 1</title></sheet></xmap-revision-content>

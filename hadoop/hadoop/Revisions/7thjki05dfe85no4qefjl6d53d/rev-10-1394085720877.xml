@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="7thjki05dfe85no4qefjl6d53d" timestamp="1394085717725" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="1845jb1d81p4mgj9fliu21d9d7" structure-class="org.xmind.ui.map.clockwise" timestamp="1394085706768"><title>Hadoop</title><children><topics type="attached"><topic id="5ghis7pqe2k36irsplulj546ql" timestamp="1394085495797"><title>Hadoop简介</title><notes><html><xhtml:p>1、hadoop是一个开源，可以更容易开发和处理大数据的软件平台，它包括两部分：</xhtml:p><xhtml:p>	a、HDFS</xhtml:p><xhtml:p>	b、MapReduce</xhtml:p><xhtml:p>	提供的是云平台基础架构</xhtml:p><xhtml:p>	1.0</xhtml:p><xhtml:p>	开发分布式程序：</xhtml:p><xhtml:p/><xhtml:p>2、它是依据google的论文gfs，MapReduce模型 bigtable</xhtml:p><xhtml:p>									hadoop MapReduce HDFS</xhtml:p><xhtml:p/><xhtml:p>3、优点：</xhtml:p><xhtml:p>	可扩展、经济、可靠、高效</xhtml:p><xhtml:p/><xhtml:p>4、Pig 有一套原语，使用户不用写MapReduce程序</xhtml:p><xhtml:p>	 Hive 是一个数据仓库，提供类SQL，映射成表</xhtml:p><xhtml:p>	 HBase 是一个分布式数据库</xhtml:p><xhtml:p>	 ZooKeeper 是一个分布式的协调框架</xhtml:p><xhtml:p/><xhtml:p>5、hadoop hdfs 是一个分布式的文件系统</xhtml:p><xhtml:p>	特点：	高容错性</xhtml:p><xhtml:p>				可以部署在廉价的硬件上</xhtml:p><xhtml:p>				高吞吐量</xhtml:p><xhtml:p/><xhtml:p>6、hadoop mapreduce</xhtml:p><xhtml:p>	是将map reduce 进行自动的并行化分配，达到一定的计算能力</xhtml:p><xhtml:p/><xhtml:p>7、学习资源</xhtml:p><xhtml:p>	Hadoop的官网 http://hadoop.apache.org</xhtml:p><xhtml:p>	Cloudera的官网 http://www.cloudera.com/content/cloudera/en/home.html</xhtml:p></html><plain>1、hadoop是一个开源，可以更容易开发和处理大数据的软件平台，它包括两部分：
+	a、HDFS
+	b、MapReduce
+	提供的是云平台基础架构
+	1.0
+	开发分布式程序：
+
+2、它是依据google的论文gfs，MapReduce模型 bigtable
+									hadoop MapReduce HDFS
+
+3、优点：
+	可扩展、经济、可靠、高效
+
+4、Pig 有一套原语，使用户不用写MapReduce程序
+	 Hive 是一个数据仓库，提供类SQL，映射成表
+	 HBase 是一个分布式数据库
+	 ZooKeeper 是一个分布式的协调框架
+
+5、hadoop hdfs 是一个分布式的文件系统
+	特点：	高容错性
+				可以部署在廉价的硬件上
+				高吞吐量
+
+6、hadoop mapreduce
+	是将map reduce 进行自动的并行化分配，达到一定的计算能力
+
+7、学习资源
+	Hadoop的官网 http://hadoop.apache.org
+	Cloudera的官网 http://www.cloudera.com/content/cloudera/en/home.html</plain></notes></topic><topic id="78h9uu2h418ab55dan5ocpbm0b" timestamp="1394085717724"><title>单点伪分布式安装</title></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>
