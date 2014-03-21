@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-content xmlns="urn:xmind:xmap:xmlns:content:2.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" timestamp="1395384229717" version="2.0"><sheet id="5se371vp2dnoi6sp1abb6s0ss7" timestamp="1395384229717"><topic id="3q3gh56td1iju2as1sgbdgsgsd" structure-class="org.xmind.ui.map.clockwise" timestamp="1395372134957"><title>Spring</title><children><topics type="attached"><topic id="5kf3pvefou9v1eva6mk8351odi" timestamp="1393068886346"><title>1、依赖注入</title><children><topics type="attached"><topic id="7rgjk404l6c4gsknt06t7vqdqr" timestamp="1393062204944"><title>1、构造方法依赖注入</title><notes><html><xhtml:p>&lt;!-- 通过构造器参数索引方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byIndex" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>    &lt;constructor-arg index="0" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>    &lt;constructor-arg index="1" value="1"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 通过构造器参数类型方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byType" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg type="int" value="2"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 通过构造器参数名称方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byName" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg name="message" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg name="index" value="3"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">如果在编译时没有包含变量信息，则在构造方法上还需要添加注释</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">@java.beans.ConstructorProperties({"index", "message"})  </xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">名字按顺序一一对应</xhtml:span></xhtml:p><xhtml:p>public class HelloImpl implements IHello{</xhtml:p><xhtml:p>	 private String message;  </xhtml:p><xhtml:p>	 private int index;  </xhtml:p><xhtml:p>	 </xhtml:p><xhtml:p>	 @java.beans.ConstructorProperties({"message", "index"})  </xhtml:p><xhtml:p>     public HelloImpl(String message, int index) {  </xhtml:p><xhtml:p>         this.message = message;  </xhtml:p><xhtml:p>         this.index = index;  </xhtml:p><xhtml:p>     }  </xhtml:p><xhtml:p>     @Override  </xhtml:p><xhtml:p>     public void sayHello() {  </xhtml:p><xhtml:p>         System.out.println(index + ":" + message);  </xhtml:p><xhtml:p>     }</xhtml:p><xhtml:p>}</xhtml:p></html><plain>&lt;!-- 通过构造器参数索引方式依赖注入 --&gt;  
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="5se371vp2dnoi6sp1abb6s0ss7" timestamp="1395384016815" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="3q3gh56td1iju2as1sgbdgsgsd" structure-class="org.xmind.ui.map.clockwise" timestamp="1395372134957"><title>Spring</title><children><topics type="attached"><topic id="5kf3pvefou9v1eva6mk8351odi" timestamp="1393068886346"><title>1、依赖注入</title><children><topics type="attached"><topic id="7rgjk404l6c4gsknt06t7vqdqr" timestamp="1393062204944"><title>1、构造方法依赖注入</title><notes><html><xhtml:p>&lt;!-- 通过构造器参数索引方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byIndex" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>    &lt;constructor-arg index="0" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>    &lt;constructor-arg index="1" value="1"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 通过构造器参数类型方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byType" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg type="int" value="2"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 通过构造器参数名称方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byName" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg name="message" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg name="index" value="3"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">如果在编译时没有包含变量信息，则在构造方法上还需要添加注释</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">@java.beans.ConstructorProperties({"index", "message"})  </xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">名字按顺序一一对应</xhtml:span></xhtml:p><xhtml:p>public class HelloImpl implements IHello{</xhtml:p><xhtml:p>	 private String message;  </xhtml:p><xhtml:p>	 private int index;  </xhtml:p><xhtml:p>	 </xhtml:p><xhtml:p>	 @java.beans.ConstructorProperties({"message", "index"})  </xhtml:p><xhtml:p>     public HelloImpl(String message, int index) {  </xhtml:p><xhtml:p>         this.message = message;  </xhtml:p><xhtml:p>         this.index = index;  </xhtml:p><xhtml:p>     }  </xhtml:p><xhtml:p>     @Override  </xhtml:p><xhtml:p>     public void sayHello() {  </xhtml:p><xhtml:p>         System.out.println(index + ":" + message);  </xhtml:p><xhtml:p>     }</xhtml:p><xhtml:p>}</xhtml:p></html><plain>&lt;!-- 通过构造器参数索引方式依赖注入 --&gt;  
 &lt;bean id="byIndex" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  
     &lt;constructor-arg index="0" value="Hello World!"/&gt;  
     &lt;constructor-arg index="1" value="1"/&gt;  
@@ -151,7 +151,7 @@ public class NotVeryUsefulAspect {
 @Pointcut("execution(* transfer(..))")// the pointcut expression
 private void anyOldTransfer() {}// the pointcut signature "anyOldTransfer"
 
-</plain></notes></topic><topic id="4s6f2t08nfr390td89fvhoqj7k" timestamp="1395384106830"><title>4、advice</title><children><topics type="attached"><topic id="3j4215mii2p0f3ff6nddmaeuug" timestamp="1395383991564"><title>1、afterreturning</title><notes><html><xhtml:p>@Aspect</xhtml:p><xhtml:p>public class AfterReturningExample {</xhtml:p><xhtml:p/><xhtml:p>    @AfterReturning(</xhtml:p><xhtml:p>        pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",</xhtml:p><xhtml:p>        returning="retVal")</xhtml:p><xhtml:p>    public void doAccessCheck(Object retVal) {</xhtml:p><xhtml:p>        // ...</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>}</xhtml:p></html><plain>@Aspect
+</plain></notes></topic><topic id="4s6f2t08nfr390td89fvhoqj7k" timestamp="1395384010219"><title>4、advice</title><children><topics type="attached"><topic id="3j4215mii2p0f3ff6nddmaeuug" timestamp="1395383991564"><title>1、afterreturning</title><notes><html><xhtml:p>@Aspect</xhtml:p><xhtml:p>public class AfterReturningExample {</xhtml:p><xhtml:p/><xhtml:p>    @AfterReturning(</xhtml:p><xhtml:p>        pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",</xhtml:p><xhtml:p>        returning="retVal")</xhtml:p><xhtml:p>    public void doAccessCheck(Object retVal) {</xhtml:p><xhtml:p>        // ...</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>}</xhtml:p></html><plain>@Aspect
 public class AfterReturningExample {
 
     @AfterReturning(
@@ -161,90 +161,7 @@ public class AfterReturningExample {
         // ...
     }
 
-}</plain></notes></topic><topic id="0glqel6fsvq1msau7abtuhsrg9" timestamp="1395384029217"><title>2、afterthrowing</title><notes><html><xhtml:p>@Aspect</xhtml:p><xhtml:p>public class AfterThrowingExample {</xhtml:p><xhtml:p/><xhtml:p>    @AfterThrowing(</xhtml:p><xhtml:p>        pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",</xhtml:p><xhtml:p>        throwing="ex")</xhtml:p><xhtml:p>    public void doRecoveryActions(DataAccessException ex) {</xhtml:p><xhtml:p>        // ...</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>}</xhtml:p></html><plain>@Aspect
-public class AfterThrowingExample {
-
-    @AfterThrowing(
-        pointcut="com.xyz.myapp.SystemArchitecture.dataAccessOperation()",
-        throwing="ex")
-    public void doRecoveryActions(DataAccessException ex) {
-        // ...
-    }
-
-}</plain></notes></topic><topic id="3c6k41lkcr7k57gthgqdq11l77" timestamp="1395384054311"><title>3、afterfinally</title><notes><html><xhtml:p>@Aspect</xhtml:p><xhtml:p>public class AfterFinallyExample {</xhtml:p><xhtml:p/><xhtml:p>    @After("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")</xhtml:p><xhtml:p>    public void doReleaseLock() {</xhtml:p><xhtml:p>        // ...</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>}</xhtml:p><xhtml:p/></html><plain>@Aspect
-public class AfterFinallyExample {
-
-    @After("com.xyz.myapp.SystemArchitecture.dataAccessOperation()")
-    public void doReleaseLock() {
-        // ...
-    }
-
-}
-</plain></notes></topic><topic id="30dh8gf7ouespglk818o4l3a9k" timestamp="1395384072258"><title>4、around</title><notes><html><xhtml:p>@Aspect</xhtml:p><xhtml:p>public class AroundExample {</xhtml:p><xhtml:p/><xhtml:p>    @Around("com.xyz.myapp.SystemArchitecture.businessService()")</xhtml:p><xhtml:p>    public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {</xhtml:p><xhtml:p>        // start stopwatch</xhtml:p><xhtml:p>        Object retVal = pjp.proceed();</xhtml:p><xhtml:p>        // stop stopwatch</xhtml:p><xhtml:p>        return retVal;</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p/><xhtml:p>}</xhtml:p></html><plain>@Aspect
-public class AroundExample {
-
-    @Around("com.xyz.myapp.SystemArchitecture.businessService()")
-    public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
-        // start stopwatch
-        Object retVal = pjp.proceed();
-        // stop stopwatch
-        return retVal;
-    }
-
-}</plain></notes></topic><topic id="6v8a36gd280u8ii42330tm042k" timestamp="1395384104963"><title>5、before</title><notes><html><xhtml:p>@Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation() &amp;&amp; args(account,..)")</xhtml:p><xhtml:p>public void validateAccount(Account account) {</xhtml:p><xhtml:p>    // ...</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>@Pointcut("com.xyz.myapp.SystemArchitecture.dataAccessOperation() &amp;&amp; args(account,..)")</xhtml:p><xhtml:p>private void accountDataAccessOperation(Account account) {}</xhtml:p><xhtml:p/><xhtml:p>@Before("accountDataAccessOperation(account)")</xhtml:p><xhtml:p>public void validateAccount(Account account) {</xhtml:p><xhtml:p>    // ...</xhtml:p><xhtml:p>}</xhtml:p></html><plain>@Before("com.xyz.myapp.SystemArchitecture.dataAccessOperation() &amp;&amp; args(account,..)")
-public void validateAccount(Account account) {
-    // ...
-}
-
-
-@Pointcut("com.xyz.myapp.SystemArchitecture.dataAccessOperation() &amp;&amp; args(account,..)")
-private void accountDataAccessOperation(Account account) {}
-
-@Before("accountDataAccessOperation(account)")
-public void validateAccount(Account account) {
-    // ...
-}</plain></notes></topic><topic id="5tk6a6hl5idqg8jke9nia9k0jj" timestamp="1395384229717"><title>子主题 6</title><notes><html><xhtml:p>@Retention(RetentionPolicy.RUNTIME)</xhtml:p><xhtml:p>@Target(ElementType.METHOD)</xhtml:p><xhtml:p>public @interface Auditable {</xhtml:p><xhtml:p>    AuditCode value();</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/><xhtml:p>@Before("com.xyz.lib.Pointcuts.anyPublicMethod() &amp;&amp; @annotation(auditable)")</xhtml:p><xhtml:p>public void audit(Auditable auditable) {</xhtml:p><xhtml:p>    AuditCode code = auditable.value();</xhtml:p><xhtml:p>    // ...</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/><xhtml:p>public interface Sample&lt;T&gt; {</xhtml:p><xhtml:p>    void sampleGenericMethod(T param);</xhtml:p><xhtml:p>    void sampleGenericCollectionMethod(Collection&gt;T&gt; param);</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p>@Before("execution(* ..Sample+.sampleGenericMethod(*)) &amp;&amp; args(param)")</xhtml:p><xhtml:p>public void beforeSampleMethod(MyType param) {</xhtml:p><xhtml:p>    // Advice implementation</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p>@Before("execution(* ..Sample+.sampleGenericCollectionMethod(*)) &amp;&amp; args(param)")</xhtml:p><xhtml:p>public void beforeSampleMethod(Collection&lt;MyType&gt; param) {</xhtml:p><xhtml:p>    // Advice implementation</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/><xhtml:p>@Before(value="com.xyz.lib.Pointcuts.anyPublicMethod() &amp;&amp; target(bean) &amp;&amp; @annotation(auditable)",</xhtml:p><xhtml:p>        argNames="bean,auditable")</xhtml:p><xhtml:p>public void audit(Object bean, Auditable auditable) {</xhtml:p><xhtml:p>    AuditCode code = auditable.value();</xhtml:p><xhtml:p>    // ... use code and bean</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>If the first parameter is of the JoinPoint, ProceedingJoinPoint, or JoinPoint.StaticPart type, you may leave out the name of the parameter from the value of the "argNames" attribute. For example, if you modify the preceding advice to receive the join point object, the "argNames" attribute need not include it:</xhtml:p><xhtml:p/><xhtml:p>@Before(value="com.xyz.lib.Pointcuts.anyPublicMethod() &amp;&amp; target(bean) &amp;&amp; @annotation(auditable)",</xhtml:p><xhtml:p>        argNames="bean,auditable")</xhtml:p><xhtml:p>public void audit(JoinPoint jp, Object bean, Auditable auditable) {</xhtml:p><xhtml:p>    AuditCode code = auditable.value();</xhtml:p><xhtml:p>    // ... use code, bean, and jp</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/></html><plain>@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Auditable {
-    AuditCode value();
-}
-
-@Before("com.xyz.lib.Pointcuts.anyPublicMethod() &amp;&amp; @annotation(auditable)")
-public void audit(Auditable auditable) {
-    AuditCode code = auditable.value();
-    // ...
-}
-
-public interface Sample&lt;T&gt; {
-    void sampleGenericMethod(T param);
-    void sampleGenericCollectionMethod(Collection&gt;T&gt; param);
-}
-@Before("execution(* ..Sample+.sampleGenericMethod(*)) &amp;&amp; args(param)")
-public void beforeSampleMethod(MyType param) {
-    // Advice implementation
-}
-@Before("execution(* ..Sample+.sampleGenericCollectionMethod(*)) &amp;&amp; args(param)")
-public void beforeSampleMethod(Collection&lt;MyType&gt; param) {
-    // Advice implementation
-}
-
-@Before(value="com.xyz.lib.Pointcuts.anyPublicMethod() &amp;&amp; target(bean) &amp;&amp; @annotation(auditable)",
-        argNames="bean,auditable")
-public void audit(Object bean, Auditable auditable) {
-    AuditCode code = auditable.value();
-    // ... use code and bean
-}
-
-
-If the first parameter is of the JoinPoint, ProceedingJoinPoint, or JoinPoint.StaticPart type, you may leave out the name of the parameter from the value of the "argNames" attribute. For example, if you modify the preceding advice to receive the join point object, the "argNames" attribute need not include it:
-
-@Before(value="com.xyz.lib.Pointcuts.anyPublicMethod() &amp;&amp; target(bean) &amp;&amp; @annotation(auditable)",
-        argNames="bean,auditable")
-public void audit(JoinPoint jp, Object bean, Auditable auditable) {
-    AuditCode code = auditable.value();
-    // ... use code, bean, and jp
-}
-</plain></notes></topic></topics></children></topic></topics><topics type="summary"><topic id="0643erogdnrnl5ohulp8ss8dmt" timestamp="1395373544736"><title>AspectJ 5 pointcut expression</title><notes><html><xhtml:p>参考：</xhtml:p><xhtml:p>http://www.eclipse.org/aspectj/doc/released/adk15notebook/index.html</xhtml:p><xhtml:p>http://www.eclipse.org/aspectj/doc/released/progguide/index.html</xhtml:p><xhtml:p/><xhtml:p>spring 支持的 aspectj designator</xhtml:p><xhtml:p>execution - for matching method execution join points, this is the primary pointcut designator you will use when working with Spring AOP</xhtml:p><xhtml:p>	用于匹配方法执行接入点</xhtml:p><xhtml:p>within - limits matching to join points within certain types (simply the execution of a method declared within a matching type when using Spring AOP)</xhtml:p><xhtml:p>this - limits matching to join points (the execution of methods when using Spring AOP) where the bean reference (Spring AOP proxy) is an instance of the given type</xhtml:p><xhtml:p>target - limits matching to join points (the execution of methods when using Spring AOP) where the target object (application object being proxied) is an instance of the given type</xhtml:p><xhtml:p>args - limits matching to join points (the execution of methods when using Spring AOP) where the arguments are instances of the given types</xhtml:p><xhtml:p>@target - limits matching to join points (the execution of methods when using Spring AOP) where the class of the executing object has an annotation of the given type</xhtml:p><xhtml:p>@args - limits matching to join points (the execution of methods when using Spring AOP) where the runtime type of the actual arguments passed have annotations of the given type(s)</xhtml:p><xhtml:p>@within - limits matching to join points within types that have the given annotation (the execution of methods declared in types with the given annotation when using Spring AOP)</xhtml:p><xhtml:p>@annotation - limits matching to join points where the subject of the join point (method being executed in Spring AOP) has the given annotation</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>		execution：用于匹配方法执行的连接点；</xhtml:p><xhtml:p>         within：用于匹配指定类型内的方法执行；</xhtml:p><xhtml:p>         this：用于匹配当前AOP代理对象类型的执行方法；注意是AOP代理对象的类型匹配，这样就可能包括引入接口也类型匹配；</xhtml:p><xhtml:p>         target：用于匹配当前目标对象类型的执行方法；注意是目标对象的类型匹配，这样就不包括引入接口也类型匹配；</xhtml:p><xhtml:p>         args：用于匹配当前执行的方法传入的参数为指定类型的执行方法；</xhtml:p><xhtml:p>         @within：用于匹配所以持有指定注解类型内的方法；</xhtml:p><xhtml:p>         @target：用于匹配当前目标对象类型的执行方法，其中目标对象持有指定的注解；</xhtml:p><xhtml:p>         @args：用于匹配当前执行的方法传入的参数持有指定注解的执行；</xhtml:p><xhtml:p>         @annotation：用于匹配当前执行方法持有指定注解的方法；</xhtml:p><xhtml:p>         bean：Spring AOP扩展的，AspectJ没有对于指示符，用于匹配特定名称的Bean对象的执行方法；</xhtml:p><xhtml:p>         reference pointcut：表示引用其他命名切入点，只有@ApectJ风格支持，Schema风格不支持。</xhtml:p></html><plain>参考：
+}</plain></notes></topic><topic id="0glqel6fsvq1msau7abtuhsrg9" timestamp="1395384016815"><title>2、afterthrowing</title></topic></topics></children></topic></topics><topics type="summary"><topic id="0643erogdnrnl5ohulp8ss8dmt" timestamp="1395373544736"><title>AspectJ 5 pointcut expression</title><notes><html><xhtml:p>参考：</xhtml:p><xhtml:p>http://www.eclipse.org/aspectj/doc/released/adk15notebook/index.html</xhtml:p><xhtml:p>http://www.eclipse.org/aspectj/doc/released/progguide/index.html</xhtml:p><xhtml:p/><xhtml:p>spring 支持的 aspectj designator</xhtml:p><xhtml:p>execution - for matching method execution join points, this is the primary pointcut designator you will use when working with Spring AOP</xhtml:p><xhtml:p>	用于匹配方法执行接入点</xhtml:p><xhtml:p>within - limits matching to join points within certain types (simply the execution of a method declared within a matching type when using Spring AOP)</xhtml:p><xhtml:p>this - limits matching to join points (the execution of methods when using Spring AOP) where the bean reference (Spring AOP proxy) is an instance of the given type</xhtml:p><xhtml:p>target - limits matching to join points (the execution of methods when using Spring AOP) where the target object (application object being proxied) is an instance of the given type</xhtml:p><xhtml:p>args - limits matching to join points (the execution of methods when using Spring AOP) where the arguments are instances of the given types</xhtml:p><xhtml:p>@target - limits matching to join points (the execution of methods when using Spring AOP) where the class of the executing object has an annotation of the given type</xhtml:p><xhtml:p>@args - limits matching to join points (the execution of methods when using Spring AOP) where the runtime type of the actual arguments passed have annotations of the given type(s)</xhtml:p><xhtml:p>@within - limits matching to join points within types that have the given annotation (the execution of methods declared in types with the given annotation when using Spring AOP)</xhtml:p><xhtml:p>@annotation - limits matching to join points where the subject of the join point (method being executed in Spring AOP) has the given annotation</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>		execution：用于匹配方法执行的连接点；</xhtml:p><xhtml:p>         within：用于匹配指定类型内的方法执行；</xhtml:p><xhtml:p>         this：用于匹配当前AOP代理对象类型的执行方法；注意是AOP代理对象的类型匹配，这样就可能包括引入接口也类型匹配；</xhtml:p><xhtml:p>         target：用于匹配当前目标对象类型的执行方法；注意是目标对象的类型匹配，这样就不包括引入接口也类型匹配；</xhtml:p><xhtml:p>         args：用于匹配当前执行的方法传入的参数为指定类型的执行方法；</xhtml:p><xhtml:p>         @within：用于匹配所以持有指定注解类型内的方法；</xhtml:p><xhtml:p>         @target：用于匹配当前目标对象类型的执行方法，其中目标对象持有指定的注解；</xhtml:p><xhtml:p>         @args：用于匹配当前执行的方法传入的参数持有指定注解的执行；</xhtml:p><xhtml:p>         @annotation：用于匹配当前执行方法持有指定注解的方法；</xhtml:p><xhtml:p>         bean：Spring AOP扩展的，AspectJ没有对于指示符，用于匹配特定名称的Bean对象的执行方法；</xhtml:p><xhtml:p>         reference pointcut：表示引用其他命名切入点，只有@ApectJ风格支持，Schema风格不支持。</xhtml:p></html><plain>参考：
 http://www.eclipse.org/aspectj/doc/released/adk15notebook/index.html
 http://www.eclipse.org/aspectj/doc/released/progguide/index.html
 
@@ -271,4 +188,4 @@ args - limits matching to join points (the execution of methods when using Sprin
          @args：用于匹配当前执行的方法传入的参数持有指定注解的执行；
          @annotation：用于匹配当前执行方法持有指定注解的方法；
          bean：Spring AOP扩展的，AspectJ没有对于指示符，用于匹配特定名称的Bean对象的执行方法；
-         reference pointcut：表示引用其他命名切入点，只有@ApectJ风格支持，Schema风格不支持。</plain></notes></topic></topics></children><summaries><summary id="1ad9qreikr5r9ktkl12mqhdmsn" range="(2,2)" timestamp="1395384007208" topic-id="0643erogdnrnl5ohulp8ss8dmt"/></summaries></topic></topics></children></topic></topics></children></topic><title>Sheet 1</title></sheet></xmap-content>
+         reference pointcut：表示引用其他命名切入点，只有@ApectJ风格支持，Schema风格不支持。</plain></notes></topic></topics></children><summaries><summary id="1ad9qreikr5r9ktkl12mqhdmsn" range="(2,2)" timestamp="1395384007208" topic-id="0643erogdnrnl5ohulp8ss8dmt"/></summaries></topic></topics></children></topic></topics></children></topic><title>Sheet 1</title></sheet></xmap-revision-content>

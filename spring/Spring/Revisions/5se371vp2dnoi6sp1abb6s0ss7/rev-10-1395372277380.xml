@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="5se371vp2dnoi6sp1abb6s0ss7" timestamp="1395372226542" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="3q3gh56td1iju2as1sgbdgsgsd" structure-class="org.xmind.ui.map.clockwise" timestamp="1395372134957"><title>Spring</title><children><topics type="attached"><topic id="5kf3pvefou9v1eva6mk8351odi" timestamp="1393068886346"><title>1、依赖注入</title><children><topics type="attached"><topic id="7rgjk404l6c4gsknt06t7vqdqr" timestamp="1393062204944"><title>1、构造方法依赖注入</title><notes><html><xhtml:p>&lt;!-- 通过构造器参数索引方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byIndex" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>    &lt;constructor-arg index="0" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>    &lt;constructor-arg index="1" value="1"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 通过构造器参数类型方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byType" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg type="int" value="2"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p>&lt;!-- 通过构造器参数名称方式依赖注入 --&gt;  </xhtml:p><xhtml:p>&lt;bean id="byName" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg name="message" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>   &lt;constructor-arg name="index" value="3"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">如果在编译时没有包含变量信息，则在构造方法上还需要添加注释</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">@java.beans.ConstructorProperties({"index", "message"})  </xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">名字按顺序一一对应</xhtml:span></xhtml:p><xhtml:p>public class HelloImpl implements IHello{</xhtml:p><xhtml:p>	 private String message;  </xhtml:p><xhtml:p>	 private int index;  </xhtml:p><xhtml:p>	 </xhtml:p><xhtml:p>	 @java.beans.ConstructorProperties({"message", "index"})  </xhtml:p><xhtml:p>     public HelloImpl(String message, int index) {  </xhtml:p><xhtml:p>         this.message = message;  </xhtml:p><xhtml:p>         this.index = index;  </xhtml:p><xhtml:p>     }  </xhtml:p><xhtml:p>     @Override  </xhtml:p><xhtml:p>     public void sayHello() {  </xhtml:p><xhtml:p>         System.out.println(index + ":" + message);  </xhtml:p><xhtml:p>     }</xhtml:p><xhtml:p>}</xhtml:p></html><plain>&lt;!-- 通过构造器参数索引方式依赖注入 --&gt;  
+&lt;bean id="byIndex" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  
+    &lt;constructor-arg index="0" value="Hello World!"/&gt;  
+    &lt;constructor-arg index="1" value="1"/&gt;  
+&lt;/bean&gt;  
+
+&lt;!-- 通过构造器参数类型方式依赖注入 --&gt;  
+&lt;bean id="byType" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  
+   &lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  
+   &lt;constructor-arg type="int" value="2"/&gt;  
+&lt;/bean&gt;  
+
+&lt;!-- 通过构造器参数名称方式依赖注入 --&gt;  
+&lt;bean id="byName" class="cn.javass.spring.chapter3.HelloImpl3"&gt;  
+   &lt;constructor-arg name="message" value="Hello World!"/&gt;  
+   &lt;constructor-arg name="index" value="3"/&gt;  
+&lt;/bean&gt;  
+
+如果在编译时没有包含变量信息，则在构造方法上还需要添加注释
+@java.beans.ConstructorProperties({"index", "message"})  
+名字按顺序一一对应
+public class HelloImpl implements IHello{
+	 private String message;  
+	 private int index;  
+	 
+	 @java.beans.ConstructorProperties({"message", "index"})  
+     public HelloImpl(String message, int index) {  
+         this.message = message;  
+         this.index = index;  
+     }  
+     @Override  
+     public void sayHello() {  
+         System.out.println(index + ":" + message);  
+     }
+}</plain></notes></topic><topic id="4pk7l7bmvbncqus1c623nmcsho" timestamp="1393062313549"><title>2、静态工厂类</title><notes><html><xhtml:p>&lt;bean id="byIndex"  <xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">class="cn.javass.spring.chapter3.DependencyInjectByStaticFactory" factory-method="newInstance"</xhtml:span>&gt;  </xhtml:p><xhtml:p>&lt;constructor-arg index="0" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>&lt;constructor-arg index="1" value="1"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p>&lt;bean id="byType"  class="cn.javass.spring.chapter3.DependencyInjectByStaticFactory" factory-method="newInstance"&gt;  </xhtml:p><xhtml:p>&lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>       &lt;constructor-arg type="int" value="2"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p>&lt;bean id="byName"  class="cn.javass.spring.chapter3.DependencyInjectByStaticFactory" factory-method="newInstance"&gt;  </xhtml:p><xhtml:p>       &lt;constructor-arg name="message" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>       &lt;constructor-arg name="index" value="3"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p></html><plain>&lt;bean id="byIndex"  class="cn.javass.spring.chapter3.DependencyInjectByStaticFactory" factory-method="newInstance"&gt;  
+&lt;constructor-arg index="0" value="Hello World!"/&gt;  
+&lt;constructor-arg index="1" value="1"/&gt;  
+&lt;/bean&gt;  
+&lt;bean id="byType"  class="cn.javass.spring.chapter3.DependencyInjectByStaticFactory" factory-method="newInstance"&gt;  
+&lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  
+       &lt;constructor-arg type="int" value="2"/&gt;  
+&lt;/bean&gt;  
+&lt;bean id="byName"  class="cn.javass.spring.chapter3.DependencyInjectByStaticFactory" factory-method="newInstance"&gt;  
+       &lt;constructor-arg name="message" value="Hello World!"/&gt;  
+       &lt;constructor-arg name="index" value="3"/&gt;  
+&lt;/bean&gt;  </plain></notes></topic><topic id="3blnetfuk30i00ko3trif9ldcl" timestamp="1393062369166"><title>3、实例工厂类</title><notes><html><xhtml:p><xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">&lt;bean id="instanceFactory"  class="cn.javass.spring.chapter3.DependencyInjectByInstanceFactory"/&gt; </xhtml:span> </xhtml:p><xhtml:p>   </xhtml:p><xhtml:p>&lt;bean id="byIndex"  factory-bean="<xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">instanceFactory</xhtml:span>"  factory-method="<xhtml:span style-id="245r52lumf8t8e2q4hcdgu7d5c">newInstance</xhtml:span>"&gt;  </xhtml:p><xhtml:p>    &lt;constructor-arg index="0" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>       &lt;constructor-arg index="1" value="1"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p>&lt;bean id="byType"  factory-bean="instanceFactory" factory-method="newInstance"&gt;  </xhtml:p><xhtml:p>&lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>&lt;constructor-arg type="int" value="2"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p>&lt;bean id="byName"  factory-bean="instanceFactory" factory-method="newInstance"&gt;  </xhtml:p><xhtml:p>&lt;constructor-arg name="message" value="Hello World!"/&gt;  </xhtml:p><xhtml:p>&lt;constructor-arg name="index" value="3"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p>//实例工厂类  </xhtml:p><xhtml:p>import cn.javass.spring.chapter2.helloworld.HelloApi;  </xhtml:p><xhtml:p>public class DependencyInjectByInstanceFactory {  </xhtml:p><xhtml:p>    public HelloApi newInstance(String message, int index) {  </xhtml:p><xhtml:p>        return new HelloImpl3(message, index);  </xhtml:p><xhtml:p>    }  </xhtml:p><xhtml:p>}  </xhtml:p></html><plain>&lt;bean id="instanceFactory"  class="cn.javass.spring.chapter3.DependencyInjectByInstanceFactory"/&gt;  
+   
+&lt;bean id="byIndex"  factory-bean="instanceFactory"  factory-method="newInstance"&gt;  
+    &lt;constructor-arg index="0" value="Hello World!"/&gt;  
+       &lt;constructor-arg index="1" value="1"/&gt;  
+&lt;/bean&gt;  
+&lt;bean id="byType"  factory-bean="instanceFactory" factory-method="newInstance"&gt;  
+&lt;constructor-arg type="java.lang.String" value="Hello World!"/&gt;  
+&lt;constructor-arg type="int" value="2"/&gt;  
+&lt;/bean&gt;  
+&lt;bean id="byName"  factory-bean="instanceFactory" factory-method="newInstance"&gt;  
+&lt;constructor-arg name="message" value="Hello World!"/&gt;  
+&lt;constructor-arg name="index" value="3"/&gt;  
+&lt;/bean&gt;  
+
+//实例工厂类  
+import cn.javass.spring.chapter2.helloworld.HelloApi;  
+public class DependencyInjectByInstanceFactory {  
+    public HelloApi newInstance(String message, int index) {  
+        return new HelloImpl3(message, index);  
+    }  
+}  </plain></notes></topic><topic id="1cqrdf4bq24l632apvrcr4d9gf" timestamp="1393063453030"><title>4、list、set集合类注入</title><notes><html><xhtml:p>&lt;bean id="listBean" class="cn.javass.spring.chapter3.bean.ListTestBean"&gt;  </xhtml:p><xhtml:p>    &lt;property name="values"&gt;  </xhtml:p><xhtml:p>        &lt;list value-type="java.lang.String" merge="default"&gt;</xhtml:p><xhtml:p>            &lt;value&gt;1&lt;/value&gt;  </xhtml:p><xhtml:p>            &lt;value&gt;2&lt;/value&gt;  </xhtml:p><xhtml:p>            &lt;value&gt;3&lt;/value&gt;  </xhtml:p><xhtml:p>        &lt;/list&gt;  </xhtml:p><xhtml:p>   &lt;/property&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p><xhtml:p/><xhtml:p>&lt;bean id="setBean" class="cn.javass.spring.chapter3.bean.SetTestBean"&gt;  </xhtml:p><xhtml:p>    &lt;property name="values"&gt;  </xhtml:p><xhtml:p>        &lt;set&gt;  </xhtml:p><xhtml:p>            &lt;value&gt;1&lt;/value&gt;  </xhtml:p><xhtml:p>            &lt;value&gt;2&lt;/value&gt;  </xhtml:p><xhtml:p>            &lt;value&gt;3&lt;/value&gt;  </xhtml:p><xhtml:p>        &lt;/set&gt;  </xhtml:p><xhtml:p>    &lt;/property&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p></html><plain>&lt;bean id="listBean" class="cn.javass.spring.chapter3.bean.ListTestBean"&gt;  
+    &lt;property name="values"&gt;  
+        &lt;list value-type="java.lang.String" merge="default"&gt;
+            &lt;value&gt;1&lt;/value&gt;  
+            &lt;value&gt;2&lt;/value&gt;  
+            &lt;value&gt;3&lt;/value&gt;  
+        &lt;/list&gt;  
+   &lt;/property&gt;  
+&lt;/bean&gt;  
+
+&lt;bean id="setBean" class="cn.javass.spring.chapter3.bean.SetTestBean"&gt;  
+    &lt;property name="values"&gt;  
+        &lt;set&gt;  
+            &lt;value&gt;1&lt;/value&gt;  
+            &lt;value&gt;2&lt;/value&gt;  
+            &lt;value&gt;3&lt;/value&gt;  
+        &lt;/set&gt;  
+    &lt;/property&gt;  
+&lt;/bean&gt;  </plain></notes></topic><topic id="6ad0uirlfhgu32jj7d5dlstj35" timestamp="1393068118900"><title>5、bean引用</title><notes><html><xhtml:p>1、构造器注入方式</xhtml:p><xhtml:p>	&lt;constructor-arg index='0' ref='bean'/&gt;</xhtml:p><xhtml:p>    &lt;constructor-arg index='0'&gt;&lt;ref bean='bean'/&gt;&lt;/constructor-arg&gt;</xhtml:p><xhtml:p/><xhtml:p>2、setter注入方式</xhtml:p><xhtml:p>	通过”&lt;property&gt;”标签的ref属性</xhtml:p><xhtml:p>	&lt;property name='message' ref='bean'/&gt;</xhtml:p><xhtml:p>	通过“&lt;property&gt;"标签到子标签&lt;ref&gt;来引入</xhtml:p><xhtml:p>	&lt;property name="message"&gt;&lt;ref bean="bean"/&gt;&lt;/property&gt;</xhtml:p><xhtml:p/><xhtml:p>3、其他引入方式</xhtml:p><xhtml:p>    &lt;idref bean="bean1"/&gt;</xhtml:p><xhtml:p>	&lt;idref local="bean2"/&gt;</xhtml:p><xhtml:p>	&lt;ref local=""/&gt;</xhtml:p><xhtml:p>	&lt;ref parent=""/&gt;</xhtml:p></html><plain>1、构造器注入方式
+	&lt;constructor-arg index='0' ref='bean'/&gt;
+    &lt;constructor-arg index='0'&gt;&lt;ref bean='bean'/&gt;&lt;/constructor-arg&gt;
+
+2、setter注入方式
+	通过”&lt;property&gt;”标签的ref属性
+	&lt;property name='message' ref='bean'/&gt;
+	通过“&lt;property&gt;"标签到子标签&lt;ref&gt;来引入
+	&lt;property name="message"&gt;&lt;ref bean="bean"/&gt;&lt;/property&gt;
+
+3、其他引入方式
+    &lt;idref bean="bean1"/&gt;
+	&lt;idref local="bean2"/&gt;
+	&lt;ref local=""/&gt;
+	&lt;ref parent=""/&gt;</plain></notes></topic><topic id="0bs91s25d9u9ld7cfvj1rv4mng" timestamp="1393065481140"><title>6、null值</title><notes><html><xhtml:p>&lt;null/&gt;</xhtml:p></html><plain>&lt;null/&gt;</plain></notes></topic><topic id="6mfd3bcm87pikrln8t9enqd1ue" timestamp="1393065523690"><title>7、对象图导航注入支持</title><notes><html><xhtml:p>&lt;bean id="a" class="cn.javass.spring.chapter3.bean.NavigationA"&gt;  </xhtml:p><xhtml:p>	&lt;!-- 首先注入navigatiionB 确保它非空 --&gt;  </xhtml:p><xhtml:p>	&lt;property name="navigationB" ref="b"/&gt;  </xhtml:p><xhtml:p>	&lt;!-- 对象图导航注入 --&gt;  </xhtml:p><xhtml:p>	&lt;property name="navigationB.navigationC" ref="c"/&gt;  </xhtml:p><xhtml:p>	&lt;!-- 注入列表数据类型数据 --&gt;  </xhtml:p><xhtml:p>	&lt;property name="navigationB.list[0]" ref="c"/&gt;  </xhtml:p><xhtml:p>	&lt;!-- 注入map类型数据 --&gt;  </xhtml:p><xhtml:p>	&lt;property name="navigationB.map[key]" ref="c"/&gt;  </xhtml:p><xhtml:p>	&lt;!-- 注入properties类型数据 --&gt;  </xhtml:p><xhtml:p>	&lt;property name="navigationB.properties[0]" ref="c"/&gt;  </xhtml:p><xhtml:p>	&lt;!-- 注入properties类型数据 --&gt;  </xhtml:p><xhtml:p>	&lt;property name="navigationB.properties[1]" ref="c"/&gt;  </xhtml:p><xhtml:p>	&lt;!-- 注入数组类型数据 ，注意不要越界--&gt;  </xhtml:p><xhtml:p>	&lt;property name="navigationB.array[0]" ref="c"/&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p></html><plain>&lt;bean id="a" class="cn.javass.spring.chapter3.bean.NavigationA"&gt;  
+	&lt;!-- 首先注入navigatiionB 确保它非空 --&gt;  
+	&lt;property name="navigationB" ref="b"/&gt;  
+	&lt;!-- 对象图导航注入 --&gt;  
+	&lt;property name="navigationB.navigationC" ref="c"/&gt;  
+	&lt;!-- 注入列表数据类型数据 --&gt;  
+	&lt;property name="navigationB.list[0]" ref="c"/&gt;  
+	&lt;!-- 注入map类型数据 --&gt;  
+	&lt;property name="navigationB.map[key]" ref="c"/&gt;  
+	&lt;!-- 注入properties类型数据 --&gt;  
+	&lt;property name="navigationB.properties[0]" ref="c"/&gt;  
+	&lt;!-- 注入properties类型数据 --&gt;  
+	&lt;property name="navigationB.properties[1]" ref="c"/&gt;  
+	&lt;!-- 注入数组类型数据 ，注意不要越界--&gt;  
+	&lt;property name="navigationB.array[0]" ref="c"/&gt;  
+&lt;/bean&gt;  </plain></notes></topic><topic id="4iso208c8vh36jp7egg3249f7s" timestamp="1393065641786"><title>8、使用P命名空间简化setter注入</title><notes><html><xhtml:p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;  </xhtml:p><xhtml:p>&lt;beans  xmlns="http://www.springframework.org/schema/beans"  </xhtml:p><xhtml:p>        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  </xhtml:p><xhtml:p>        xmlns:p="http://www.springframework.org/schema/p"  </xhtml:p><xhtml:p>        xsi:schemaLocation="  </xhtml:p><xhtml:p>           http://www.springframework.org/schema/beans  </xhtml:p><xhtml:p>           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"&gt;  </xhtml:p><xhtml:p>	&lt;bean id="bean1" class="java.lang.String"&gt;  </xhtml:p><xhtml:p>        &lt;constructor-arg index="0" value="test"/&gt;  </xhtml:p><xhtml:p>    &lt;/bean&gt;  </xhtml:p><xhtml:p>	&lt;bean id="idrefBean1" class="cn.javass.spring.chapter3.bean.IdRefTestBean" p:id="value"/&gt;  </xhtml:p><xhtml:p>	&lt;bean id="idrefBean2" class="cn.javass.spring.chapter3.bean.IdRefTestBean" p:id-ref="bean1"/&gt;  </xhtml:p><xhtml:p>&lt;/beans&gt;  </xhtml:p></html><plain>&lt;?xml version="1.0" encoding="UTF-8"?&gt;  
+&lt;beans  xmlns="http://www.springframework.org/schema/beans"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:p="http://www.springframework.org/schema/p"  
+        xsi:schemaLocation="  
+           http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"&gt;  
+	&lt;bean id="bean1" class="java.lang.String"&gt;  
+        &lt;constructor-arg index="0" value="test"/&gt;  
+    &lt;/bean&gt;  
+	&lt;bean id="idrefBean1" class="cn.javass.spring.chapter3.bean.IdRefTestBean" p:id="value"/&gt;  
+	&lt;bean id="idrefBean2" class="cn.javass.spring.chapter3.bean.IdRefTestBean" p:id-ref="bean1"/&gt;  
+&lt;/beans&gt;  </plain></notes></topic><topic id="1ivq102f8o7b5m766j7lg2j76i" timestamp="1393065834623"><title>9、延迟初始化</title><notes><html><xhtml:p>&lt;bean id="helloApi"   class="cn.javass.spring.chapter2.helloworld.HelloImpl"   lazy-init="true"/&gt;  </xhtml:p></html><plain>&lt;bean id="helloApi"   class="cn.javass.spring.chapter2.helloworld.HelloImpl"   lazy-init="true"/&gt;  </plain></notes></topic><topic id="5al6n300185r022mm2epo5i0tl" timestamp="1393068081176"><title>10、使用depends-on</title><notes><html><xhtml:p>  depends-on是指指定Bean初始化及销毁时的顺序</xhtml:p><xhtml:p/><xhtml:p>&lt;bean id="helloApi" class="cn.javass.spring.chapter2.helloworld.HelloImpl"/&gt;  </xhtml:p><xhtml:p>&lt;bean id="decorator"  </xhtml:p><xhtml:p>    class="cn.javass.spring.chapter3.bean.HelloApiDecorator"  </xhtml:p><xhtml:p>    depends-on="helloApi"&gt;  </xhtml:p><xhtml:p>    &lt;property name="helloApi"&gt;&lt;ref bean="helloApi"/&gt;&lt;/property&gt;  </xhtml:p><xhtml:p>&lt;/bean&gt;  </xhtml:p></html><plain>  depends-on是指指定Bean初始化及销毁时的顺序
+
+&lt;bean id="helloApi" class="cn.javass.spring.chapter2.helloworld.HelloImpl"/&gt;  
+&lt;bean id="decorator"  
+    class="cn.javass.spring.chapter3.bean.HelloApiDecorator"  
+    depends-on="helloApi"&gt;  
+    &lt;property name="helloApi"&gt;&lt;ref bean="helloApi"/&gt;&lt;/property&gt;  
+&lt;/bean&gt;  </plain></notes></topic><topic id="43vu2gbnt3tm4qp9ge81hnappc" timestamp="1393068891205"><title>11、Bean的作用域</title></topic></topics></children></topic><topic id="7lire10k6qdta4ml3b76s4sekl" timestamp="1395372140743"><title>AOP</title><children><topics type="attached"><topic id="54ksm3fr4j518mj2i7r07lmril" timestamp="1395372219338"><title>1、@AspectJ支持</title><children><topics type="attached"><topic id="37pmbo1njc0st801c5sufq0t6c" timestamp="1395372217961"><title>1、开启@AspectJ支持</title><notes><html><xhtml:p>@Configuration</xhtml:p><xhtml:p>@EnableAspectJAutoProxy</xhtml:p><xhtml:p>public class AppConfig {</xhtml:p><xhtml:p/><xhtml:p>}</xhtml:p><xhtml:p/><xhtml:p>&lt;aop:aspectj-autoproxy/&gt;</xhtml:p><xhtml:p/><xhtml:p/></html><plain>@Configuration
+@EnableAspectJAutoProxy
+public class AppConfig {
+
+}
+
+&lt;aop:aspectj-autoproxy/&gt;
+
+</plain></notes></topic><topic id="2sgoi4r15ftpt8a98gg30b4r6n" timestamp="1395372226542"><title>2、声明一个aspect</title></topic></topics></children></topic></topics></children></topic></topics></children></topic><title>Sheet 1</title></sheet></xmap-revision-content>
