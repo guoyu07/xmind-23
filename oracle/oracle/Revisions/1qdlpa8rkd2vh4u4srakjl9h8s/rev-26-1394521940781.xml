@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="1qdlpa8rkd2vh4u4srakjl9h8s" timestamp="1394521916279" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="28e5vfh6jb9b6gmi30f3pq9u9f" structure-class="org.xmind.ui.map.clockwise" timestamp="1394517982084"><title>oracle</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/4bf55iqh56mb65h2m1kaqc5473.png"/></xhtml:p></html><plain/></notes><children><topics type="attached"><topic id="75mamfgug9c2cunhj6kck6e90d" timestamp="1394517018656"><title>1、oracle简介</title><children><topics type="attached"><topic id="5sl03oumu77d39sg9qdnrna86o" timestamp="1394513981690"><title>1、启动</title><notes><html><xhtml:p>sqlplus / as sysdba</xhtml:p><xhtml:p>&gt;startup</xhtml:p><xhtml:p>&gt;shutdown immediate</xhtml:p><xhtml:p>&gt;select staus from v$instance;</xhtml:p><xhtml:p>&gt;quit</xhtml:p><xhtml:p/><xhtml:p/></html><plain>sqlplus / as sysdba
+&gt;startup
+&gt;shutdown immediate
+&gt;select staus from v$instance;
+&gt;quit
+
+</plain></notes></topic><topic id="7i3daqe7kfmjcbtqaqeav7u31c" timestamp="1394517398849"><title>2、oracle整体架构图</title><notes><html><xhtml:p/><xhtml:p><xhtml:img xhtml:src="xap:attachments/69bh41a7hq4ndo328mbgfu2k55.png"/></xhtml:p></html><plain>
+</plain></notes><children><topics type="attached"><topic id="725qvmv71a5d4kq1ppohtu517q" timestamp="1394514974794"><title>1、SGA</title><notes><html><xhtml:p>oracle实例</xhtml:p><xhtml:p>i、Oracle实例是内存结构和后台进程的集合</xhtml:p><xhtml:p>ii、启动Oracle实例的过程，即：分配内存、启动后台进程</xhtml:p><xhtml:p>iii、Oracle实例的内存包括SGA和PGA；</xhtml:p><xhtml:p>     当启动实例的时候分配SGA；</xhtml:p><xhtml:p>     当服务器进程建立时分配PGA；</xhtml:p><xhtml:p>     <xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">一般情况下，SGA:PGA=8:1分配内存。</xhtml:span></xhtml:p><xhtml:p>iiii、Oracle实例的后台进程包括SMON、PMON、DBWR、LGWR、ARC、CKPT等。</xhtml:p><xhtml:p/><xhtml:p>    </xhtml:p><xhtml:p/><xhtml:p>5、SGA(System Global Area): 系统全局区</xhtml:p><xhtml:p>i0、数据库信息存储于SGA，由多个数据库进程共享。</xhtml:p><xhtml:p>i1、SGA包括：共享池、数据缓冲区、重做日志缓冲区、Large池、Java池、Stream池。</xhtml:p><xhtml:p/><xhtml:p>i2、共享池 </xhtml:p><xhtml:p>1)、<xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">共享池是对SQL、PL/SQL程序进行语法分析、编译、执行的内存区域。</xhtml:span></xhtml:p><xhtml:p>如在执行SELECT * FROM emp语句时，会对sql语句进行语法分析-&gt;编译-&gt;生成执行计划-&gt;运行执行计划等，这些操作都在共享池中完成；如果再次执行SELECT * FROM emp语句时，会在共享池中查找是否有相同的sql，如果存在则省去编译、生成执行计划操作步骤而是直接运行执行计划，因此养成良好的编码习惯对于提高oracle执行效率非常有帮助。</xhtml:p><xhtml:p>2)、<xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">共享池由库缓存和数据字典缓存组成。</xhtml:span></xhtml:p><xhtml:p>3)、共享池的大小直接影响数据库的性能。</xhtml:p><xhtml:p/><xhtml:p> </xhtml:p><xhtml:p>i3、数据缓冲区</xhtml:p><xhtml:p>1)、用于存储从磁盘数据文件中读入的数据，所有用户共享。</xhtml:p><xhtml:p>2)、服务器进程将读入的数据保存在数据缓冲区中，当后续的请求需要这些数据时可以在内存中找到，不需要再从磁盘读取，提高了读取速度。</xhtml:p><xhtml:p>3)、数据缓冲区的大小对数据库的读取速度有直接的影响。</xhtml:p><xhtml:p>4)、硬盘上的数据文件中的数据，如何返回给用户的？</xhtml:p><xhtml:p>i、从硬盘取出来，直接返回给用户，使得获取数据的效率非常低。（server process直接去读）</xhtml:p><xhtml:p>ii、从硬盘取出来，放到数据缓冲区，从数据缓冲区中把数据返回给用户。下次读取同样的数据的话，直接从数据缓冲区中获取，不需要再从硬盘获取。</xhtml:p><xhtml:p/><xhtml:p>   </xhtml:p><xhtml:p/><xhtml:p> i4、重做日志缓冲区 </xhtml:p><xhtml:p>1)、日志记录数据库的所有修改信息，日志信息首先产生于日志缓冲区。 </xhtml:p><xhtml:p>2)、当日志缓冲区的日志数据达到一定数量时，由后台进程将日志数据写入日志文件中。</xhtml:p><xhtml:p>3)、相对来说，日志缓冲区对数据库的性能影响较小。</xhtml:p><xhtml:p>eg、UPDATE emp SET empno=7935 WHERE empno=7934;首先在日记缓冲区中被记录，某个时候(三种情况；一、日志缓冲区中的记录达到1M 二、每隔3秒 三、日志缓冲区已经用了三分之一，满足其中任意一项就可以)把日志缓冲区中的这些记录写到在线日志中去。</xhtml:p><xhtml:p/><xhtml:p>      </xhtml:p><xhtml:p>i5、Large池 </xhtml:p><xhtml:p>为了进行大的后台进程操作而分配的内存空间，主要指备份恢复、大型IO操作、并行查询等。</xhtml:p><xhtml:p/><xhtml:p>   </xhtml:p><xhtml:p>i6、Stream池 </xhtml:p><xhtml:p>为了stream应用而分配的内存空间，高级复制技术一部分。</xhtml:p><xhtml:p/><xhtml:p>   </xhtml:p><xhtml:p>i7、JAVA池</xhtml:p><xhtml:p>为了java应用而分配的内存空间。</xhtml:p></html><plain>oracle实例
+i、Oracle实例是内存结构和后台进程的集合
+ii、启动Oracle实例的过程，即：分配内存、启动后台进程
+iii、Oracle实例的内存包括SGA和PGA；
+     当启动实例的时候分配SGA；
+     当服务器进程建立时分配PGA；
+     一般情况下，SGA:PGA=8:1分配内存。
+iiii、Oracle实例的后台进程包括SMON、PMON、DBWR、LGWR、ARC、CKPT等。
+
+    
+
+5、SGA(System Global Area): 系统全局区
+i0、数据库信息存储于SGA，由多个数据库进程共享。
+i1、SGA包括：共享池、数据缓冲区、重做日志缓冲区、Large池、Java池、Stream池。
+
+i2、共享池 
+1)、共享池是对SQL、PL/SQL程序进行语法分析、编译、执行的内存区域。
+如在执行SELECT * FROM emp语句时，会对sql语句进行语法分析-&gt;编译-&gt;生成执行计划-&gt;运行执行计划等，这些操作都在共享池中完成；如果再次执行SELECT * FROM emp语句时，会在共享池中查找是否有相同的sql，如果存在则省去编译、生成执行计划操作步骤而是直接运行执行计划，因此养成良好的编码习惯对于提高oracle执行效率非常有帮助。
+2)、共享池由库缓存和数据字典缓存组成。
+3)、共享池的大小直接影响数据库的性能。
+
+ 
+i3、数据缓冲区
+1)、用于存储从磁盘数据文件中读入的数据，所有用户共享。
+2)、服务器进程将读入的数据保存在数据缓冲区中，当后续的请求需要这些数据时可以在内存中找到，不需要再从磁盘读取，提高了读取速度。
+3)、数据缓冲区的大小对数据库的读取速度有直接的影响。
+4)、硬盘上的数据文件中的数据，如何返回给用户的？
+i、从硬盘取出来，直接返回给用户，使得获取数据的效率非常低。（server process直接去读）
+ii、从硬盘取出来，放到数据缓冲区，从数据缓冲区中把数据返回给用户。下次读取同样的数据的话，直接从数据缓冲区中获取，不需要再从硬盘获取。
+
+   
+
+ i4、重做日志缓冲区 
+1)、日志记录数据库的所有修改信息，日志信息首先产生于日志缓冲区。 
+2)、当日志缓冲区的日志数据达到一定数量时，由后台进程将日志数据写入日志文件中。
+3)、相对来说，日志缓冲区对数据库的性能影响较小。
+eg、UPDATE emp SET empno=7935 WHERE empno=7934;首先在日记缓冲区中被记录，某个时候(三种情况；一、日志缓冲区中的记录达到1M 二、每隔3秒 三、日志缓冲区已经用了三分之一，满足其中任意一项就可以)把日志缓冲区中的这些记录写到在线日志中去。
+
+      
+i5、Large池 
+为了进行大的后台进程操作而分配的内存空间，主要指备份恢复、大型IO操作、并行查询等。
+
+   
+i6、Stream池 
+为了stream应用而分配的内存空间，高级复制技术一部分。
+
+   
+i7、JAVA池
+为了java应用而分配的内存空间。</plain></notes></topic><topic id="3b65o8ul0vigfe3caas9ujrmt8" timestamp="1394515903270"><title>2、PGA</title><notes><html><xhtml:p>PGA(Process Global Area): 程序全局区</xhtml:p><xhtml:p>i0、程序全局区(PGA)包含单个服务器进程所需的数据和控制信息，比如每个session传入的SQL绑定变量、以及对该session进行控制的控制信息。如果该session进行了排序或hash连接操作，也会使用PGA中的内存。</xhtml:p><xhtml:p>i1、PGA是在用户进程连接到数据库并创建一个会话时自动分配的，保存每个与Oracle数据库连接的用户进程所需的信息</xhtml:p><xhtml:p>i2、共享连接模式和专用连接模式，PGA的管理方式不同。</xhtml:p><xhtml:p>大多情况下，采用专用连接模式。其产生的用户进程和服务器进程后面讲述</xhtml:p><xhtml:p/><xhtml:p><xhtml:img xhtml:src="xap:attachments/6jrs21689cdu9ot8u2hpj4gm5d.png"/><xhtml:span style-id="0v339ojlfkp5cj51st8nh3l3n9"/></xhtml:p><xhtml:p><xhtml:span style-id="0v339ojlfkp5cj51st8nh3l3n9"/></xhtml:p><xhtml:p><xhtml:img xhtml:src="xap:attachments/6f915op5295spou0olb80ef9ai.png"/></xhtml:p></html><plain>PGA(Process Global Area): 程序全局区
+i0、程序全局区(PGA)包含单个服务器进程所需的数据和控制信息，比如每个session传入的SQL绑定变量、以及对该session进行控制的控制信息。如果该session进行了排序或hash连接操作，也会使用PGA中的内存。
+i1、PGA是在用户进程连接到数据库并创建一个会话时自动分配的，保存每个与Oracle数据库连接的用户进程所需的信息
+i2、共享连接模式和专用连接模式，PGA的管理方式不同。
+大多情况下，采用专用连接模式。其产生的用户进程和服务器进程后面讲述
+
+
+
+</plain></notes></topic><topic id="0fgvtnr335ueakppr7r5istdv6" timestamp="1394516969173"><title>3、Oracle进程</title><notes><html><xhtml:p>oracle进程：用户进程、服务器进程(影子进程，相对用户进程而言)、后台进程</xhtml:p><xhtml:p>i、用户进程是一个需要与oracle服务器进行交互的程序。当用户运行一个应用程序准备向数据库服务器发送请求时，即创建了用户进程。用户进程位于客户端，服务器进程、后台进程位于服务器端。</xhtml:p><xhtml:p>ii、服务器进程用于处理连接到该实例的用户进程的请求。当用户连接至oracle数据库实例创建会话时，即产生服务器进程。</xhtml:p><xhtml:p>iii、后台进程是Oracle数据库为了保持最佳系统性能和协调多个用户请求而设置的。Oracle实例启动时即创建一系列后台进程。</xhtml:p><xhtml:p/><xhtml:p>用户进程和服务器进程</xhtml:p><xhtml:p>i、对专用连接来说，用户在客户端启动了一个应用程序，例如sql*plus，就是在客户端启动一个用户进程；与oracle服务器端连接成功后，会在服务器端生成一个服务器进程，该服务器进程作为用户进程的代理进程，代替客户端执行各种命令并把结果返回给客户端。9i、10g、11g都使用专用连接。</xhtml:p><xhtml:p>ii、用户进程一旦中止，服务器进程立刻中止。</xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">iii、SGA对所有用户共享，PGA不共享。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq"/></xhtml:p><xhtml:p>11、会话</xhtml:p><xhtml:p>i0、会话是用户与 Oracle 服务器的单个连接</xhtml:p><xhtml:p>i1、当用户与服务器建立连接时创建会话</xhtml:p><xhtml:p>i2、当用户与服务器断开连接时关闭会话</xhtml:p><xhtml:p>i3、从v$session中查询会话信息，SELECT * FROM v$session;</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>12、后台进程</xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">	i0、PMON 进程监控进程，监控用户进程是否正常。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">		</xhtml:span>1)、清理出现故障的进程。 </xhtml:p><xhtml:p>		2)、释放所有当前挂起的锁定。</xhtml:p><xhtml:p>		3)、释放故障进程使用的资源。</xhtml:p><xhtml:p>		4)、重启死掉的调度器（在共享服务器中用）。</xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">	i1、SMON 系统监控进程，实时监控整个oracle状况。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">		</xhtml:span>1)、在实例失败之后，重新打开数据库时自动恢复实例。 </xhtml:p><xhtml:p>		2)、整理数据文件的自由空间，将相邻区域结合起来。</xhtml:p><xhtml:p>		3)、释放不再使用的临时段。</xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">	i2、DBWR 数据写入进程</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">		</xhtml:span>1)、管理数据缓冲区，将最近使用过的块保留在内存中。</xhtml:p><xhtml:p>		2)、将修改后的缓冲区数据写入数据文件中。 </xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">	i3、LGWR 日志写入进程</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">		</xhtml:span>1)、负责将日志缓冲区中的日志数据写入日志文件。 </xhtml:p><xhtml:p>		2)、系统有多个日志文件，该进程以循环的方式将数据写入文件。</xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">	i4、CKPT检查点进程</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0v339ojlfkp5cj51st8nh3l3n9">		a、启动DBWn来写脏数据（SIGNALLING DBWn at CKPT）</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0v339ojlfkp5cj51st8nh3l3n9">		b、完后会更新DATAFILE的HEADER和控制文件的HEADER，而HEADER中有同步需要的信息，即CHECKPOINT的信息。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0v339ojlfkp5cj51st8nh3l3n9">		c、在ORACLE中，正常情况下，所有文件必须周</xhtml:span>期性的同步，靠CHECKPOINT来完成。</xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">		</xhtml:span>1)、为了防止实例崩溃，为了尽快进行实例恢复的进程。</xhtml:p><xhtml:p>		2)、检查点包括两种：完全检查点、增量检查点。</xhtml:p><xhtml:p>		3)、完全检查点只有下面两种情况下被触发：</xhtml:p><xhtml:p>			1，用户发出alter system checkpoint；</xhtml:p><xhtml:p>			2，除了shutdown abort以外的其他方式正常关闭数据库。</xhtml:p><xhtml:p>		3)、增量检查点触发情况：</xhtml:p><xhtml:p>			1，每隔三秒。</xhtml:p><xhtml:p>			2，在线日志切换。</xhtml:p><xhtml:p/><xhtml:p>DBWR、LGWR、CKPT之间如何协调工作的？</xhtml:p><xhtml:p/><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">i5、查看进程信息</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">	</xhtml:span>1)、从v$process中查询启动的后台进程信息</xhtml:p><xhtml:p>	2)、查看启动了几个DBWR进程</xhtml:p><xhtml:p><xhtml:span style-id="4emvlft2uu345m9ju2q2qji4ha">	</xhtml:span>		select * from v$process where program like '%DBW%';</xhtml:p><xhtml:p>			查看DBWR进程个数: show parameter db_wr，DBWR进程个数跟脏数据的产生有一定的影响。</xhtml:p><xhtml:p>			修改DBWR进程个数: </xhtml:p><xhtml:p>				alter system set db_writer_processes=3 scope=memory; --会报"无法修改指定的初始化参数"错误</xhtml:p><xhtml:p>				alter system set db_writer_processes=3 scope=spfile;--修改成功，下次启动时才生效</xhtml:p><xhtml:p>	3)、查看启动了几个ARC进程</xhtml:p><xhtml:p>			select * from v$process where program like '%ARC%';</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>共享服务器进程</xhtml:p><xhtml:p>应对客户端数量大，并发大的情况，一般通过client端的中间件解决了</xhtml:p><xhtml:p/></html><plain>oracle进程：用户进程、服务器进程(影子进程，相对用户进程而言)、后台进程
+i、用户进程是一个需要与oracle服务器进行交互的程序。当用户运行一个应用程序准备向数据库服务器发送请求时，即创建了用户进程。用户进程位于客户端，服务器进程、后台进程位于服务器端。
+ii、服务器进程用于处理连接到该实例的用户进程的请求。当用户连接至oracle数据库实例创建会话时，即产生服务器进程。
+iii、后台进程是Oracle数据库为了保持最佳系统性能和协调多个用户请求而设置的。Oracle实例启动时即创建一系列后台进程。
+
+用户进程和服务器进程
+i、对专用连接来说，用户在客户端启动了一个应用程序，例如sql*plus，就是在客户端启动一个用户进程；与oracle服务器端连接成功后，会在服务器端生成一个服务器进程，该服务器进程作为用户进程的代理进程，代替客户端执行各种命令并把结果返回给客户端。9i、10g、11g都使用专用连接。
+ii、用户进程一旦中止，服务器进程立刻中止。
+iii、SGA对所有用户共享，PGA不共享。
+
+11、会话
+i0、会话是用户与 Oracle 服务器的单个连接
+i1、当用户与服务器建立连接时创建会话
+i2、当用户与服务器断开连接时关闭会话
+i3、从v$session中查询会话信息，SELECT * FROM v$session;
+
+
+12、后台进程
+	i0、PMON 进程监控进程，监控用户进程是否正常。
+		1)、清理出现故障的进程。 
+		2)、释放所有当前挂起的锁定。
+		3)、释放故障进程使用的资源。
+		4)、重启死掉的调度器（在共享服务器中用）。
+	i1、SMON 系统监控进程，实时监控整个oracle状况。
+		1)、在实例失败之后，重新打开数据库时自动恢复实例。 
+		2)、整理数据文件的自由空间，将相邻区域结合起来。
+		3)、释放不再使用的临时段。
+	i2、DBWR 数据写入进程
+		1)、管理数据缓冲区，将最近使用过的块保留在内存中。
+		2)、将修改后的缓冲区数据写入数据文件中。 
+	i3、LGWR 日志写入进程
+		1)、负责将日志缓冲区中的日志数据写入日志文件。 
+		2)、系统有多个日志文件，该进程以循环的方式将数据写入文件。
+	i4、CKPT检查点进程
+		a、启动DBWn来写脏数据（SIGNALLING DBWn at CKPT）
+		b、完后会更新DATAFILE的HEADER和控制文件的HEADER，而HEADER中有同步需要的信息，即CHECKPOINT的信息。
+		c、在ORACLE中，正常情况下，所有文件必须周期性的同步，靠CHECKPOINT来完成。
+		1)、为了防止实例崩溃，为了尽快进行实例恢复的进程。
+		2)、检查点包括两种：完全检查点、增量检查点。
+		3)、完全检查点只有下面两种情况下被触发：
+			1，用户发出alter system checkpoint；
+			2，除了shutdown abort以外的其他方式正常关闭数据库。
+		3)、增量检查点触发情况：
+			1，每隔三秒。
+			2，在线日志切换。
+
+DBWR、LGWR、CKPT之间如何协调工作的？
+
+i5、查看进程信息
+	1)、从v$process中查询启动的后台进程信息
+	2)、查看启动了几个DBWR进程
+			select * from v$process where program like '%DBW%';
+			查看DBWR进程个数: show parameter db_wr，DBWR进程个数跟脏数据的产生有一定的影响。
+			修改DBWR进程个数: 
+				alter system set db_writer_processes=3 scope=memory; --会报"无法修改指定的初始化参数"错误
+				alter system set db_writer_processes=3 scope=spfile;--修改成功，下次启动时才生效
+	3)、查看启动了几个ARC进程
+			select * from v$process where program like '%ARC%';
+
+
+共享服务器进程
+应对客户端数量大，并发大的情况，一般通过client端的中间件解决了
+</plain></notes></topic><topic id="6qdvel0irbkvjtsh2nbeo415u8" timestamp="1394517063902"><title>4、自动内存管理</title><notes><html><xhtml:p/><xhtml:p>13、9i中的自动PGA管理</xhtml:p><xhtml:p>i、前提是：必须设置初始化参数workarea_size_policy为AUTO。</xhtml:p><xhtml:p>ii、自动PGA管理，DBA根据数据库的负载情况，估计所有的session大概需要消耗的PGA的总的大小，然后把该值设置成初始化参数pga_aggregate_target，Oracle就会自动调整每个session的PGA的大小。</xhtml:p><xhtml:p/><xhtml:p>   </xhtml:p><xhtml:p/><xhtml:p>14、10g中的自动SGA管理</xhtml:p><xhtml:p>i、自动SGA管理，即ASMM，Automatic Shared Memory Management。只为SGA分配一个总的大小就可以了，不必像9i那样具体分配SGA中的每一个部分的大小。</xhtml:p><xhtml:p>ii、在设置初始化参数statistics_level为typical或all，才可以启动ASMM。然后可以使用10g提供的一个新的初始化参数sga_target来定义了整个SGA的大小。</xhtml:p><xhtml:p>iii、为此，10g有一个新的后台进程MMAN，即memory manager，用于进行自动SGA管理。</xhtml:p><xhtml:p>iiii、注意另一个后台进程MMON，即memory monitor，用于自动统计信息收集。</xhtml:p><xhtml:p/><xhtml:p>   </xhtml:p><xhtml:p/><xhtml:p>15、11g中的自动内存管理</xhtml:p><xhtml:p>i1、自动内存管理，即AMM，Automatic Memory Management。只为Oracle的使用整体分配一个总的内存大小就可以了，不必像10g那样具体分配SGA和PGA的大小。</xhtml:p><xhtml:p>i2、初始化参数statistics_level为typical或all，才可以启动AMM。</xhtml:p><xhtml:p>show parameter statistics_level; --查看AMM</xhtml:p><xhtml:p>show parameter memory; --查看整个oracle占用了多大内存</xhtml:p><xhtml:p>alter system set memory_max_target=900m;--设置内存最大可以达到多大</xhtml:p><xhtml:p>i3、新的初始化参数memory_target来定义了整个内存的大小，即SGA加上PGA的总的大小。</xhtml:p><xhtml:p>alter system set memory_target=500m; --memory_target设置的值要不大于memory_max_target</xhtml:p><xhtml:p>i4、新的初始化参数memory_max_target来定义了memory_target最大可以达到的值。</xhtml:p><xhtml:p>alter system set memory_max_target=900m scope=spfile; --下次启动生效，scope=spfile不能省略否则报错</xhtml:p><xhtml:p>i5、注意：如果使用AMM，则sga_target和pga_aggregate_target的值应该设置成0。</xhtml:p><xhtml:p>show parameter sga_target;</xhtml:p><xhtml:p>show parameter page_aggregate_target;</xhtml:p><xhtml:p>alter system set sga_target=0m;</xhtml:p><xhtml:p>alter system set pag_aggregate_target=0;</xhtml:p><xhtml:p>i6、11g中的后台进程MMAN，用于进行自动内存管理。</xhtml:p><xhtml:p/></html><plain>
+13、9i中的自动PGA管理
+i、前提是：必须设置初始化参数workarea_size_policy为AUTO。
+ii、自动PGA管理，DBA根据数据库的负载情况，估计所有的session大概需要消耗的PGA的总的大小，然后把该值设置成初始化参数pga_aggregate_target，Oracle就会自动调整每个session的PGA的大小。
+
+   
+
+14、10g中的自动SGA管理
+i、自动SGA管理，即ASMM，Automatic Shared Memory Management。只为SGA分配一个总的大小就可以了，不必像9i那样具体分配SGA中的每一个部分的大小。
+ii、在设置初始化参数statistics_level为typical或all，才可以启动ASMM。然后可以使用10g提供的一个新的初始化参数sga_target来定义了整个SGA的大小。
+iii、为此，10g有一个新的后台进程MMAN，即memory manager，用于进行自动SGA管理。
+iiii、注意另一个后台进程MMON，即memory monitor，用于自动统计信息收集。
+
+   
+
+15、11g中的自动内存管理
+i1、自动内存管理，即AMM，Automatic Memory Management。只为Oracle的使用整体分配一个总的内存大小就可以了，不必像10g那样具体分配SGA和PGA的大小。
+i2、初始化参数statistics_level为typical或all，才可以启动AMM。
+show parameter statistics_level; --查看AMM
+show parameter memory; --查看整个oracle占用了多大内存
+alter system set memory_max_target=900m;--设置内存最大可以达到多大
+i3、新的初始化参数memory_target来定义了整个内存的大小，即SGA加上PGA的总的大小。
+alter system set memory_target=500m; --memory_target设置的值要不大于memory_max_target
+i4、新的初始化参数memory_max_target来定义了memory_target最大可以达到的值。
+alter system set memory_max_target=900m scope=spfile; --下次启动生效，scope=spfile不能省略否则报错
+i5、注意：如果使用AMM，则sga_target和pga_aggregate_target的值应该设置成0。
+show parameter sga_target;
+show parameter page_aggregate_target;
+alter system set sga_target=0m;
+alter system set pag_aggregate_target=0;
+i6、11g中的后台进程MMAN，用于进行自动内存管理。
+</plain></notes></topic><topic id="1icfd578e1kc4vj5ot90f8fiif" timestamp="1394517398863"><title>5、oracle数据库结构</title><children><topics type="attached"><topic id="032pncpa2oqqtahlc13epe7fqh" timestamp="1394517408982"><title>1、物理结构</title><notes><html><xhtml:p>oracle数据库结构</xhtml:p><xhtml:p>i、Oracle数据库由操作系统文件组成，这些文件为数据库信息提供实际物理存储区。</xhtml:p><xhtml:p>ii、Oracle 数据库包括逻辑结构和物理结构；</xhtml:p><xhtml:p>物理结构包含数据库中的一组操作系统文件；</xhtml:p><xhtml:p>逻辑结构指数据库创建之后形成的逻辑概念之间的关系。</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p/><xhtml:p>17、物理结构</xhtml:p><xhtml:p>物理组件就是Oracle数据库所使用的操作系统物理文件。我们可以在D:\dev\oracle\product\10.2.0\oradata\orcl目录下进行查看，在生产环境中不同的文件放在不同的目录，根据用户访问的频繁情况来做决定。</xhtml:p><xhtml:p>1)、主要物理文件可分为三类： </xhtml:p><xhtml:p>i、数据文件：数据文件用于存储数据库数据，如表、索引数据等。</xhtml:p><xhtml:p>ii、控制文件：控制文件是记录数据库物理结构的二进制文件。</xhtml:p><xhtml:p>iii、在线日志文件：记录对数据库的所有修改信息，用于故障恢复。</xhtml:p><xhtml:p>注意：丢失这些文件，数据库不可以继续运行，需要进行介质恢复。</xhtml:p><xhtml:p/><xhtml:p>2)、非主要物理文件包括：</xhtml:p><xhtml:p>参数文件、密码文件、告警和跟踪文件、归档日志文件、备份文件。</xhtml:p><xhtml:p>参数文件分为pfile文件和spfile文件，位于ORACLE_HOME\DATABASE目录下，9i开始默认不使用sfile文件，如spfileorcl.ora文件。</xhtml:p><xhtml:p>密码文件：sys用户密码，位于ORACLE_HOME\DATABASE目录下，如pwdorcl.ora文件。</xhtml:p><xhtml:p>查看是否有归档日志：archive log list。</xhtml:p><xhtml:p>ORACLE_HOME: D:\dev\oracle\product\10.2.0\db_1</xhtml:p><xhtml:p>注意：丢失这些文件，数据库仍然可以继续运行，不需要进行介质恢复。</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p/></html><plain>oracle数据库结构
+i、Oracle数据库由操作系统文件组成，这些文件为数据库信息提供实际物理存储区。
+ii、Oracle 数据库包括逻辑结构和物理结构；
+物理结构包含数据库中的一组操作系统文件；
+逻辑结构指数据库创建之后形成的逻辑概念之间的关系。
+
+
+
+17、物理结构
+物理组件就是Oracle数据库所使用的操作系统物理文件。我们可以在D:\dev\oracle\product\10.2.0\oradata\orcl目录下进行查看，在生产环境中不同的文件放在不同的目录，根据用户访问的频繁情况来做决定。
+1)、主要物理文件可分为三类： 
+i、数据文件：数据文件用于存储数据库数据，如表、索引数据等。
+ii、控制文件：控制文件是记录数据库物理结构的二进制文件。
+iii、在线日志文件：记录对数据库的所有修改信息，用于故障恢复。
+注意：丢失这些文件，数据库不可以继续运行，需要进行介质恢复。
+
+2)、非主要物理文件包括：
+参数文件、密码文件、告警和跟踪文件、归档日志文件、备份文件。
+参数文件分为pfile文件和spfile文件，位于ORACLE_HOME\DATABASE目录下，9i开始默认不使用sfile文件，如spfileorcl.ora文件。
+密码文件：sys用户密码，位于ORACLE_HOME\DATABASE目录下，如pwdorcl.ora文件。
+查看是否有归档日志：archive log list。
+ORACLE_HOME: D:\dev\oracle\product\10.2.0\db_1
+注意：丢失这些文件，数据库仍然可以继续运行，不需要进行介质恢复。
+
+
+</plain></notes></topic><topic id="0b9gknfci3369ge03v3haatln6" timestamp="1394518829881"><title>2、逻辑结构</title><notes><html><xhtml:p>逻辑结构</xhtml:p><xhtml:p>数据库的逻辑结构是从逻辑的角度分析数据库的组成。</xhtml:p><xhtml:p>Oracle 的逻辑组件包括：数据库-&gt;表空间-&gt;段-&gt;区-&gt;数据库-&gt;模式。</xhtml:p><xhtml:p/><xhtml:p>19、表空间</xhtml:p><xhtml:p>i1、表空间是数据库中最大的逻辑单位，一个 Oracle 数据库至少包含一个表空间，就是名为SYSTEM的系统表空间。</xhtml:p><xhtml:p>i2、每个表空间是由一个或多个数据文件组成的，一个数据文件只能与一个表空间相关联。</xhtml:p><xhtml:p>i3、表空间的大小等于构成该表空间的所有数据文件大小之和。</xhtml:p><xhtml:p>i4、创建表空间的语法是：</xhtml:p><xhtml:p>		CREATE TABLESPACE tablespacename</xhtml:p><xhtml:p>		DATAFILE 'filename' [SIZE integer [K|M]] </xhtml:p><xhtml:p>		[AUTOEXTEND [OFF|ON]];</xhtml:p><xhtml:p>i5、默认表空间</xhtml:p><xhtml:p>1)、默认包含如下表空间(从v$tablespace中查看)：SYSTEM、SYSAUX、TEMP、UNDOTBS1、USERS、EXAMPLE。</xhtml:p><xhtml:p>2)、SYSTEM是系统表空间，存放系统的最基本的信息，如果SYSTEM表空间坏掉，Oracle将无法启动。</xhtml:p><xhtml:p>3)、SYSAUX从10g中引入，作为SYSTEM的辅助表空间，用以减少SYSTEM表空间的负荷 。以前其他表空间中的一些组件，现在放到SYSAUX表空间中了。比如，以前SYSTEM表空间中LogMiner、以前SYSTEM表空间中Logical Standby、Spatial、以前DRSYS表空间中Oracle Text等。</xhtml:p><xhtml:p>i6、TEMP是临时表空间，当排序不能在分配的空间中完成时，就会使用磁盘排序的方式，即在Oracle实例中的临时表空间中进行。</xhtml:p><xhtml:p>UNDOTBS1是撤销表空间，是UNDO类型的表空间，保存用户进行DML操作中，修改前的数据。</xhtml:p><xhtml:p>USERS是数据库默认的永久表空间。</xhtml:p><xhtml:p>EXAMPLE是数据库测试用例所涉及的表的所属表空间。</xhtml:p><xhtml:p>i7、	select * from dba_data_files;--查看表空间的具体信息</xhtml:p><xhtml:p>		select * from v$tablespace;--查看表空间</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p/><xhtml:p>20、段、区、数据库、模式</xhtml:p><xhtml:p>i、段，ASSM 自动段存储管理</xhtml:p><xhtml:p>	1)、段是构成表空间的逻辑存储结构，段由一组区组成。 </xhtml:p><xhtml:p>	2)、按照段所存储数据的特征，将段分为若干种类型，主要有数据段、索引段、回退段和临时段。</xhtml:p><xhtml:p>ii、区</xhtml:p><xhtml:p>	1)、区为段分配空间，它由连续的数据块组成。 </xhtml:p><xhtml:p>	2)、当段中的所有空间已完全使用时，系统自动为该段分配一个新区。</xhtml:p><xhtml:p>	3)、<xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">区不能跨数据文件存在，只能存在于一个数据文件中</xhtml:span>。</xhtml:p><xhtml:p>iii、数据块</xhtml:p><xhtml:p>	1)、数据块是Oracle服务器所能分配、读取或写入的最小存储单元。</xhtml:p><xhtml:p>	2)、Oracle服务器以数据块为单位管理数据文件的存储空间。 </xhtml:p><xhtml:p>	3)、show  parameter db_block_size; --查看数据块大小</xhtml:p><xhtml:p>iiii、模式，等同于用户</xhtml:p><xhtml:p>	1)、模式是对用户所创建的数据库对象的总称。 </xhtml:p><xhtml:p>	2)、模式对象包括表、视图、索引、同义词、序列、过程和程序包等</xhtml:p><xhtml:p/><xhtml:p><xhtml:img xhtml:src="xap:attachments/31m72tq2015g7k7o9ev8p4ea8b.png"/><xhtml:span style-id="0v339ojlfkp5cj51st8nh3l3n9"/></xhtml:p><xhtml:p/></html><plain>逻辑结构
+数据库的逻辑结构是从逻辑的角度分析数据库的组成。
+Oracle 的逻辑组件包括：数据库-&gt;表空间-&gt;段-&gt;区-&gt;数据库-&gt;模式。
+
+19、表空间
+i1、表空间是数据库中最大的逻辑单位，一个 Oracle 数据库至少包含一个表空间，就是名为SYSTEM的系统表空间。
+i2、每个表空间是由一个或多个数据文件组成的，一个数据文件只能与一个表空间相关联。
+i3、表空间的大小等于构成该表空间的所有数据文件大小之和。
+i4、创建表空间的语法是：
+		CREATE TABLESPACE tablespacename
+		DATAFILE 'filename' [SIZE integer [K|M]] 
+		[AUTOEXTEND [OFF|ON]];
+i5、默认表空间
+1)、默认包含如下表空间(从v$tablespace中查看)：SYSTEM、SYSAUX、TEMP、UNDOTBS1、USERS、EXAMPLE。
+2)、SYSTEM是系统表空间，存放系统的最基本的信息，如果SYSTEM表空间坏掉，Oracle将无法启动。
+3)、SYSAUX从10g中引入，作为SYSTEM的辅助表空间，用以减少SYSTEM表空间的负荷 。以前其他表空间中的一些组件，现在放到SYSAUX表空间中了。比如，以前SYSTEM表空间中LogMiner、以前SYSTEM表空间中Logical Standby、Spatial、以前DRSYS表空间中Oracle Text等。
+i6、TEMP是临时表空间，当排序不能在分配的空间中完成时，就会使用磁盘排序的方式，即在Oracle实例中的临时表空间中进行。
+UNDOTBS1是撤销表空间，是UNDO类型的表空间，保存用户进行DML操作中，修改前的数据。
+USERS是数据库默认的永久表空间。
+EXAMPLE是数据库测试用例所涉及的表的所属表空间。
+i7、	select * from dba_data_files;--查看表空间的具体信息
+		select * from v$tablespace;--查看表空间
+
+
+
+20、段、区、数据库、模式
+i、段，ASSM 自动段存储管理
+	1)、段是构成表空间的逻辑存储结构，段由一组区组成。 
+	2)、按照段所存储数据的特征，将段分为若干种类型，主要有数据段、索引段、回退段和临时段。
+ii、区
+	1)、区为段分配空间，它由连续的数据块组成。 
+	2)、当段中的所有空间已完全使用时，系统自动为该段分配一个新区。
+	3)、区不能跨数据文件存在，只能存在于一个数据文件中。
+iii、数据块
+	1)、数据块是Oracle服务器所能分配、读取或写入的最小存储单元。
+	2)、Oracle服务器以数据块为单位管理数据文件的存储空间。 
+	3)、show  parameter db_block_size; --查看数据块大小
+iiii、模式，等同于用户
+	1)、模式是对用户所创建的数据库对象的总称。 
+	2)、模式对象包括表、视图、索引、同义词、序列、过程和程序包等
+
+
+</plain></notes></topic></topics></children></topic></topics></children></topic><topic id="41q3khckp5enjk4gfk1c0fia7f" timestamp="1394517042873"><title>3、一条sql的执行过程</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/37cul0nijb0o8ivmhdrcmm7ok1.png"/></xhtml:p></html><plain/></notes></topic></topics></children></topic><topic id="1fbur8av110s9k1f9e7v0ldh0b" timestamp="1394521904439"><title>2、数据库对象</title><notes><html><xhtml:p>schema</xhtml:p></html><plain>schema</plain></notes><children><topics type="attached"><topic id="56jv84e4m20tlenovvkqr75d40" timestamp="1394518988151"><title>1、表</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/0hk7ksnq040joq39o4jf1nofqv.png"/><xhtml:span style-id="0v339ojlfkp5cj51st8nh3l3n9"/></xhtml:p><xhtml:p/></html><plain>
+</plain></notes><children><topics type="attached"><topic id="4j7ojhq48a0i09jgjfkb5nl15q" timestamp="1394519349978"><title>表-分区例子</title><notes><html><xhtml:p>create table t_part(id int) partition by rang(id)</xhtml:p><xhtml:p>(</xhtml:p><xhtml:p>partition p1 values less than(5),</xhtml:p><xhtml:p>partition p2 values less then(10),</xhtml:p><xhtml:p>partition pmax values less than(maxvalue)</xhtml:p><xhtml:p>)</xhtml:p><xhtml:p/><xhtml:p>select * from t_part partition(p1);</xhtml:p><xhtml:p/><xhtml:p>alter table t_part drop partition p1;</xhtml:p><xhtml:p/></html><plain>create table t_part(id int) partition by rang(id)
+(
+partition p1 values less than(5),
+partition p2 values less then(10),
+partition pmax values less than(maxvalue)
+)
+
+select * from t_part partition(p1);
+
+alter table t_part drop partition p1;
+</plain></notes></topic></topics></children></topic><topic id="68dl6p6n9ivql7hbp6dbnq5b5i" timestamp="1394521295716"><title>2、索引</title><notes><html><xhtml:p/><xhtml:p>占据额外空间，影响DML操作的效率</xhtml:p><xhtml:p/><xhtml:p>create index idx_t_part on t_part(id);</xhtml:p><xhtml:p/><xhtml:p>insert into t_part values(120);</xhtml:p><xhtml:p>commit;</xhtml:p><xhtml:p/><xhtml:p>desc user_segments;</xhtml:p><xhtml:p/><xhtml:p>select sum(bytes) from user_segments where segment_name="IDX_T";</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>索引分类：</xhtml:p><xhtml:p>1、B-tree B树索引（二叉树），通常用于主键，重复比较小</xhtml:p><xhtml:p>2、Bitmap 位图索引 键值重复比较大</xhtml:p><xhtml:p>3、TEXT 全文索引</xhtml:p><xhtml:p/><xhtml:p>set autotrace trace exp stat;</xhtml:p><xhtml:p>set autotrace off;</xhtml:p><xhtml:p/></html><plain>
+占据额外空间，影响DML操作的效率
+
+create index idx_t_part on t_part(id);
+
+insert into t_part values(120);
+commit;
+
+desc user_segments;
+
+select sum(bytes) from user_segments where segment_name="IDX_T";
+
+
+索引分类：
+1、B-tree B树索引（二叉树），通常用于主键，重复比较小
+2、Bitmap 位图索引 键值重复比较大
+3、TEXT 全文索引
+
+set autotrace trace exp stat;
+set autotrace off;
+</plain></notes></topic><topic id="18hg7dvvfr0l7i9ipil9r6uvtd" timestamp="1394521169250"><title>3、视图</title></topic><topic id="241iphriijqva5skiu49qm7o2g" timestamp="1394521556830"><title>4、物化视图</title><notes><html><xhtml:p>将查询的结果集保存下来，用于后续的查询，提高查询效率，物化视图是一个段对象，占用物理空间。</xhtml:p><xhtml:p/><xhtml:p>create materialized view mv_t as select * from t order by t_id;</xhtml:p><xhtml:p/><xhtml:p>用途：</xhtml:p><xhtml:p>提高查询效率</xhtml:p><xhtml:p>数据复制</xhtml:p><xhtml:p/><xhtml:p/></html><plain>将查询的结果集保存下来，用于后续的查询，提高查询效率，物化视图是一个段对象，占用物理空间。
+
+create materialized view mv_t as select * from t order by t_id;
+
+用途：
+提高查询效率
+数据复制
+
+</plain></notes></topic><topic id="4eef079159ohl4gfvbgt0d3s1b" timestamp="1394521606290"><title>5、包</title></topic><topic id="3gouk3fncpve9vk2uvd1gc2jbf" timestamp="1394521901868"><title>6、别名</title><notes><html><xhtml:p>create synonym sys_emp for scott.emp;</xhtml:p><xhtml:p/><xhtml:p>create database link mylink connect to test identified by test using 'orcl';</xhtml:p><xhtml:p/><xhtml:p>create synonym sys_emp for scott.emp@mylink;</xhtml:p><xhtml:p/><xhtml:p/></html><plain>create synonym sys_emp for scott.emp;
+
+create database link mylink connect to test identified by test using 'orcl';
+
+create synonym sys_emp for scott.emp@mylink;
+
+</plain></notes></topic><topic id="780on5mo6mao614dc6f4vvl82d" timestamp="1394521916279"><title>7、database link</title></topic></topics></children></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>

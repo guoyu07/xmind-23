@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="1qdlpa8rkd2vh4u4srakjl9h8s" timestamp="1394514974794" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="28e5vfh6jb9b6gmi30f3pq9u9f" structure-class="org.xmind.ui.map.clockwise" timestamp="1394513981690"><title>oracle</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/4bf55iqh56mb65h2m1kaqc5473.png"/></xhtml:p></html><plain/></notes><children><topics type="attached"><topic id="75mamfgug9c2cunhj6kck6e90d" timestamp="1394513982773"><title>1、oracle简介</title><children><topics type="attached"><topic id="5sl03oumu77d39sg9qdnrna86o" timestamp="1394513981690"><title>1、启动</title><notes><html><xhtml:p>sqlplus / as sysdba</xhtml:p><xhtml:p>&gt;startup</xhtml:p><xhtml:p>&gt;shutdown immediate</xhtml:p><xhtml:p>&gt;select staus from v$instance;</xhtml:p><xhtml:p>&gt;quit</xhtml:p><xhtml:p/><xhtml:p/></html><plain>sqlplus / as sysdba
+&gt;startup
+&gt;shutdown immediate
+&gt;select staus from v$instance;
+&gt;quit
+
+</plain></notes></topic><topic id="7i3daqe7kfmjcbtqaqeav7u31c" timestamp="1394514518142"><title>2、oracle整体架构图</title><notes><html><xhtml:p/><xhtml:p><xhtml:img xhtml:src="xap:attachments/69bh41a7hq4ndo328mbgfu2k55.png"/></xhtml:p></html><plain>
+</plain></notes><children><topics type="attached"><topic id="725qvmv71a5d4kq1ppohtu517q" timestamp="1394514974794"><title>1、SGA</title><notes><html><xhtml:p>oracle实例</xhtml:p><xhtml:p>i、Oracle实例是内存结构和后台进程的集合</xhtml:p><xhtml:p>ii、启动Oracle实例的过程，即：分配内存、启动后台进程</xhtml:p><xhtml:p>iii、Oracle实例的内存包括SGA和PGA；</xhtml:p><xhtml:p>     当启动实例的时候分配SGA；</xhtml:p><xhtml:p>     当服务器进程建立时分配PGA；</xhtml:p><xhtml:p>     <xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">一般情况下，SGA:PGA=8:1分配内存。</xhtml:span></xhtml:p><xhtml:p>iiii、Oracle实例的后台进程包括SMON、PMON、DBWR、LGWR、ARC、CKPT等。</xhtml:p><xhtml:p/><xhtml:p>    </xhtml:p><xhtml:p/><xhtml:p>5、SGA(System Global Area): 系统全局区</xhtml:p><xhtml:p>i0、数据库信息存储于SGA，由多个数据库进程共享。</xhtml:p><xhtml:p>i1、SGA包括：共享池、数据缓冲区、重做日志缓冲区、Large池、Java池、Stream池。</xhtml:p><xhtml:p/><xhtml:p>i2、共享池 </xhtml:p><xhtml:p>1)、<xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">共享池是对SQL、PL/SQL程序进行语法分析、编译、执行的内存区域。</xhtml:span></xhtml:p><xhtml:p>如在执行SELECT * FROM emp语句时，会对sql语句进行语法分析-&gt;编译-&gt;生成执行计划-&gt;运行执行计划等，这些操作都在共享池中完成；如果再次执行SELECT * FROM emp语句时，会在共享池中查找是否有相同的sql，如果存在则省去编译、生成执行计划操作步骤而是直接运行执行计划，因此养成良好的编码习惯对于提高oracle执行效率非常有帮助。</xhtml:p><xhtml:p>2)、<xhtml:span style-id="7jqa3ts5ptiaub1i1vgbro4plq">共享池由库缓存和数据字典缓存组成。</xhtml:span></xhtml:p><xhtml:p>3)、共享池的大小直接影响数据库的性能。</xhtml:p><xhtml:p/><xhtml:p> </xhtml:p><xhtml:p>i3、数据缓冲区</xhtml:p><xhtml:p>1)、用于存储从磁盘数据文件中读入的数据，所有用户共享。</xhtml:p><xhtml:p>2)、服务器进程将读入的数据保存在数据缓冲区中，当后续的请求需要这些数据时可以在内存中找到，不需要再从磁盘读取，提高了读取速度。</xhtml:p><xhtml:p>3)、数据缓冲区的大小对数据库的读取速度有直接的影响。</xhtml:p><xhtml:p>4)、硬盘上的数据文件中的数据，如何返回给用户的？</xhtml:p><xhtml:p>i、从硬盘取出来，直接返回给用户，使得获取数据的效率非常低。（server process直接去读）</xhtml:p><xhtml:p>ii、从硬盘取出来，放到数据缓冲区，从数据缓冲区中把数据返回给用户。下次读取同样的数据的话，直接从数据缓冲区中获取，不需要再从硬盘获取。</xhtml:p><xhtml:p/><xhtml:p>   </xhtml:p><xhtml:p/><xhtml:p> i4、重做日志缓冲区 </xhtml:p><xhtml:p>1)、日志记录数据库的所有修改信息，日志信息首先产生于日志缓冲区。 </xhtml:p><xhtml:p>2)、当日志缓冲区的日志数据达到一定数量时，由后台进程将日志数据写入日志文件中。</xhtml:p><xhtml:p>3)、相对来说，日志缓冲区对数据库的性能影响较小。</xhtml:p><xhtml:p>eg、UPDATE emp SET empno=7935 WHERE empno=7934;首先在日记缓冲区中被记录，某个时候(三种情况；一、日志缓冲区中的记录达到1M 二、每隔3秒 三、日志缓冲区已经用了三分之一，满足其中任意一项就可以)把日志缓冲区中的这些记录写到在线日志中去。</xhtml:p><xhtml:p/><xhtml:p>      </xhtml:p><xhtml:p>i5、Large池 </xhtml:p><xhtml:p>为了进行大的后台进程操作而分配的内存空间，主要指备份恢复、大型IO操作、并行查询等。</xhtml:p><xhtml:p/><xhtml:p>   </xhtml:p><xhtml:p>i6、Stream池 </xhtml:p><xhtml:p>为了stream应用而分配的内存空间，高级复制技术一部分。</xhtml:p><xhtml:p/><xhtml:p>   </xhtml:p><xhtml:p>i7、JAVA池</xhtml:p><xhtml:p>为了java应用而分配的内存空间。</xhtml:p></html><plain>oracle实例
+i、Oracle实例是内存结构和后台进程的集合
+ii、启动Oracle实例的过程，即：分配内存、启动后台进程
+iii、Oracle实例的内存包括SGA和PGA；
+     当启动实例的时候分配SGA；
+     当服务器进程建立时分配PGA；
+     一般情况下，SGA:PGA=8:1分配内存。
+iiii、Oracle实例的后台进程包括SMON、PMON、DBWR、LGWR、ARC、CKPT等。
+
+    
+
+5、SGA(System Global Area): 系统全局区
+i0、数据库信息存储于SGA，由多个数据库进程共享。
+i1、SGA包括：共享池、数据缓冲区、重做日志缓冲区、Large池、Java池、Stream池。
+
+i2、共享池 
+1)、共享池是对SQL、PL/SQL程序进行语法分析、编译、执行的内存区域。
+如在执行SELECT * FROM emp语句时，会对sql语句进行语法分析-&gt;编译-&gt;生成执行计划-&gt;运行执行计划等，这些操作都在共享池中完成；如果再次执行SELECT * FROM emp语句时，会在共享池中查找是否有相同的sql，如果存在则省去编译、生成执行计划操作步骤而是直接运行执行计划，因此养成良好的编码习惯对于提高oracle执行效率非常有帮助。
+2)、共享池由库缓存和数据字典缓存组成。
+3)、共享池的大小直接影响数据库的性能。
+
+ 
+i3、数据缓冲区
+1)、用于存储从磁盘数据文件中读入的数据，所有用户共享。
+2)、服务器进程将读入的数据保存在数据缓冲区中，当后续的请求需要这些数据时可以在内存中找到，不需要再从磁盘读取，提高了读取速度。
+3)、数据缓冲区的大小对数据库的读取速度有直接的影响。
+4)、硬盘上的数据文件中的数据，如何返回给用户的？
+i、从硬盘取出来，直接返回给用户，使得获取数据的效率非常低。（server process直接去读）
+ii、从硬盘取出来，放到数据缓冲区，从数据缓冲区中把数据返回给用户。下次读取同样的数据的话，直接从数据缓冲区中获取，不需要再从硬盘获取。
+
+   
+
+ i4、重做日志缓冲区 
+1)、日志记录数据库的所有修改信息，日志信息首先产生于日志缓冲区。 
+2)、当日志缓冲区的日志数据达到一定数量时，由后台进程将日志数据写入日志文件中。
+3)、相对来说，日志缓冲区对数据库的性能影响较小。
+eg、UPDATE emp SET empno=7935 WHERE empno=7934;首先在日记缓冲区中被记录，某个时候(三种情况；一、日志缓冲区中的记录达到1M 二、每隔3秒 三、日志缓冲区已经用了三分之一，满足其中任意一项就可以)把日志缓冲区中的这些记录写到在线日志中去。
+
+      
+i5、Large池 
+为了进行大的后台进程操作而分配的内存空间，主要指备份恢复、大型IO操作、并行查询等。
+
+   
+i6、Stream池 
+为了stream应用而分配的内存空间，高级复制技术一部分。
+
+   
+i7、JAVA池
+为了java应用而分配的内存空间。</plain></notes></topic><topic id="3b65o8ul0vigfe3caas9ujrmt8" timestamp="1394514520486"><title>2、PGA</title></topic></topics></children></topic></topics></children></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>

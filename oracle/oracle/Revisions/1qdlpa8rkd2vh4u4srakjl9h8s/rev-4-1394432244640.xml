@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="1qdlpa8rkd2vh4u4srakjl9h8s" timestamp="1394432229273" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="28e5vfh6jb9b6gmi30f3pq9u9f" structure-class="org.xmind.ui.map.clockwise" timestamp="1394431903442"><title>oracle</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/4bf55iqh56mb65h2m1kaqc5473.png"/></xhtml:p></html><plain/></notes><children><topics type="attached"><topic id="5sl03oumu77d39sg9qdnrna86o" timestamp="1394432229273"><title>1、启动</title><notes><html><xhtml:p>sqlplus / as sysdba</xhtml:p><xhtml:p>&gt;startup</xhtml:p><xhtml:p>&gt;shutdown immediate</xhtml:p><xhtml:p>&gt;quit</xhtml:p><xhtml:p/><xhtml:p/></html><plain>sqlplus / as sysdba
+&gt;startup
+&gt;shutdown immediate
+&gt;quit
+
+</plain></notes></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>

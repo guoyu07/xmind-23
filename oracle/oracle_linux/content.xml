@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-content xmlns="urn:xmind:xmap:xmlns:content:2.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" timestamp="1394429358762" version="2.0"><sheet id="0a2iqrq7tfkcpse6v2slpbdtfs" timestamp="1394429358762"><topic id="199tglcsds4odpgt0eubf3jm9l" structure-class="org.xmind.ui.map.clockwise" timestamp="1394424834926"><title>oracle linux</title><children><topics type="attached"><topic id="2acg13g9t65dkhip3ihbpnotst" timestamp="1394420641195"><title>1、网卡配置</title><notes><html><xhtml:p>setup #开启图形界面配置</xhtml:p><xhtml:p/><xhtml:p>ifconfig -a</xhtml:p><xhtml:p/><xhtml:p>/etc/init.d/network restart</xhtml:p><xhtml:p/><xhtml:p>ip a</xhtml:p><xhtml:p/><xhtml:p>ip addr</xhtml:p></html><plain>setup #开启图形界面配置
+
+ifconfig -a
+
+/etc/init.d/network restart
+
+ip a
+
+ip addr</plain></notes><children><topics type="attached"><topic id="7mruk91d4chmi3q4pgskhnqq1b" timestamp="1394420549651"><title>1、网卡配置文件</title><notes><html><xhtml:p>/etc/sysconfig/network-scripts/ifcfg-eth0</xhtml:p><xhtml:p/><xhtml:p><xhtml:img xhtml:src="xap:attachments/0j51j140tlk19er19pmpp6octv.png"/></xhtml:p></html><plain>/etc/sysconfig/network-scripts/ifcfg-eth0
+
+</plain></notes></topic><topic id="2jnfc6a5r7ecma91ra87e047hs" timestamp="1394420709447"><title>2、修改主机名</title><notes><html><xhtml:p>vi /etc/hosts</xhtml:p><xhtml:p>vi /etc/sysconfig/network</xhtml:p><xhtml:p>#重启生效</xhtml:p><xhtml:p/><xhtml:p>hostname xxxx#立即生效</xhtml:p></html><plain>vi /etc/hosts
+vi /etc/sysconfig/network
+#重启生效
+
+hostname xxxx#立即生效</plain></notes></topic></topics></children></topic><topic id="69uo05apoo3oi54hicbhveiepc" timestamp="1394422730183"><title>2、磁盘管理</title><children><topics type="attached"><topic id="1gintgcqdj80nogk6op3sdphd0" timestamp="1394422357410"><title>1、磁盘管理</title><notes><html><xhtml:p>fdisk -l</xhtml:p><xhtml:p>linux里一块磁盘最多有14个分区，主分区最多4个</xhtml:p><xhtml:p>fdisk /dev/sda</xhtml:p><xhtml:p>	:m #查看帮助</xhtml:p><xhtml:p>	:n	添加分区</xhtml:p><xhtml:p>	:d 删除分区</xhtml:p><xhtml:p>	:w 保存分区</xhtml:p><xhtml:p>#默认分区完需要重启</xhtml:p><xhtml:p>partprobe </xhtml:p><xhtml:p/><xhtml:p>#格式化</xhtml:p><xhtml:p>mkfs.ext3 /dev/sda5</xhtml:p><xhtml:p/><xhtml:p>#/mnt目录必须为空</xhtml:p><xhtml:p>mount /dev/sda5 /mnt</xhtml:p><xhtml:p>umount /dev/sda5</xhtml:p></html><plain>fdisk -l
+linux里一块磁盘最多有14个分区，主分区最多4个
+fdisk /dev/sda
+	:m #查看帮助
+	:n	添加分区
+	:d 删除分区
+	:w 保存分区
+#默认分区完需要重启
+partprobe 
+
+#格式化
+mkfs.ext3 /dev/sda5
+
+#/mnt目录必须为空
+mount /dev/sda5 /mnt
+umount /dev/sda5</plain></notes></topic><topic id="5a3153i1d1osu033nqjbjmcvgr" timestamp="1394422874906"><title>2、存储配置命令(raw配置)</title><notes><html><xhtml:p>cd /etc/udev/rules.d/</xhtml:p><xhtml:p/><xhtml:p>vi 60-raw.rules</xhtml:p><xhtml:p>	ACTION=="add", KERNEL="sda5", RUN+="/bin/raw /dev/raw/raw1 %N"</xhtml:p><xhtml:p>	KERNEL=="raw*", OWNER="oracle", GROUP="dba", MODE="0660"</xhtml:p><xhtml:p>	:wq</xhtml:p><xhtml:p/><xhtml:p>start_udev</xhtml:p><xhtml:p/><xhtml:p>raw -qa</xhtml:p><xhtml:p/><xhtml:p>cd /dev/raw/</xhtml:p><xhtml:p>cd raw1</xhtml:p><xhtml:p/></html><plain>cd /etc/udev/rules.d/
+
+vi 60-raw.rules
+	ACTION=="add", KERNEL="sda5", RUN+="/bin/raw /dev/raw/raw1 %N"
+	KERNEL=="raw*", OWNER="oracle", GROUP="dba", MODE="0660"
+	:wq
+
+start_udev
+
+raw -qa
+
+cd /dev/raw/
+cd raw1
+</plain></notes><children><topics type="attached"><topic id="0s05p74hc69sg10eao17nbm2k2" timestamp="1394423180639"><title>摘录</title><notes><html><xhtml:p>1、什么裸设备？字符设备？块设备？</xhtml:p><xhtml:p>裸设备：也叫裸分区（原始分区），是一种没有经过格式化，不被Unix/Linux通过文件系统来读取的特殊字符设备。裸设备可以绑定一个分区，也可以绑定一个磁盘。</xhtml:p><xhtml:p>字符设备：对字符设备的读写不需要通过OS的buffer。它不可被文件系统mount。</xhtml:p><xhtml:p>块设备：对块设备的读写需要通过OS的buffer，它可以被mount到文件系统中。</xhtml:p><xhtml:p/><xhtml:p>2、一个系统可以有多少个裸设备？</xhtml:p><xhtml:p>这个与linux的版本相关，在旧版本中，最多只可以有256个裸设备，Linux 4下做多可以绑定8192个裸设备。</xhtml:p><xhtml:p>但是在linux下，最多只能有255个分区，所以，如果用裸设备绑定分区，最多只能绑定255个裸设备。</xhtml:p><xhtml:p>如果是用lvm，则没有这个限制。</xhtml:p><xhtml:p/><xhtml:p>3、Linux下单个磁盘最多可以有多少个分区？</xhtml:p><xhtml:p>15个。3个主分区 + 1个扩展分区 + 11个逻辑分区。</xhtml:p><xhtml:p>建议的分区方法是：先分3个主分区，第四个分区为扩展分区，然后在扩展分区中再分成11个逻辑分区。</xhtml:p><xhtml:p>注意，裸设备不要绑定在扩展分区上。</xhtml:p><xhtml:p/><xhtml:p>4、linux下是否需要绑定裸设备？unix呢？</xhtml:p><xhtml:p>linux下如果需要使用裸设备，则需要手工进行绑定。</xhtml:p><xhtml:p>unix下则不用。</xhtml:p><xhtml:p/><xhtml:p>因为Unix中每一个块设备都会有一个对应的字符设备用于非缓存(unbuffered)I/O,这就是他对应的裸设备了。</xhtml:p><xhtml:p>而Linux中rawio的则实现了一套非绑定(unbound)的裸设备/dev/rawN或者/dev/raw/rawN和一个控制设备 /dev/rawct用来把他们绑定到块设备上。所以当需要使用一个裸设备的时候，就需要把他和一个真实存在的块设备对应起来，这一个步骤实际上就是完成 了Unix里的自动对应一个非缓存字符设备。</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">5、linux如何绑定裸设备？</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">两种方式：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">1）命令绑定</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">raw /dev/raw/raw[n] /dev/xxx</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">其中n的范围是0-8191。raw目录不存在的话会被自动创建。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">执行这个命令，就会在/dev/raw下生成一个对应的raw[n]文件</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">用命令方式绑定裸设备在系统重启后会失效。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">2）修改文件</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">修改/etc/sysconfig/rawdevices文件如下，以开机时自动加载裸设备，如：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">/dev/raw/raw1 /dev/sdb1</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">这种方式是通过启动服务的方式来绑定裸设备。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">也可以把这个命令写在/etc/rc.local上，使每次启动都执行这些命令。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">6、如何把裸设备作为oracle数据文件？有什么需要注意的？</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">1）绑定裸设备</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">参考上文</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">2）改变裸设备属主</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">两种方法：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">. 把命令卸载/etc/rc.local上</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">chown oracle:oinstall /dev/raw/raw1</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">. 修改/etc/udev/permissions.d/50-udev.permissions文件</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">将/etc/udev/permissions.d/50-udev.permissions的113行</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">从</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">raw/*:root:disk:0660</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">修改为</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">raw/*:oracle:oinstall:0660</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">这个的意思是修改裸设备的默认属主为oracle:oinstall，默认的mode是0660。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">如果是用lvm，也需要把逻辑卷绑定到裸设备上，过程和绑定到普通分区类似。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">7、使用裸设备作为oracle数据文件有什么需要注意的？</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">使用裸设备作为oracle的数据文件必须注意以下几点：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">1）一个裸设备只能放置一个数据文件</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">2）数据文件的大小不能超过裸设备的大小</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">如果是日志文件，则裸设备最大可用大小=裸设备对应分区大小 - 1 * 512 （保留一个redo lock）</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">如果是数据文件，则裸设备最大可用大小=裸设备对应分区大小 - 2 * db_block_size（保留两个block） </xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">为了简单起见，对所有的文件设置称比裸设备小1M即可。 </xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">3）数据文件最好不要设置称自动扩展，如果设置称自动扩展，一定要把maxsize设置设置为比裸设备小</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">8、是否可以直接用逻辑卷作为oracle数据文件？</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">linux下oracle不能直接把逻辑卷作为裸设备，也要进行绑定。unix下就不需要。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">9、如何知道当前绑定了什么裸设备？</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">rqw -qa命令列出当前绑定的所有裸设备。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">10、如何知道某个裸设备的大小</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">比较笨的办法是，找出看裸设备对应的是那个实际的块设备，然后用fdisk -l /dev/[h,s]dXN看那个块设备的大小就好了。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">比较简单的办法是用blockdev命令来计算，如：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">#blockdev --getsize /dev/raw/raw1</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">11718750</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">11718750表示有多少OS BLIOCK。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">一般一个OS BLOCK大小是512字节，所以11718750*512/1024/1024/1024 = 5722(m) 就是裸设备的大小。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">11、数据库中可以同时以文件和裸设备作为数据文件吗？</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">可以。甚至在同一个表空间中，也可以部分数据文件用文件系统，部分文件用裸设备。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">但是不建议这样做，因为会增加管理的复杂度。</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">12、可以把至于裸设备的数据文件设成自动扩展吗？</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">可以，但同时要设置maxsize，且maxsize不能超过：裸设备大小 - 2*db_block_size</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">13、如何修改裸设备的默认权限</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">两种方法：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">1）要修改/etc/rc.d/rc.local文件,加入如下:</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">chown root:oinstall /dev/raw/raw1</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">chown root:oinstall /dev/raw/raw2</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">chown root:oinstall /dev/raw/raw3</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">...</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">chmod 660 /dev/raw/raw1</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">chmod 660 /dev/raw/raw2</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">chmod 660 /dev/raw/raw3</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">...</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">2）实际上还有更简单的方法就是,修改/etc/udev/permissions.d/50-udev.permissions文件:</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">raw/*:root:disk:0660</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">为</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">raw/*:root:oinstall:0660</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">这样就可以了!</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">14、如何取消裸设备的绑定</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">用raw把major and minor设成0就可以取消裸设备的绑定。如：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">raw /dev/raw/raw1 0 0</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">这个命令取消绑定裸设备的绑定，/dev/raw/raw1会被删除</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86"/></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">15、裸设备可以绑定的对象可以什么？</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">可以绑定整个没有分区的硬盘、可以绑定硬盘的某个分区、可以绑定逻辑卷等。</xhtml:span></xhtml:p></html><plain>1、什么裸设备？字符设备？块设备？
+裸设备：也叫裸分区（原始分区），是一种没有经过格式化，不被Unix/Linux通过文件系统来读取的特殊字符设备。裸设备可以绑定一个分区，也可以绑定一个磁盘。
+字符设备：对字符设备的读写不需要通过OS的buffer。它不可被文件系统mount。
+块设备：对块设备的读写需要通过OS的buffer，它可以被mount到文件系统中。
+
+2、一个系统可以有多少个裸设备？
+这个与linux的版本相关，在旧版本中，最多只可以有256个裸设备，Linux 4下做多可以绑定8192个裸设备。
+但是在linux下，最多只能有255个分区，所以，如果用裸设备绑定分区，最多只能绑定255个裸设备。
+如果是用lvm，则没有这个限制。
+
+3、Linux下单个磁盘最多可以有多少个分区？
+15个。3个主分区 + 1个扩展分区 + 11个逻辑分区。
+建议的分区方法是：先分3个主分区，第四个分区为扩展分区，然后在扩展分区中再分成11个逻辑分区。
+注意，裸设备不要绑定在扩展分区上。
+
+4、linux下是否需要绑定裸设备？unix呢？
+linux下如果需要使用裸设备，则需要手工进行绑定。
+unix下则不用。
+
+因为Unix中每一个块设备都会有一个对应的字符设备用于非缓存(unbuffered)I/O,这就是他对应的裸设备了。
+而Linux中rawio的则实现了一套非绑定(unbound)的裸设备/dev/rawN或者/dev/raw/rawN和一个控制设备 /dev/rawct用来把他们绑定到块设备上。所以当需要使用一个裸设备的时候，就需要把他和一个真实存在的块设备对应起来，这一个步骤实际上就是完成 了Unix里的自动对应一个非缓存字符设备。
+
+
+
+5、linux如何绑定裸设备？
+两种方式：
+1）命令绑定
+raw /dev/raw/raw[n] /dev/xxx
+其中n的范围是0-8191。raw目录不存在的话会被自动创建。
+执行这个命令，就会在/dev/raw下生成一个对应的raw[n]文件
+用命令方式绑定裸设备在系统重启后会失效。
+
+2）修改文件
+修改/etc/sysconfig/rawdevices文件如下，以开机时自动加载裸设备，如：
+/dev/raw/raw1 /dev/sdb1
+这种方式是通过启动服务的方式来绑定裸设备。
+
+也可以把这个命令写在/etc/rc.local上，使每次启动都执行这些命令。
+
+6、如何把裸设备作为oracle数据文件？有什么需要注意的？
+1）绑定裸设备
+参考上文
+2）改变裸设备属主
+两种方法：
+. 把命令卸载/etc/rc.local上
+chown oracle:oinstall /dev/raw/raw1
+. 修改/etc/udev/permissions.d/50-udev.permissions文件
+将/etc/udev/permissions.d/50-udev.permissions的113行
+从
+raw/*:root:disk:0660
+修改为
+raw/*:oracle:oinstall:0660
+
+这个的意思是修改裸设备的默认属主为oracle:oinstall，默认的mode是0660。
+
+如果是用lvm，也需要把逻辑卷绑定到裸设备上，过程和绑定到普通分区类似。
+
+
+7、使用裸设备作为oracle数据文件有什么需要注意的？
+使用裸设备作为oracle的数据文件必须注意以下几点：
+1）一个裸设备只能放置一个数据文件
+2）数据文件的大小不能超过裸设备的大小
+如果是日志文件，则裸设备最大可用大小=裸设备对应分区大小 - 1 * 512 （保留一个redo lock）
+如果是数据文件，则裸设备最大可用大小=裸设备对应分区大小 - 2 * db_block_size（保留两个block） 
+为了简单起见，对所有的文件设置称比裸设备小1M即可。 
+3）数据文件最好不要设置称自动扩展，如果设置称自动扩展，一定要把maxsize设置设置为比裸设备小
+
+8、是否可以直接用逻辑卷作为oracle数据文件？
+linux下oracle不能直接把逻辑卷作为裸设备，也要进行绑定。unix下就不需要。
+
+
+
+
+
+9、如何知道当前绑定了什么裸设备？
+rqw -qa命令列出当前绑定的所有裸设备。
+
+10、如何知道某个裸设备的大小
+比较笨的办法是，找出看裸设备对应的是那个实际的块设备，然后用fdisk -l /dev/[h,s]dXN看那个块设备的大小就好了。
+比较简单的办法是用blockdev命令来计算，如：
+#blockdev --getsize /dev/raw/raw1
+11718750
+11718750表示有多少OS BLIOCK。
+一般一个OS BLOCK大小是512字节，所以11718750*512/1024/1024/1024 = 5722(m) 就是裸设备的大小。
+
+11、数据库中可以同时以文件和裸设备作为数据文件吗？
+可以。甚至在同一个表空间中，也可以部分数据文件用文件系统，部分文件用裸设备。
+但是不建议这样做，因为会增加管理的复杂度。
+
+12、可以把至于裸设备的数据文件设成自动扩展吗？
+可以，但同时要设置maxsize，且maxsize不能超过：裸设备大小 - 2*db_block_size
+
+13、如何修改裸设备的默认权限
+两种方法：
+1）要修改/etc/rc.d/rc.local文件,加入如下:
+chown root:oinstall /dev/raw/raw1
+chown root:oinstall /dev/raw/raw2
+chown root:oinstall /dev/raw/raw3
+...
+chmod 660 /dev/raw/raw1
+chmod 660 /dev/raw/raw2
+chmod 660 /dev/raw/raw3
+...
+
+2）实际上还有更简单的方法就是,修改/etc/udev/permissions.d/50-udev.permissions文件:
+raw/*:root:disk:0660
+为
+raw/*:root:oinstall:0660
+
+这样就可以了!
+
+
+14、如何取消裸设备的绑定
+用raw把major and minor设成0就可以取消裸设备的绑定。如：
+raw /dev/raw/raw1 0 0
+这个命令取消绑定裸设备的绑定，/dev/raw/raw1会被删除
+
+15、裸设备可以绑定的对象可以什么？
+可以绑定整个没有分区的硬盘、可以绑定硬盘的某个分区、可以绑定逻辑卷等。</plain></notes></topic></topics></children></topic><topic id="7q3ec2b50s96qa71d6gfcdq7p8" timestamp="1394423086797"><title>3、系统参数</title><notes><html><xhtml:p><xhtml:img xhtml:src="xap:attachments/77pqstlr492bplbt4dkq6mhhmv.png"/></xhtml:p><xhtml:p><xhtml:img xhtml:src="xap:attachments/23bvkajpjhli12ommc69ohnt4u.png"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">vi /etc/sysctl.conf</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9">vi /etc/security/limits.conf</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="1uaddtp0to8ug487gpgn300ch9"/></xhtml:p><xhtml:p/></html><plain>
+
+
+vi /etc/sysctl.conf
+
+vi /etc/security/limits.conf
+
+</plain></notes></topic></topics></children></topic><topic id="745qnbm2hv9r18mpnrtr47lla4" timestamp="1394425654647"><title>3、linux图形化支持，ssh</title><children><topics type="attached"><topic id="1e2aso8r5udfo5du9fl75bn2m8" timestamp="1394425014125"><title>1、XManager</title><notes><html><xhtml:p><xhtml:span style-id="0qpteqep1tml5d8dlcm08tpv86">用oracle用户登录，非root 转 oracle（su - oracle）</xhtml:span></xhtml:p><xhtml:p>#测试</xhtml:p><xhtml:p>xeyes</xhtml:p><xhtml:p>xclock</xhtml:p><xhtml:p/></html><plain>用oracle用户登录，非root 转 oracle（su - oracle）
+#测试
+xeyes
+xclock
+</plain></notes></topic><topic id="7kk5vr22j6hof9ser66v58p7u1" timestamp="1394425179759"><title>2、vncviewer</title><notes><html><xhtml:p>server</xhtml:p><xhtml:p>IP:0</xhtml:p><xhtml:p/><xhtml:p/></html><plain>server
+IP:0
+
+</plain></notes></topic><topic id="2r9gcjvkhcs7eah9f1m6nggtg9" timestamp="1394425541677"><title>3、linux xmanager</title><notes><html><xhtml:p>cd /usr/share/gdm</xhtml:p><xhtml:p/><xhtml:p>vi defaults.conf</xhtml:p><xhtml:p>	Port=177</xhtml:p><xhtml:p>	AllowRoot=true</xhtml:p><xhtml:p>	AllowRemoteRoot=true</xhtml:p><xhtml:p>	Enable=true</xhtml:p><xhtml:p/><xhtml:p>gdm-restart</xhtml:p><xhtml:p/></html><plain>cd /usr/share/gdm
+
+vi defaults.conf
+	Port=177
+	AllowRoot=true
+	AllowRemoteRoot=true
+	Enable=true
+
+gdm-restart
+</plain></notes></topic><topic id="222hcli8dk9h9s1ov8eaqn7sde" timestamp="1394425575834"><title>4、ssh</title><notes><html><xhtml:p>/etc/init.d/sshd restart</xhtml:p><xhtml:p/><xhtml:p/></html><plain>/etc/init.d/sshd restart
+
+</plain></notes></topic><topic id="1trh3gs59avhqvrn60u298r8vh" timestamp="1394429358762"><title>5、oracle的优化（操作系统层）</title><notes><html><xhtml:p>ps</xhtml:p><xhtml:p>df</xhtml:p><xhtml:p>free</xhtml:p><xhtml:p>vmstat</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>kill -9 `ps -ef|grep ssh|grep -v grep | awk '{print $2}'`</xhtml:p><xhtml:p/><xhtml:p>vmstat 1 5 #一秒钟一次，共执行五次</xhtml:p><xhtml:p>r：等待进程数</xhtml:p><xhtml:p>b：处在非中断睡眠状态的进程</xhtml:p><xhtml:p/><xhtml:p/></html><plain>ps
+df
+free
+vmstat
+
+
+kill -9 `ps -ef|grep ssh|grep -v grep | awk '{print $2}'`
+
+vmstat 1 5 #一秒钟一次，共执行五次
+r：等待进程数
+b：处在非中断睡眠状态的进程
+
+</plain></notes></topic></topics></children></topic></topics></children><notes><html><xhtml:p>putty.exe</xhtml:p><xhtml:p>Xmanager Enterprise 4</xhtml:p><xhtml:p>SSH Secure Shell Client</xhtml:p><xhtml:p/></html><plain>putty.exe
+Xmanager Enterprise 4
+SSH Secure Shell Client
+</plain></notes></topic><title>画布 1</title></sheet></xmap-content>

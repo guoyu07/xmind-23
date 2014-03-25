@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="0a2iqrq7tfkcpse6v2slpbdtfs" timestamp="1394420460658" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="199tglcsds4odpgt0eubf3jm9l" structure-class="org.xmind.ui.map.clockwise" timestamp="1394420460658"><title>oracle linux</title><children><topics type="attached"><topic id="6hoj86tddtb7j5mbhn1se4u72l" timestamp="1394420345644"><title>ip a</title><notes><html><xhtml:p>ip addr</xhtml:p><xhtml:p/></html><plain>ip addr
+</plain></notes></topic><topic id="2acg13g9t65dkhip3ihbpnotst" timestamp="1394420457349"><title>1、网卡配置</title><notes><html><xhtml:p>setup</xhtml:p><xhtml:p/><xhtml:p>ifconfig -a</xhtml:p><xhtml:p/><xhtml:p>/etc/init.d/network restart</xhtml:p><xhtml:p/></html><plain>setup
+
+ifconfig -a
+
+/etc/init.d/network restart
+</plain></notes></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>

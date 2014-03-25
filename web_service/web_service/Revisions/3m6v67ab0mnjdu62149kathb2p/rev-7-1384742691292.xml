@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="3m6v67ab0mnjdu62149kathb2p" timestamp="1384742685671" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="2r9it7urghqib6piup0p2sqhpm" structure-class="org.xmind.ui.map.clockwise" timestamp="1384497228850"><title>Web Service</title><children><topics type="attached"><topic id="3nm3dcgai9pbeds222m95c8s4p" timestamp="1384496424872"><title>1、自底向上（代码优先）</title><children><topics type="attached"><topic id="0lnqo6qujue5qigrcfcni10lq6" timestamp="1384485464799"><title>1、添加依赖类并修改web.xml</title><notes><html><xhtml:p>1、添加依赖jar包</xhtml:p><xhtml:p>        &lt;!-- 用于和spring集成使用 --&gt;</xhtml:p><xhtml:p>		&lt;dependency&gt;</xhtml:p><xhtml:p>			&lt;groupId&gt;org.jvnet.jax-ws-commons.spring&lt;/groupId&gt;</xhtml:p><xhtml:p>			&lt;artifactId&gt;jaxws-spring&lt;/artifactId&gt;</xhtml:p><xhtml:p>			&lt;version&gt;1.8&lt;/version&gt;</xhtml:p><xhtml:p>			&lt;exclusions&gt;</xhtml:p><xhtml:p>				&lt;exclusion&gt;</xhtml:p><xhtml:p>					&lt;groupId&gt;org.springframework&lt;/groupId&gt;</xhtml:p><xhtml:p>					&lt;artifactId&gt;spring&lt;/artifactId&gt;</xhtml:p><xhtml:p>				&lt;/exclusion&gt;</xhtml:p><xhtml:p>			&lt;/exclusions&gt;</xhtml:p><xhtml:p>		&lt;/dependency&gt;</xhtml:p><xhtml:p>		</xhtml:p><xhtml:p>		&lt;dependency&gt;</xhtml:p><xhtml:p>			&lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;</xhtml:p><xhtml:p>			&lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;</xhtml:p><xhtml:p>			&lt;version&gt;2.2.6&lt;/version&gt;</xhtml:p><xhtml:p>		&lt;/dependency&gt;</xhtml:p><xhtml:p/><xhtml:p>2、修改web.xml</xhtml:p><xhtml:p>   a、添加linstener</xhtml:p><xhtml:p>        <xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">注意：添加在spring linstener之后</xhtml:span></xhtml:p><xhtml:p>	&lt;listener&gt;</xhtml:p><xhtml:p>        &lt;listener-class&gt;com.sun.xml.ws.transport.http.servlet.WSServletContextListener&lt;/listener-class&gt;</xhtml:p><xhtml:p>    &lt;/listener&gt;</xhtml:p><xhtml:p/><xhtml:p>  b、添加servlet</xhtml:p><xhtml:p>	&lt;servlet&gt;</xhtml:p><xhtml:p>        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;</xhtml:p><xhtml:p>        &lt;!-- &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSServlet&lt;/servlet-class&gt; --&gt;</xhtml:p><xhtml:p>        &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSSpringServlet&lt;/servlet-class&gt;</xhtml:p><xhtml:p>        &lt;load-on-startup&gt;2&lt;/load-on-startup&gt;</xhtml:p><xhtml:p>    &lt;/servlet&gt;</xhtml:p><xhtml:p>    &lt;servlet-mapping&gt;</xhtml:p><xhtml:p>        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;</xhtml:p><xhtml:p>        &lt;url-pattern&gt;/HelloService&lt;/url-pattern&gt;</xhtml:p><xhtml:p>    &lt;/servlet-mapping&gt;</xhtml:p><xhtml:p>    &lt;servlet-mapping&gt;</xhtml:p><xhtml:p>        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;</xhtml:p><xhtml:p>        &lt;url-pattern&gt;/Hello2Service&lt;/url-pattern&gt;</xhtml:p><xhtml:p>    &lt;/servlet-mapping&gt;</xhtml:p><xhtml:p/></html><plain>1、添加依赖jar包
+        &lt;!-- 用于和spring集成使用 --&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.jvnet.jax-ws-commons.spring&lt;/groupId&gt;
+			&lt;artifactId&gt;jaxws-spring&lt;/artifactId&gt;
+			&lt;version&gt;1.8&lt;/version&gt;
+			&lt;exclusions&gt;
+				&lt;exclusion&gt;
+					&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+					&lt;artifactId&gt;spring&lt;/artifactId&gt;
+				&lt;/exclusion&gt;
+			&lt;/exclusions&gt;
+		&lt;/dependency&gt;
+		
+		&lt;dependency&gt;
+			&lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+			&lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+			&lt;version&gt;2.2.6&lt;/version&gt;
+		&lt;/dependency&gt;
+
+2、修改web.xml
+   a、添加linstener
+        注意：添加在spring linstener之后
+	&lt;listener&gt;
+        &lt;listener-class&gt;com.sun.xml.ws.transport.http.servlet.WSServletContextListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+
+  b、添加servlet
+	&lt;servlet&gt;
+        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;
+        &lt;!-- &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSServlet&lt;/servlet-class&gt; --&gt;
+        &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSSpringServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;2&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/HelloService&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/Hello2Service&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+</plain></notes></topic><topic id="2cklrap4bd3c7pp75pv51v6uda" timestamp="1384742182701"><title>2、创建发布类</title><notes><html><xhtml:p>//@WebService(endpointInterface = "com.lejingw.apps.ws2.IHelloWsService",</xhtml:p><xhtml:p>//			serviceName = "HelloWsService",</xhtml:p><xhtml:p>//			targetNamespace = "http://ws.apps.lejingw.com",</xhtml:p><xhtml:p>//			portName = "HelloWsServicePort",</xhtml:p><xhtml:p>//  		wsdlLocation = "META-INF/wsdl/hello.wsdl")</xhtml:p><xhtml:p>//			wsdlLocation = "/WEB-INF/wsdl/hello.wsdl")</xhtml:p><xhtml:p>@WebService(</xhtml:p><xhtml:p>serviceName = "Hello2WsService",</xhtml:p><xhtml:p>targetNamespace = "http://ws2.apps.lejingw.com",</xhtml:p><xhtml:p>portName = "Hello2WsServicePort"</xhtml:p><xhtml:p>)</xhtml:p><xhtml:p/><xhtml:p><xhtml:span style-id="51udakdn60ocfie68fehh71i2c">可选的WebService属性有：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="51udakdn60ocfie68fehh71i2c">serviceName</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="51udakdn60ocfie68fehh71i2c">targetNamespace</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="51udakdn60ocfie68fehh71i2c">portName</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="51udakdn60ocfie68fehh71i2c"/></xhtml:p><xhtml:p><xhtml:span style-id="51udakdn60ocfie68fehh71i2c"/></xhtml:p><xhtml:p>不能添加的WebService注释属性有：</xhtml:p><xhtml:p>endpointInterface</xhtml:p><xhtml:p>wsdlLocation</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">类名用WebService注释</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">方法名用WebMethod注释</xhtml:span></xhtml:p><xhtml:p/></html><plain>//@WebService(endpointInterface = "com.lejingw.apps.ws2.IHelloWsService",
+//			serviceName = "HelloWsService",
+//			targetNamespace = "http://ws.apps.lejingw.com",
+//			portName = "HelloWsServicePort",
+//  		wsdlLocation = "META-INF/wsdl/hello.wsdl")
+//			wsdlLocation = "/WEB-INF/wsdl/hello.wsdl")
+@WebService(
+serviceName = "Hello2WsService",
+targetNamespace = "http://ws2.apps.lejingw.com",
+portName = "Hello2WsServicePort"
+)
+
+可选的WebService属性有：
+serviceName
+targetNamespace
+portName
+
+
+不能添加的WebService注释属性有：
+endpointInterface
+wsdlLocation
+
+
+类名用WebService注释
+方法名用WebMethod注释
+</plain></notes><children><topics type="attached"><topic id="3cdjmj3scg3260gruv8m50us6v" timestamp="1384484871393" xlink:href="xap:attachments/09enrh9gkhbi794aptkfutf2s5.java"><title>Hello2WsService.java</title></topic></topics></children></topic><topic id="3uoeeam2jdobdsrm7vhktr9f8e" timestamp="1384507455913"><title>3、添加wsgen的maven插件，生成wsdl文件</title><notes><html><xhtml:p>https://jax-ws-commons.java.net/jaxws-maven-plugin/</xhtml:p><xhtml:p/><xhtml:p>生成wsdl 和 xsd 文件</xhtml:p><xhtml:p>clean compile jaxws:wsgen</xhtml:p><xhtml:p/><xhtml:p>			&lt;plugin&gt;</xhtml:p><xhtml:p>				&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</xhtml:p><xhtml:p>				&lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;</xhtml:p><xhtml:p>                 &lt;!--</xhtml:p><xhtml:p>	       		&lt;executions&gt;</xhtml:p><xhtml:p>	       			&lt;execution&gt;</xhtml:p><xhtml:p>	       				&lt;phase&gt;compile&lt;/phase&gt;</xhtml:p><xhtml:p>	       				&lt;goals&gt;</xhtml:p><xhtml:p>	       					&lt;goal&gt;wsgen&lt;/goal&gt;</xhtml:p><xhtml:p>	       				&lt;/goals&gt;</xhtml:p><xhtml:p>	       			&lt;/execution&gt;</xhtml:p><xhtml:p>	       		&lt;/executions&gt;</xhtml:p><xhtml:p>                  --&gt;</xhtml:p><xhtml:p>				&lt;configuration&gt;</xhtml:p><xhtml:p>					&lt;genWsdl&gt;true&lt;/genWsdl&gt;</xhtml:p><xhtml:p>					&lt;resourceDestDir&gt;src/main/resources/wsdl2&lt;/resourceDestDir&gt;</xhtml:p><xhtml:p>					&lt;sei&gt;com.lejingw.apps.ws2.Hello2WsService&lt;/sei&gt;</xhtml:p><xhtml:p>					&lt;keep&gt;true&lt;/keep&gt;</xhtml:p><xhtml:p>					&lt;!-- </xhtml:p><xhtml:p>					&lt;sourceDestDir&gt;src/main/java&lt;/sourceDestDir&gt;</xhtml:p><xhtml:p>					 --&gt;</xhtml:p><xhtml:p>					&lt;verbose&gt;true&lt;/verbose&gt;</xhtml:p><xhtml:p>					&lt;xnocompile&gt;true&lt;/xnocompile&gt;</xhtml:p><xhtml:p>				&lt;/configuration&gt;</xhtml:p><xhtml:p>			&lt;/plugin&gt;</xhtml:p></html><plain>https://jax-ws-commons.java.net/jaxws-maven-plugin/
+
+生成wsdl 和 xsd 文件
+clean compile jaxws:wsgen
+
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+				&lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
+                 &lt;!--
+	       		&lt;executions&gt;
+	       			&lt;execution&gt;
+	       				&lt;phase&gt;compile&lt;/phase&gt;
+	       				&lt;goals&gt;
+	       					&lt;goal&gt;wsgen&lt;/goal&gt;
+	       				&lt;/goals&gt;
+	       			&lt;/execution&gt;
+	       		&lt;/executions&gt;
+                  --&gt;
+				&lt;configuration&gt;
+					&lt;genWsdl&gt;true&lt;/genWsdl&gt;
+					&lt;resourceDestDir&gt;src/main/resources/wsdl2&lt;/resourceDestDir&gt;
+					&lt;sei&gt;com.lejingw.apps.ws2.Hello2WsService&lt;/sei&gt;
+					&lt;keep&gt;true&lt;/keep&gt;
+					&lt;!-- 
+					&lt;sourceDestDir&gt;src/main/java&lt;/sourceDestDir&gt;
+					 --&gt;
+					&lt;verbose&gt;true&lt;/verbose&gt;
+					&lt;xnocompile&gt;true&lt;/xnocompile&gt;
+				&lt;/configuration&gt;
+			&lt;/plugin&gt;</plain></notes></topic><topic id="12jdvmm1fgnj4jhj5hjb16017c" timestamp="1384742685671"><title>3、或者临时发布web service，采用客户端的形式生成wsdl文件</title><notes><html><xhtml:p>public class DeployWsServerMain {</xhtml:p><xhtml:p>	public static void main(String[] args) {</xhtml:p><xhtml:p>		Endpoint.publish("http://localhost:8888/ss",new Hello2WsService());</xhtml:p><xhtml:p>	}</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">此时需要将xsd中的内容，手工添加到wsdl的xml文件中</xhtml:span></xhtml:p></html><plain>public class DeployWsServerMain {
+	public static void main(String[] args) {
+		Endpoint.publish("http://localhost:8888/ss",new Hello2WsService());
+	}
+}
+此时需要将xsd中的内容，手工添加到wsdl的xml文件中</plain></notes></topic><topic id="4nmv7f5s4pl5ns3kth0ev1u64e" timestamp="1384497218753"><title>4、在WEB-INF下创建sun-jaxws.xml文件</title><notes><html><xhtml:p>如果使用spring来管理web service bean</xhtml:p><xhtml:p>--com.sun.xml.ws.transport.http.servlet.WSSpringServlet</xhtml:p><xhtml:p>则sun-jaxws.xml中可以不设置内容</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>如果使用jax-ws自己来管理web service bean</xhtml:p><xhtml:p>--com.sun.xml.ws.transport.http.servlet.WSServlet</xhtml:p><xhtml:p>则sun-jaxws.xml中一定要设置内容，并和servlet中的内容对应</xhtml:p><xhtml:p>&lt;endpoint implementation="com.lejingw.apps.ws2.Hello2WsService" name="Hello" url-pattern="/Hello2Service"/&gt;</xhtml:p><xhtml:p>通过http查看xsd时，会发生xsd文件无法找到的异常</xhtml:p><xhtml:p>此时可以通过把xsd中的内容添加wsdl的xml文件中即可</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p/><xhtml:p>	&lt;servlet&gt;</xhtml:p><xhtml:p>        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;</xhtml:p><xhtml:p>        &lt;!-- &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSServlet&lt;/servlet-class&gt; --&gt;</xhtml:p><xhtml:p>        &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSSpringServlet&lt;/servlet-class&gt;</xhtml:p><xhtml:p>        &lt;load-on-startup&gt;2&lt;/load-on-startup&gt;</xhtml:p><xhtml:p>    &lt;/servlet&gt;</xhtml:p></html><plain>如果使用spring来管理web service bean
+--com.sun.xml.ws.transport.http.servlet.WSSpringServlet
+则sun-jaxws.xml中可以不设置内容
+
+
+如果使用jax-ws自己来管理web service bean
+--com.sun.xml.ws.transport.http.servlet.WSServlet
+则sun-jaxws.xml中一定要设置内容，并和servlet中的内容对应
+&lt;endpoint implementation="com.lejingw.apps.ws2.Hello2WsService" name="Hello" url-pattern="/Hello2Service"/&gt;
+通过http查看xsd时，会发生xsd文件无法找到的异常
+此时可以通过把xsd中的内容添加wsdl的xml文件中即可
+
+
+
+	&lt;servlet&gt;
+        &lt;servlet-name&gt;Hello&lt;/servlet-name&gt;
+        &lt;!-- &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSServlet&lt;/servlet-class&gt; --&gt;
+        &lt;servlet-class&gt;com.sun.xml.ws.transport.http.servlet.WSSpringServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;2&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;</plain></notes></topic><topic id="7gt5ogmnr675lnlbhul3qio5em" timestamp="1384494351384"><title>5、在Spring中添加web service bean</title><notes><html><xhtml:p/><xhtml:p>    &lt;wss:binding url="/Hello2Service"&gt;</xhtml:p><xhtml:p>        &lt;wss:service&gt;</xhtml:p><xhtml:p>            &lt;ws:service bean="#hello2WsService"&gt;</xhtml:p><xhtml:p>            	&lt;ws:metadata&gt;&lt;value&gt;/WEB-INF/wsdl2/hello2.xsd&lt;/value&gt;&lt;/ws:metadata&gt;</xhtml:p><xhtml:p>            &lt;/ws:service&gt;</xhtml:p><xhtml:p>        &lt;/wss:service&gt;</xhtml:p><xhtml:p>    &lt;/wss:binding&gt;</xhtml:p><xhtml:p/><xhtml:p>    &lt;bean id="hello2WsService" class="com.lejingw.apps.ws2.Hello2WsService" /&gt;</xhtml:p></html><plain>
+    &lt;wss:binding url="/Hello2Service"&gt;
+        &lt;wss:service&gt;
+            &lt;ws:service bean="#hello2WsService"&gt;
+            	&lt;ws:metadata&gt;&lt;value&gt;/WEB-INF/wsdl2/hello2.xsd&lt;/value&gt;&lt;/ws:metadata&gt;
+            &lt;/ws:service&gt;
+        &lt;/wss:service&gt;
+    &lt;/wss:binding&gt;
+
+    &lt;bean id="hello2WsService" class="com.lejingw.apps.ws2.Hello2WsService" /&gt;</plain></notes></topic></topics></children></topic><topic id="1dvn124lgpnpsm4f00ums190kv" timestamp="1384494302115"><title>2、自订向下（契约优先）</title><children><topics type="attached"><topic id="2ekmm3jt4pmmpri4aglg0p2508" timestamp="1384490348756"><title>1、创建xsd文件</title></topic><topic id="5bgfsnm5s1v1kso1urnf1jt7gn" timestamp="1384494235002"><title>2、添加wsimport的maven插件，生成java类</title><notes><html><xhtml:p/><xhtml:p>			&lt;plugin&gt;</xhtml:p><xhtml:p>				&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</xhtml:p><xhtml:p>	       		&lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;</xhtml:p><xhtml:p>	       		&lt;executions&gt;</xhtml:p><xhtml:p>	       			&lt;execution&gt;</xhtml:p><xhtml:p>	       				&lt;phase&gt;compile&lt;/phase&gt;</xhtml:p><xhtml:p>	       				&lt;goals&gt;</xhtml:p><xhtml:p>	       					&lt;goal&gt;wsimport&lt;/goal&gt;</xhtml:p><xhtml:p>	       				&lt;/goals&gt;</xhtml:p><xhtml:p>	       			&lt;/execution&gt;</xhtml:p><xhtml:p>	       		&lt;/executions&gt;</xhtml:p><xhtml:p>	       		&lt;configuration&gt;</xhtml:p><xhtml:p>	       			&lt;wsdlDirectory&gt;src/main/resources/META-INF/wsdl3&lt;/wsdlDirectory&gt;</xhtml:p><xhtml:p>	       		 	&lt;wsdlFiles&gt;</xhtml:p><xhtml:p>	       		 		&lt;wsdlFile&gt;hello3.wsdl&lt;/wsdlFile&gt;</xhtml:p><xhtml:p>	       		 	&lt;/wsdlFiles&gt;</xhtml:p><xhtml:p>	       		&lt;!-- </xhtml:p><xhtml:p>	       		 	&lt;wsdlLocation&gt;http://example.com/mywebservices/*&lt;/wsdlLocation&gt;</xhtml:p><xhtml:p>	       			&lt;wsdlUrls&gt;</xhtml:p><xhtml:p>	       				&lt;wsdlUrl&gt;http://localhost:8080/lstzsb/Hello2Service?wsdl&lt;/wsdlUrl&gt;</xhtml:p><xhtml:p>	       			&lt;/wsdlUrls&gt;</xhtml:p><xhtml:p>	       			&lt;packageName&gt;com.lejingw.apps.ws3&lt;/packageName&gt;</xhtml:p><xhtml:p>	       		 --&gt;</xhtml:p><xhtml:p>	       			&lt;keep&gt;true&lt;/keep&gt;</xhtml:p><xhtml:p>	       			&lt;sourceDestDir&gt;src/main/java&lt;/sourceDestDir&gt;</xhtml:p><xhtml:p>	       			&lt;verbose&gt;true&lt;/verbose&gt;</xhtml:p><xhtml:p>	       			&lt;xnocompile&gt;true&lt;/xnocompile&gt;</xhtml:p><xhtml:p>	       		&lt;/configuration&gt;</xhtml:p><xhtml:p>			&lt;/plugin&gt;</xhtml:p></html><plain>
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+	       		&lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
+	       		&lt;executions&gt;
+	       			&lt;execution&gt;
+	       				&lt;phase&gt;compile&lt;/phase&gt;
+	       				&lt;goals&gt;
+	       					&lt;goal&gt;wsimport&lt;/goal&gt;
+	       				&lt;/goals&gt;
+	       			&lt;/execution&gt;
+	       		&lt;/executions&gt;
+	       		&lt;configuration&gt;
+	       			&lt;wsdlDirectory&gt;src/main/resources/META-INF/wsdl3&lt;/wsdlDirectory&gt;
+	       		 	&lt;wsdlFiles&gt;
+	       		 		&lt;wsdlFile&gt;hello3.wsdl&lt;/wsdlFile&gt;
+	       		 	&lt;/wsdlFiles&gt;
+	       		&lt;!-- 
+	       		 	&lt;wsdlLocation&gt;http://example.com/mywebservices/*&lt;/wsdlLocation&gt;
+	       			&lt;wsdlUrls&gt;
+	       				&lt;wsdlUrl&gt;http://localhost:8080/lstzsb/Hello2Service?wsdl&lt;/wsdlUrl&gt;
+	       			&lt;/wsdlUrls&gt;
+	       			&lt;packageName&gt;com.lejingw.apps.ws3&lt;/packageName&gt;
+	       		 --&gt;
+	       			&lt;keep&gt;true&lt;/keep&gt;
+	       			&lt;sourceDestDir&gt;src/main/java&lt;/sourceDestDir&gt;
+	       			&lt;verbose&gt;true&lt;/verbose&gt;
+	       			&lt;xnocompile&gt;true&lt;/xnocompile&gt;
+	       		&lt;/configuration&gt;
+			&lt;/plugin&gt;</plain></notes></topic><topic id="0p604k7d9q0vv3sth87p1e1u1d" timestamp="1384494256793"><title>3、将wsdl和xsd文件添加到WEB-INF目录下</title></topic><topic id="3kfcafpolcesf81tpk01d877p3" timestamp="1384496167313"><title>4、添加web service接口的实现类</title><children><topics type="attached"><topic id="27v92muc9p17komo86bo566h49" timestamp="1384494299363" xlink:href="xap:attachments/62k2tsn8kbuf9j8bu9p5ppl40e.java"><title>Hello3WsService.java</title></topic></topics></children><notes><html><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">注意：</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">1、wsdlLocation指向WEB-INF/wsdl31</xhtml:span><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">目录中的wsdl文件</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">2、除了生成的接口类外，若舍弃其他生成的类</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">则要调整接口中的各个方法上输入、输出信息转换类属性</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">即删除@RequestWrapper注释中的className属性</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">3、调整xsd中的schema根节点的elementFormDefault属性值为unqualified</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">&lt;xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">	targetNamespace="http://ws3.apps.lejingw.com"</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">	xmlns:tns="http://ws3.apps.lejingw.com"</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28">	elementFormDefault="unqualified"&gt;</xhtml:span></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28"/></xhtml:p><xhtml:p><xhtml:span style-id="2mtj5hflnq8ppbnh65jgg7da28"/></xhtml:p><xhtml:p>@WebService(endpointInterface="com.lejingw.apps.ws31.IHello3WsService",</xhtml:p><xhtml:p>portName="Hello3WsServicePort",</xhtml:p><xhtml:p>serviceName="Hello3WsService",</xhtml:p><xhtml:p>targetNamespace="http://ws3.apps.lejingw.com",</xhtml:p><xhtml:p>wsdlLocation="/WEB-INF/wsdl31/hello3.wsdl"</xhtml:p><xhtml:p>)</xhtml:p></html><plain>注意：
+1、wsdlLocation指向WEB-INF/wsdl31目录中的wsdl文件
+2、除了生成的接口类外，若舍弃其他生成的类
+则要调整接口中的各个方法上输入、输出信息转换类属性
+即删除@RequestWrapper注释中的className属性
+3、调整xsd中的schema根节点的elementFormDefault属性值为unqualified
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ws3.apps.lejingw.com"
+	xmlns:tns="http://ws3.apps.lejingw.com"
+	elementFormDefault="unqualified"&gt;
+
+
+@WebService(endpointInterface="com.lejingw.apps.ws31.IHello3WsService",
+portName="Hello3WsServicePort",
+serviceName="Hello3WsService",
+targetNamespace="http://ws3.apps.lejingw.com",
+wsdlLocation="/WEB-INF/wsdl31/hello3.wsdl"
+)</plain></notes></topic><topic id="5rm0qv2mkat4ddahqstem7qde9" timestamp="1384496141846"><title>5、在Spring中添加web service bean</title><notes><html><xhtml:p/><xhtml:p>    &lt;wss:binding url="/Hello3Service"&gt;</xhtml:p><xhtml:p>        &lt;wss:service&gt;</xhtml:p><xhtml:p>            &lt;ws:service bean="#hello3WsService"&gt;</xhtml:p><xhtml:p>            	&lt;ws:metadata&gt;&lt;value&gt;/WEB-INF/wsdl31/hello3.xsd&lt;/value&gt;&lt;/ws:metadata&gt;</xhtml:p><xhtml:p>            &lt;/ws:service&gt;</xhtml:p><xhtml:p>        &lt;/wss:service&gt;</xhtml:p><xhtml:p>    &lt;/wss:binding&gt;</xhtml:p><xhtml:p/><xhtml:p>    &lt;bean id="hello3WsService" class="com.lejingw.apps.ws31.Hello3WsService" /&gt;</xhtml:p></html><plain>
+    &lt;wss:binding url="/Hello3Service"&gt;
+        &lt;wss:service&gt;
+            &lt;ws:service bean="#hello3WsService"&gt;
+            	&lt;ws:metadata&gt;&lt;value&gt;/WEB-INF/wsdl31/hello3.xsd&lt;/value&gt;&lt;/ws:metadata&gt;
+            &lt;/ws:service&gt;
+        &lt;/wss:service&gt;
+    &lt;/wss:binding&gt;
+
+    &lt;bean id="hello3WsService" class="com.lejingw.apps.ws31.Hello3WsService" /&gt;</plain></notes></topic></topics></children></topic><topic id="7m0es075gc5vp2q7ev4f8imuhd" timestamp="1384495233570"><title>3、客户端使用web service</title><children><topics type="attached"><topic id="0ink7uhe4e8fump3mf9madms5q" timestamp="1384495238463"><title>1、客户端应用添加wsimport的maven插件，生成web service 源代码</title><notes><html><xhtml:p/><xhtml:p>			&lt;plugin&gt;</xhtml:p><xhtml:p>				&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</xhtml:p><xhtml:p>	       		&lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;</xhtml:p><xhtml:p>	       		&lt;executions&gt;</xhtml:p><xhtml:p>	       			&lt;execution&gt;</xhtml:p><xhtml:p>	       				&lt;phase&gt;compile&lt;/phase&gt;</xhtml:p><xhtml:p>	       				&lt;goals&gt;</xhtml:p><xhtml:p>	       					&lt;goal&gt;wsimport&lt;/goal&gt;</xhtml:p><xhtml:p>	       				&lt;/goals&gt;</xhtml:p><xhtml:p>	       			&lt;/execution&gt;</xhtml:p><xhtml:p>	       		&lt;/executions&gt;</xhtml:p><xhtml:p>	       		&lt;configuration&gt;</xhtml:p><xhtml:p>	       		&lt;!-- </xhtml:p><xhtml:p>	       			&lt;wsdlDirectory&gt;src/resources/META-INF/wsdl2&lt;/wsdlDirectory&gt;</xhtml:p><xhtml:p>	       		 	&lt;wsdlFiles&gt;</xhtml:p><xhtml:p>	       		 		&lt;wsdlFile&gt;hell2.wsdl&lt;/wsdlFile&gt;</xhtml:p><xhtml:p>	       		 		&lt;wsdlFile&gt;${basedir}/src/mywsdls/c.wsdl&lt;/wsdlFile&gt;</xhtml:p><xhtml:p>	       		 	&lt;/wsdlFiles&gt;</xhtml:p><xhtml:p>	       		 	&lt;wsdlLocation&gt;http://example.com/mywebservices/*&lt;/wsdlLocation&gt;</xhtml:p><xhtml:p>	       		 --&gt;</xhtml:p><xhtml:p>	       			&lt;wsdlUrls&gt;</xhtml:p><xhtml:p>	       				&lt;wsdlUrl&gt;http://localhost:8080/lstzsb/Hello2Service?wsdl&lt;/wsdlUrl&gt;</xhtml:p><xhtml:p>	       			&lt;/wsdlUrls&gt;</xhtml:p><xhtml:p>	       			&lt;keep&gt;true&lt;/keep&gt;</xhtml:p><xhtml:p>	       			&lt;sourceDestDir&gt;src/main/java&lt;/sourceDestDir&gt;</xhtml:p><xhtml:p>	       			&lt;packageName&gt;com.lejingw.apps.ws3&lt;/packageName&gt;</xhtml:p><xhtml:p>	       			&lt;verbose&gt;true&lt;/verbose&gt;</xhtml:p><xhtml:p>	       			&lt;xnocompile&gt;true&lt;/xnocompile&gt;</xhtml:p><xhtml:p>	       		&lt;/configuration&gt;</xhtml:p><xhtml:p>			&lt;/plugin&gt;</xhtml:p></html><plain>
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+	       		&lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
+	       		&lt;executions&gt;
+	       			&lt;execution&gt;
+	       				&lt;phase&gt;compile&lt;/phase&gt;
+	       				&lt;goals&gt;
+	       					&lt;goal&gt;wsimport&lt;/goal&gt;
+	       				&lt;/goals&gt;
+	       			&lt;/execution&gt;
+	       		&lt;/executions&gt;
+	       		&lt;configuration&gt;
+	       		&lt;!-- 
+	       			&lt;wsdlDirectory&gt;src/resources/META-INF/wsdl2&lt;/wsdlDirectory&gt;
+	       		 	&lt;wsdlFiles&gt;
+	       		 		&lt;wsdlFile&gt;hell2.wsdl&lt;/wsdlFile&gt;
+	       		 		&lt;wsdlFile&gt;${basedir}/src/mywsdls/c.wsdl&lt;/wsdlFile&gt;
+	       		 	&lt;/wsdlFiles&gt;
+	       		 	&lt;wsdlLocation&gt;http://example.com/mywebservices/*&lt;/wsdlLocation&gt;
+	       		 --&gt;
+	       			&lt;wsdlUrls&gt;
+	       				&lt;wsdlUrl&gt;http://localhost:8080/lstzsb/Hello2Service?wsdl&lt;/wsdlUrl&gt;
+	       			&lt;/wsdlUrls&gt;
+	       			&lt;keep&gt;true&lt;/keep&gt;
+	       			&lt;sourceDestDir&gt;src/main/java&lt;/sourceDestDir&gt;
+	       			&lt;packageName&gt;com.lejingw.apps.ws3&lt;/packageName&gt;
+	       			&lt;verbose&gt;true&lt;/verbose&gt;
+	       			&lt;xnocompile&gt;true&lt;/xnocompile&gt;
+	       		&lt;/configuration&gt;
+			&lt;/plugin&gt;</plain></notes></topic><topic id="3cn6p1153gt6bjd5bcrm9k2i5a" timestamp="1384495242299"><title>2、编写测试文件测试web service是否可以调用成功</title><notes><html><xhtml:p>package com.lejingw.apps.ws3.test;</xhtml:p><xhtml:p/><xhtml:p/><xhtml:p>import com.lejingw.apps.ws3.Hello2WsService;</xhtml:p><xhtml:p>import com.lejingw.apps.ws3.Hello2WsService_Service;</xhtml:p><xhtml:p>import com.lejingw.apps.ws3.Pager;</xhtml:p><xhtml:p/><xhtml:p>public class Test3 {</xhtml:p><xhtml:p>	@org.junit.Test</xhtml:p><xhtml:p>	public void test01(){</xhtml:p><xhtml:p>		Hello2WsService service = new Hello2WsService_Service().getHello2WsServicePort();</xhtml:p><xhtml:p>		System.out.println(service.sayHello("world"));</xhtml:p><xhtml:p>		Pager pager = service.getPager(1, 10);</xhtml:p><xhtml:p>		System.out.println(pager.getStart()+":"+pager.getLimit());</xhtml:p><xhtml:p>		System.out.println(service.getPagerList(pager));</xhtml:p><xhtml:p>	}</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/></html><plain>package com.lejingw.apps.ws3.test;
+
+
+import com.lejingw.apps.ws3.Hello2WsService;
+import com.lejingw.apps.ws3.Hello2WsService_Service;
+import com.lejingw.apps.ws3.Pager;
+
+public class Test3 {
+	@org.junit.Test
+	public void test01(){
+		Hello2WsService service = new Hello2WsService_Service().getHello2WsServicePort();
+		System.out.println(service.sayHello("world"));
+		Pager pager = service.getPager(1, 10);
+		System.out.println(pager.getStart()+":"+pager.getLimit());
+		System.out.println(service.getPagerList(pager));
+	}
+}
+</plain></notes></topic><topic id="6q8nnap8i5m3kjlea45dpa3qfl" timestamp="1384495245542"><title>3、在client中用spring管理web service ben</title><notes><html><xhtml:p/><xhtml:p>	&lt;!-- 使用spring来注入一个ws的client --&gt;</xhtml:p><xhtml:p>	&lt;bean id="hello2WsService" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean"&gt;</xhtml:p><xhtml:p>	    &lt;property name="serviceInterface" value="com.lejingw.apps.ws3.Hello2WsService"/&gt;</xhtml:p><xhtml:p>	    &lt;property name="wsdlDocumentUrl" value="http://localhost:8080/lstzsb/Hello2Service?wsdl"/&gt;</xhtml:p><xhtml:p>	    &lt;property name="namespaceUri" value="http://ws2.apps.lejingw.com"/&gt;</xhtml:p><xhtml:p>	    &lt;property name="serviceName" value="Hello2WsService"/&gt;</xhtml:p><xhtml:p>	    &lt;property name="portName" value="Hello2WsServicePort"/&gt;</xhtml:p><xhtml:p>	&lt;/bean&gt;</xhtml:p></html><plain>
+	&lt;!-- 使用spring来注入一个ws的client --&gt;
+	&lt;bean id="hello2WsService" class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean"&gt;
+	    &lt;property name="serviceInterface" value="com.lejingw.apps.ws3.Hello2WsService"/&gt;
+	    &lt;property name="wsdlDocumentUrl" value="http://localhost:8080/lstzsb/Hello2Service?wsdl"/&gt;
+	    &lt;property name="namespaceUri" value="http://ws2.apps.lejingw.com"/&gt;
+	    &lt;property name="serviceName" value="Hello2WsService"/&gt;
+	    &lt;property name="portName" value="Hello2WsServicePort"/&gt;
+	&lt;/bean&gt;</plain></notes></topic></topics></children></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="0a2iqrq7tfkcpse6v2slpbdtfs" timestamp="1394421943682" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="199tglcsds4odpgt0eubf3jm9l" structure-class="org.xmind.ui.map.clockwise" timestamp="1394421229827"><title>oracle linux</title><children><topics type="attached"><topic id="2acg13g9t65dkhip3ihbpnotst" timestamp="1394420641195"><title>1、网卡配置</title><notes><html><xhtml:p>setup #开启图形界面配置</xhtml:p><xhtml:p/><xhtml:p>ifconfig -a</xhtml:p><xhtml:p/><xhtml:p>/etc/init.d/network restart</xhtml:p><xhtml:p/><xhtml:p>ip a</xhtml:p><xhtml:p/><xhtml:p>ip addr</xhtml:p></html><plain>setup #开启图形界面配置
+
+ifconfig -a
+
+/etc/init.d/network restart
+
+ip a
+
+ip addr</plain></notes><children><topics type="attached"><topic id="7mruk91d4chmi3q4pgskhnqq1b" timestamp="1394420549651"><title>1、网卡配置文件</title><notes><html><xhtml:p>/etc/sysconfig/network-scripts/ifcfg-eth0</xhtml:p><xhtml:p/><xhtml:p><xhtml:img xhtml:src="xap:attachments/0j51j140tlk19er19pmpp6octv.png"/></xhtml:p></html><plain>/etc/sysconfig/network-scripts/ifcfg-eth0
+
+</plain></notes></topic><topic id="2jnfc6a5r7ecma91ra87e047hs" timestamp="1394420709447"><title>2、修改主机名</title><notes><html><xhtml:p>vi /etc/hosts</xhtml:p><xhtml:p>vi /etc/sysconfig/network</xhtml:p><xhtml:p>#重启生效</xhtml:p><xhtml:p/><xhtml:p>hostname xxxx#立即生效</xhtml:p></html><plain>vi /etc/hosts
+vi /etc/sysconfig/network
+#重启生效
+
+hostname xxxx#立即生效</plain></notes></topic></topics></children></topic><topic id="69uo05apoo3oi54hicbhveiepc" timestamp="1394421929498"><title>2、磁盘管理</title><children><topics type="attached"><topic id="1gintgcqdj80nogk6op3sdphd0" timestamp="1394421926406"><title>1、查看磁盘</title><notes><html><xhtml:p>fdisk -l</xhtml:p><xhtml:p>linux里一块磁盘最多有14个分区，主分区最多4个</xhtml:p><xhtml:p>fdisk /dev/sda</xhtml:p><xhtml:p>	:m #查看帮助</xhtml:p><xhtml:p>	:n	添加分区</xhtml:p><xhtml:p>	:d 删除分区</xhtml:p><xhtml:p>	:w 保存分区</xhtml:p><xhtml:p>#默认分区完需要重启</xhtml:p><xhtml:p>partprobe </xhtml:p><xhtml:p/><xhtml:p>#格式化</xhtml:p><xhtml:p>mkfs.ext3 /dev/sda5</xhtml:p><xhtml:p/><xhtml:p>#/mnt目录必须为空</xhtml:p><xhtml:p>mount /dev/sda5 /mnt</xhtml:p><xhtml:p>umount /dev/sda5</xhtml:p></html><plain>fdisk -l
+linux里一块磁盘最多有14个分区，主分区最多4个
+fdisk /dev/sda
+	:m #查看帮助
+	:n	添加分区
+	:d 删除分区
+	:w 保存分区
+#默认分区完需要重启
+partprobe 
+
+#格式化
+mkfs.ext3 /dev/sda5
+
+#/mnt目录必须为空
+mount /dev/sda5 /mnt
+umount /dev/sda5</plain></notes></topic><topic id="5a3153i1d1osu033nqjbjmcvgr" timestamp="1394421943682"><title>2、存储配置命令</title></topic></topics></children></topic></topics></children><notes><html><xhtml:p>putty.exe</xhtml:p><xhtml:p>Xmanager Enterprise 4</xhtml:p><xhtml:p>SSH Secure Shell Client</xhtml:p><xhtml:p/></html><plain>putty.exe
+Xmanager Enterprise 4
+SSH Secure Shell Client
+</plain></notes></topic><title>画布 1</title></sheet></xmap-revision-content>

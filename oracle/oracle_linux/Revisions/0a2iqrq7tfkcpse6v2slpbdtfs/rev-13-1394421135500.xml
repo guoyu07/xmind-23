@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="0a2iqrq7tfkcpse6v2slpbdtfs" timestamp="1394421108228" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="199tglcsds4odpgt0eubf3jm9l" structure-class="org.xmind.ui.map.clockwise" timestamp="1394420887092"><title>oracle linux</title><children><topics type="attached"><topic id="2acg13g9t65dkhip3ihbpnotst" timestamp="1394420641195"><title>1、网卡配置</title><notes><html><xhtml:p>setup #开启图形界面配置</xhtml:p><xhtml:p/><xhtml:p>ifconfig -a</xhtml:p><xhtml:p/><xhtml:p>/etc/init.d/network restart</xhtml:p><xhtml:p/><xhtml:p>ip a</xhtml:p><xhtml:p/><xhtml:p>ip addr</xhtml:p></html><plain>setup #开启图形界面配置
+
+ifconfig -a
+
+/etc/init.d/network restart
+
+ip a
+
+ip addr</plain></notes><children><topics type="attached"><topic id="7mruk91d4chmi3q4pgskhnqq1b" timestamp="1394420549651"><title>1、网卡配置文件</title><notes><html><xhtml:p>/etc/sysconfig/network-scripts/ifcfg-eth0</xhtml:p><xhtml:p/><xhtml:p><xhtml:img xhtml:src="xap:attachments/0j51j140tlk19er19pmpp6octv.png"/></xhtml:p></html><plain>/etc/sysconfig/network-scripts/ifcfg-eth0
+
+</plain></notes></topic><topic id="2jnfc6a5r7ecma91ra87e047hs" timestamp="1394420709447"><title>2、修改主机名</title><notes><html><xhtml:p>vi /etc/hosts</xhtml:p><xhtml:p>vi /etc/sysconfig/network</xhtml:p><xhtml:p>#重启生效</xhtml:p><xhtml:p/><xhtml:p>hostname xxxx#立即生效</xhtml:p></html><plain>vi /etc/hosts
+vi /etc/sysconfig/network
+#重启生效
+
+hostname xxxx#立即生效</plain></notes></topic></topics></children></topic><topic id="0sm07rpu8uki2mus61use7461u" timestamp="1394421108228"><title>2、ssh工具</title></topic></topics></children></topic><title>画布 1</title></sheet></xmap-revision-content>
