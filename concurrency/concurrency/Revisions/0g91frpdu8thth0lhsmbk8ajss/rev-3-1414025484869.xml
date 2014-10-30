@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-revision-content xmlns="urn:xmind:xmap:xmlns:revision:1.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink"><sheet id="0g91frpdu8thth0lhsmbk8ajss" timestamp="1414025143404" xmlns="urn:xmind:xmap:xmlns:content:2.0"><topic id="7bojirv5l0k7ejj7tvum1s7j59" structure-class="org.xmind.ui.map.clockwise" timestamp="1414024991705"><title>concurrency</title><children><topics type="attached"><topic id="57ebqisoca4hhdjgqr3799i3if" timestamp="1414025140816"><title>锁的种类及辨析</title><children><topics type="attached"><topic id="6qtj3f5tlam0ghl26b1588i4c1" timestamp="1414025107559"><title>1、自旋锁</title><notes><html><xhtml:p>public class SpinLock {</xhtml:p><xhtml:p/><xhtml:p>  private AtomicReference&lt;Thread&gt; sign =new AtomicReference&lt;&gt;();</xhtml:p><xhtml:p/><xhtml:p>  public void lock(){</xhtml:p><xhtml:p>    Thread current = Thread.currentThread();</xhtml:p><xhtml:p>    while(!sign .compareAndSet(null, current)){</xhtml:p><xhtml:p>    }</xhtml:p><xhtml:p>  }</xhtml:p><xhtml:p/><xhtml:p>  public void unlock (){</xhtml:p><xhtml:p>    Thread current = Thread.currentThread();</xhtml:p><xhtml:p>    sign .compareAndSet(current, null);</xhtml:p><xhtml:p>  }</xhtml:p><xhtml:p>}</xhtml:p><xhtml:p/><xhtml:p>由于自旋锁只是将当前线程不停地执行循环体，不进行线程状态的改变，所以响应速度更快。但当线程数不停增加时，性能下降明显，因为每个线程都需要执行，占用CPU时间。如果线程竞争不激烈，并且保持锁的时间段。适合使用自旋锁。</xhtml:p><xhtml:p/><xhtml:p>注：该例子为非公平锁，获得锁的先后顺序，不会按照进入lock的先后顺序进行。</xhtml:p></html><plain>public class SpinLock {
+
+  private AtomicReference&lt;Thread&gt; sign =new AtomicReference&lt;&gt;();
+
+  public void lock(){
+    Thread current = Thread.currentThread();
+    while(!sign .compareAndSet(null, current)){
+    }
+  }
+
+  public void unlock (){
+    Thread current = Thread.currentThread();
+    sign .compareAndSet(current, null);
+  }
+}
+
+由于自旋锁只是将当前线程不停地执行循环体，不进行线程状态的改变，所以响应速度更快。但当线程数不停增加时，性能下降明显，因为每个线程都需要执行，占用CPU时间。如果线程竞争不激烈，并且保持锁的时间段。适合使用自旋锁。
+
+注：该例子为非公平锁，获得锁的先后顺序，不会按照进入lock的先后顺序进行。</plain></notes></topic><topic id="3m6svvgqs1tnbaf9r3anbkv9oa" timestamp="1414025143404"><title>2、自旋锁的其他种类</title></topic></topics></children><notes><html><xhtml:p>http://ifeve.com/java_lock_see/</xhtml:p><xhtml:p/></html><plain>http://ifeve.com/java_lock_see/
+</plain></notes></topic></topics></children></topic><title>Sheet 1</title></sheet></xmap-revision-content>
