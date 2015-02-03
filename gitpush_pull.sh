@@ -1,11 +1,6 @@
 #!/bin/sh
 
-./unpack.sh spring SpringMVC
-./unpack.sh spring Spring
-./unpack.sh angularjs AngularJS
-./unpack.sh concurrency concurrency
-./unpack.sh hadoop hadoop
-./unpack.sh shiro shiro
+./unpackall.sh
 
 read -p "please input your chonce(push, pull):" act
 
@@ -23,9 +18,4 @@ else
     echo 'nonething'
 fi
 
-./pack.sh spring SpringMVC
-./pack.sh spring Spring
-./pack.sh angularjs AngularJS
-./pack.sh concurrency concurrency
-./pack.sh hadoop hadoop
-./pack.sh shiro shiro
+./packall.sh
